@@ -1,0 +1,111 @@
+@name rcon-resources
+@inputs
+@persist [S1_rcon_command_line S1_rcon_command_q]:array
+@outputs S1_rcon_enum_quee_l S1_rcon_enum_quee_c S1_rcon_flick_in S1_rcon_handling S1_rcon_allow S1_rcon_allow_egp S1_rcon_allow_concmd S1_rcon_concmd_i
+@persist [S1_rcon_command]:table
+if(first()){
+#include "S1/libs/funcs/io/S1_IO"
+function void wirelink:etc(I,S:string,V:vector2,Z){
+}
+function void rconPhaseAndRun(N){
+    if(S1_rcon_command[N,array][1,string]=="startcon"){
+        print("Start detected")
+        timer("runcmds",0)
+    }elseif(S1_rcon_command[N,array][1,string]=="setBranchTableValue"){
+        print("Branch table not implimented.")
+        timer("runcmds",30)
+    }elseif(S1_rcon_command[N,array][1,string]=="printToChat"){
+        print(S1_rcon_command[N,array][2,string])
+        timer("runcmds",30)
+    }elseif(S1_rcon_command[N,array][1,string]=="runTimer"){
+        timer(S1_rcon_command[N,array][2,string],S1_rcon_command[N,array][3,string]:toNumber())
+        timer("runcmds",30)
+    }elseif(S1_rcon_command[N,array][1,string]=="hintPlayer"){
+        hint(S1_rcon_command[N,array][2,string],S1_rcon_command[N,array][3,string]:toNumber())
+        timer("runcmds",30)
+    }elseif(S1_rcon_command[N,array][1,string]=="requestSiteData"){
+        print("Function not complete, yet.")
+        timer("runcmds",30)
+    }elseif(S1_rcon_command[N,array][1,string]=="playerConcmd"&S1_rcon_allow_concmd==1){
+        concmd(S1_rcon_command[N,array][2,string])
+        timer("runcmds",10000)
+    }elseif(S1_rcon_command[N,array][1,string]=="egpCore"&S1_rcon_allow_egp==1){
+        if(S1_rcon_command[N,array][3,string]=="main"){
+            if(S1_rcon_command[N,array][2,string]=="box"){
+                S:egpBox(S1_rcon_command[N,array][4,string]:toNumber(),vec2(S1_rcon_command[N,array][5,string]:toNumber(),S1_rcon_command[N,array][6,string]:toNumber()),vec2(S1_rcon_command[N,array][7,string]:toNumber(),S1_rcon_command[N,array][8,string]:toNumber()))
+                timer("runcmds",30)
+            }elseif(S1_rcon_command[N,array][2,string]=="circle"){
+                S:egpCircle(S1_rcon_command[N,array][4,string]:toNumber(),vec2(S1_rcon_command[N,array][5,string]:toNumber(),S1_rcon_command[N,array][6,string]:toNumber()),vec2(S1_rcon_command[N,array][7,string]:toNumber(),S1_rcon_command[N,array][8,string]:toNumber()))            
+                timer("runcmds",30)
+            }elseif(S1_rcon_command[N,array][2,string]=="etc"){
+                if(S1_rcon_command[N,array][4,string]=="split"){
+                    if(S1_rcon_command[N,array][5,string]=="1"){
+                        S:etc(S1_rcon_command[N,array][6,string]:toNumber(),S1_rcon_command[N,array][7,string]+S1_rcon_command[N,array][9,string]+S1_rcon_command[N,array][8,string],vec2(S1_rcon_command[N,array][10,string]:toNumber(),S1_rcon_command[N,array][11,string]:toNumber()),S1_rcon_command[N,array][12,string]:toNumber())
+                        timer("runcmds",30)
+                    }elseif(S1_rcon_command[N,array][5,string]=="2"){
+                        S:etc(S1_rcon_command[N,array][6,string]:toNumber(),S1_rcon_command[N,array][7,string]+S1_rcon_command[N,array][10,string]+S1_rcon_command[N,array][8,string]+S1_rcon_command[N,array][11,string]+S1_rcon_command[N,array][9,string],vec2(S1_rcon_command[N,array][12,string]:toNumber(),S1_rcon_command[N,array][13,string]:toNumber()),S1_rcon_command[N,array][14,string]:toNumber())
+                        timer("runcmds",30)
+                    }elseif(S1_rcon_command[N,array][5,string]=="3"){
+                        S:etc(S1_rcon_command[N,array][6,string]:toNumber(),S1_rcon_command[N,array][7,string]+S1_rcon_command[N,array][11,string]+S1_rcon_command[N,array][8,string]+S1_rcon_command[N,array][12,string]+S1_rcon_command[N,array][9,string]+S1_rcon_command[N,array][13,string]+S1_rcon_command[N,array][9,string],vec2(S1_rcon_command[N,array][14,string]:toNumber(),S1_rcon_command[N,array][15,string]:toNumber()),S1_rcon_command[N,array][16,string]:toNumber())
+                        timer("runcmds",30)
+                    }elseif(S1_rcon_command[N,array][5,string]=="4"){
+                        S:etc(S1_rcon_command[N,array][6,string]:toNumber(),S1_rcon_command[N,array][7,string]+S1_rcon_command[N,array][12,string]+S1_rcon_command[N,array][8,string]+S1_rcon_command[N,array][13,string]+S1_rcon_command[N,array][9,string]+S1_rcon_command[N,array][14,string]+S1_rcon_command[N,array][10,string]+S1_rcon_command[N,array][15,string],vec2(S1_rcon_command[N,array][16,string]:toNumber(),S1_rcon_command[N,array][17,string]:toNumber()),S1_rcon_command[N,array][18,string]:toNumber())
+                        timer("runcmds",30)
+                    }
+                }else{
+                    S:etc(S1_rcon_command[N,array][4,string]:toNumber(),S1_rcon_command[N,array][5,string],vec2(S1_rcon_command[N,array][6,string]:toNumber(),S1_rcon_command[N,array][7,string]:toNumber()),S1_rcon_command[N,array][8,string]:toNumber())
+                    timer("runcmds",30)
+                }
+            }elseif(S1_rcon_command[N,array][2,string]=="colour"){
+                S:egpColor(S1_rcon_command[N,array][4,string]:toNumber(),vec(S1_rcon_command[N,array][5,string]:toNumber(),S1_rcon_command[N,array][6,string]:toNumber(),S1_rcon_command[N,array][7,string]:toNumber()))
+                timer("runcmds",30)
+            }
+        }elseif(S1_rcon_command[N,array][3,string]=="secondary"){
+        
+        }else{
+            print("[RCON]Incorrect EGP-Core screen ID, got: "+S1_rcon_command[N,array][3,string]+" expected either; 'main' or 'secondary'")
+            timer("runcmds",30)
+        }
+    }
+}
+}
+#[
+egpCore.box.main.70.256.256.100.100
+
+egpCore.etc.main.72.EGP-RCON core test.256.256.10
+
+egpCore.colour.main.72.120.60.60
+
+egpCore.etc.main.split.4.71.1.2.3.4.5.H1.H3.H5.H7.256.256.20;
+1        2    3    4   5 6  7 8 9 0 1 2  3  4  5  6   7   8
+
+7 12 8 13 9 14 10 15
+
+egpCore.etc.main.split.4.71.1.2.3.4.H1.H3.H5.256.256.20;
+1        2    3    4   5 6  7 8 9 0 1  2  3  4   5   6
+
+7 11 8 12 9 13 10
+
+egpCore.etc.main.split.4.71.1.2.3.H1.H3.256.256.20;
+1        2    3    4   5 6  7 8 9 0  1  2   3   4 Done
+
+7 10 8 11 9
+
+egpCore.etc.main.split.4.71.1.2.H1.256.256.20;
+1        2    3    4   5 6  7 8 9  0   1   2 Done
+
+
+startcon;
+setBranchTableValue;
+printToChat;
+runTimer;
+hintPlayer;
+requestSiteData;
+playerConcmd;
+egpCore;
+-box;
+-circle;
+-etc;
+-colour;
+
+startcon;setBranchTableValue.2.1337;printToChat.You Got this Conkers!;runTimer.Versionget.3000;hintPlayer.Hello there hinter!.20;playerConcmd.say This is a test for my RCON;egpCore.box.main.70.256.256.100.100;egpCore.circle.main.71.256.256.100.100;egpCore.etc.main.72.EGP-RCON core test.256.256.10;egpCore.colour.main.70.150.150.150;egpCore.colour.main.71.40.40.60;egpCore.colour.main.72.120.60.60;

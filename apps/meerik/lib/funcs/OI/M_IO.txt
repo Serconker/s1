@@ -1,0 +1,12 @@
+@name M_IO
+@inputs [S S1]:wirelink LastAmount
+@inputs [R1 R2 R3 R4 R5 R6 R7 R8]:entity
+@outputs U1 U2 U3 U4 U5 U6 U7 U8 Pot P1 P2 Gunshop Curpos:vector2 E:entity [Avatar App]:string Idle
+@persist [Cords Cords2 Curpos]:vector2
+@persist [Cfig Data_split Load_actions]:array
+@persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName]:string
+@persist [Stock Apps]:table
+@persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail
+if(duped()){
+ selfDestruct()   
+}

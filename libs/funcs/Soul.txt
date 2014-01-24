@@ -1,0 +1,27 @@
+@name Searren Opperating Utillity Language core
+@persist C:table
+@persist Sorted
+function void soulCode(S:string,N){
+ Sorted = 0
+    if(N!=1){
+        C[1,array] = S:explode(".")
+    }else{
+        local S = S:explode(";")
+        for(I=1,S:count()){
+            C[I,array]=S[I,string]:explode(".")
+            if(I == S:count()){
+                Sorted = 1
+            }
+        }
+    }
+    if(Sorted == 1){
+        printTable(C)
+        if(C[1,array][1,string]=="soulStart"){
+            timer("RunSoul",0)
+            SoulI = 1
+        }
+    }
+}
+function void soulCode(S:string,N:string){
+ 
+}

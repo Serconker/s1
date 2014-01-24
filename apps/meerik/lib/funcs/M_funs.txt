@@ -1,0 +1,44 @@
+@name M_funs
+if(first()){
+##include "S1/apps/meerik/lib/funcs/OI/M_IO"
+#include "S1/libs/funcs/io/S1_IO"
+}
+function void refreshStock(){
+ P1 = R1:shipmentCost()/7
+ P2 = R2:shipmentCost()/7
+ P3 = R3:shipmentCost()/7
+ P4 = R4:shipmentCost()/7
+ P5 = R5:shipmentCost()/7
+ P6 = R6:shipmentCost()/7
+ P7 = R7:shipmentCost()/7
+ P8 = R8:shipmentCost()/7
+ Stock[""+R1:shipmentName()+"",number] = round(P1)
+ Stock[""+R2:shipmentName()+"",number] = round(P2)
+ Stock[""+R3:shipmentName()+"",number] = round(P3)
+ Stock[""+R4:shipmentName()+"",number] = round(P4)
+ Stock[""+R5:shipmentName()+"",number] = round(P5)
+ Stock[""+R6:shipmentName()+"",number] = round(P6)
+ Stock[""+R7:shipmentName()+"",number] = round(P7)
+ Stock[""+R8:shipmentName()+"",number] = round(P8)
+ print("[Meerik]: Loading/refreshing stock table.")
+}
+function void drawGui(A){
+    if(A == 2){
+    }elseif(A == 3){
+ S1:egpClear()
+ S1:egpText(27,"Welcome, "+Name,vec2(125,Cy-23))
+ S1:egpTextLayout(31,"
+ "+R1:shipmentName()+" "+Stock[""+R1:shipmentName(),number]+"
+ "+R2:shipmentName()+" "+Stock[""+R2:shipmentName(),number]+"
+ "+R3:shipmentName()+" "+Stock[""+R3:shipmentName(),number]+"
+ "+R4:shipmentName()+" "+Stock[""+R4:shipmentName(),number]+"
+ "+R5:shipmentName()+" "+Stock[""+R5:shipmentName(),number]+"
+ "+R6:shipmentName()+" "+Stock[""+R6:shipmentName(),number]+"
+ "+R7:shipmentName()+" "+Stock[""+R7:shipmentName(),number]+"
+ "+R8:shipmentName()+" "+Stock[""+R8:shipmentName(),number]+"
+ ",vec2(120,120),vec2(440,440))
+        }elseif(A == 4){
+            S:egpClear()
+            S1:egpClear()
+    }
+}

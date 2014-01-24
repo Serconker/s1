@@ -1,0 +1,26 @@
+@name Menu-functions
+if(first()){
+ #include "S1/apps/menu/lib/funcs/OI/Menu_IO"
+ #include "S1/libs/funcs/io/S1_IO"
+    function void appReg(N,S:string,Des:string,Io:string,T:string){
+        Apps[N,array][1,string] = Des #Description
+        Apps[N,array][2,string] = Io #Icon
+        Apps[N,array][3,string] = S #Name
+        Apps[N,array][4,string] = T #Main timer
+    }
+    function void wirelink:drawMenuIcon(S){
+        local Count = This:egpNumObjects()
+        for(I=1,Count){
+            #This:egpRoundedBox(Count+I,vec2())
+            This:egpRoundedBox(1,vec2(256,256),vec2(40,40))
+            This:egpRoundedBox(2,vec2(256,256),vec2(40,40))
+            This:egpBox(3,vec2(256,256),vec2(30,30))
+            This:egpText(4,Apps[I,array][3,string],vec2(256,281))
+            This:egpMaterial(2,"gui/center_gradient")
+            This:egpMaterial(3,Apps[I,array][2,string])
+            This:egpColor(1,vec(50,50,70))
+            This:egpColor(2,vec(40,40,70))
+            This:egpAlign(4,1,1)
+        }
+    }
+}

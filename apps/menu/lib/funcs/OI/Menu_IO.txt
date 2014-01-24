@@ -1,0 +1,10 @@
+@name Menu-resources 
+if(first()){
+    function void wirelink:drawMenu(){
+        This:egpClear()
+    }
+    function void wirelink:closeMenu(){
+        
+    }   
+    
+}

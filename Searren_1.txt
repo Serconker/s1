@@ -1,0 +1,353 @@
+#[
+______ _   _ _____            _____               _            _     
+| ___ \ | | /  __ \          /  ___|             | |          | |    
+| |_/ / |_| | /  \/  ______  \ `--.  ___ _ __ ___| |_ ___  ___| |__  
+| ___ \  _  | |     |______|  `--. \/ _ \ '__/ __| __/ _ \/ __| '_ \ 
+| |_/ / | | | \__/\          /\__/ /  __/ | | (__| ||  __/ (__| | | |
+\_____\_| |_/\____/          \____/ \___|_| _____|\__\___|\___|_| |_|
+/  ___|                                    /  |                      
+\ `--.  ___  __ _ _ __ _ __ ___ _ __ ___   `| |                      
+ `--. \/ _ \/ _` | '__| '__/ _ \ '_ ` _ \   | |                      
+/\__/ /  __/ (_| | |  | | |  __/ | | | | | _| |_                     
+\____/ \___|\__,_|_|  |_|  \___|_| |_| |_| \___/      
+
+Do not romove ANY 'Made by' statements, doing so will be breaching Creative Commons laws.              
+]#
+@name Searren 1
+#@model models/player/items/humans/top_hat.mdl
+if(first()){
+#include "S1/apps/rcon/resources"
+#include "S1/libs/funcs/S1_funs"
+#include "S1/libs/funcs/Soul"
+#include "S1/libs/funcs/io/S1_IO"
+#concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
+print(hashNoComments())
+ findByClass("player")
+function entity closestPly(){
+        findByClass("player")
+ return findClosest(entity():pos())   
+}
+function void checkForNewRconCommand(){
+    if(S1_rcon_allow != 1){
+        print("Remote console is dissabled, ignoring.")
+    }elseif(!httpCanRequest()){
+        print("Cannot request the RCON domain.")
+    }else{
+        httpRequest("http://serconker.felthatters.net/rcon_client.php?id="+ID2)
+    }
+}
+ ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
+ S1_rcon_allow = 1
+ S1_rcon_allow_egp = 0
+ S1_rcon_allow_concmd = 0
+ Version = "Revision 17"
+ L_up = "Last update: CBA to update this"
+ Stock = table("Stock",1)
+ Idle = 1
+ Password = "test123" #[---Fill this in if you want it to auto log you in, otherwise leave it blank to manualy log in!---]#
+ ID2 = owner():steamID()
+ Loading_actions = array(
+ "Authentication",
+ "Checking for updates",
+ "Loading inicial UI")
+ setName("Searren 1
+"+Version+"
+BHCs official operating system.
+Later revisions will be released at:
+www.felthatters.net/smf/
+"+L_up+"
+Author: Serconker
+Awating authentication")
+ S:egpClear()
+ S2:egpClear()
+ S:keyboard()
+ printColor(vec(220,0,0),"If you wish to have help with the usage of this E2, please go here:")
+ printColor(vec(0,120,0),"http://www.felthatters.net/smf/os_help.txt")
+ printColor(vec(220,0,0),"You should now authenticate your self with:")
+ printColor(vec(0,120,0),"{os setpass ")
+ printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
+ runOnFile(0)
+ runOnHTTP(1)
+ soulCode("a;d;f;g;h;j",1)
+ ID = shortenID(owner():steamID())
+ timer("Versionget",1000)
+}
+if(duped()){
+ selfDestruct()   
+}
+#[#######################################################
+#[#######################################################
+#[######## Timer CLKs(Used as a goto function) ##########
+#[#######################################################
+#[#######################################################
+]#
+if (clk("G1")){
+ Cords = vec2(patchNum1(Data_split[4+7,string],Data_split[4+10,string]),patchNum2(Data_split[4+1,string],Data_split[4+10,string],Data_split[4+10,string]))
+ Cx = Cords:x()
+ Cy = Cords:y()
+ S2:drawGui(1)
+ S:drawGui(1)
+ timer("Guifr",1000)
+}
+if (clk("Guifr")){ 
+# LA = LastAmount
+ Db = Data_split[4+1,string]:toNumber()
+ Owner = owner():name()
+ Version2 = "Searren 1 ("+Version+")"
+ Title = ""+Auth_str+"Welcome, "+Owner+""
+ M = Data_split[4+10,string]:toNumber()
+ Apvx = patchNum2(Data_split[4+1,string],Data_split[4+3,string],Data_split[4+10,string])
+ Apvy = patchNum1(Data_split[4+9,string],Data_split[4+1,string])
+ S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),""+Title,vec2(125,Cy+5))
+ S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),""+Version2,vec2(125,Cy-23))
+ S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),vec(180,180,180))
+ S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),vec(180,180,180))
+ E = closestPly()
+ timer("Guifr",5000)
+    if(App == "" & Idle == Data_split[4+1,string]:toNumber()){
+        S:updateTitle(2)
+    }
+}
+if(clk("Failure")){
+ entity():soundPlay(1,3,"vo/citadel/br_ohshit.wav")
+}
+if(clk("Uaa")){
+ entity():soundPlay(1,3,"npc/overwatch/radiovoice/unlawfulentry603.wav")
+}
+if(clk("Connect")){
+ entity():soundPlay(1,3,"npc/combine_soldier/vo/contactconfim.wav")
+}
+if(clk("Got_down") & Got_up != 1){
+ Got_up = 0
+ printColor(vec(0,120,0)," "+Data)
+}
+if(clk("Cig")){
+ closestPly()
+ timer("Cig",5000)
+}
+if(clk("Reini")){
+    if(httpCanRequest()){
+        httpRequest("http://felthatters.net/smf/fetch_test.php?userid="+ID+"&userpass="+Password)
+        #httpRequest("http://felthatters.net/smf/fetch_test.php?userid=39618360&userpass="+Password)
+        }
+    }
+if(clk("Versionget")){
+    if(httpCanRequest()){
+        print("Requesting")
+        httpRequest("http://www.felthatters.net/smf/version.php?version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
+        timer("Versionget",600000)
+        print("http://www.felthatters.net/smf/version.php?version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
+        Got_up = 1
+    }else{
+        print("Could not request")
+    }
+}
+#[#######################################################
+#[#######################################################
+#[############### RCON/Message checker ##################
+#[#######################################################
+#[#######################################################
+]#
+if(clk("rcon_a")){
+    checkForNewRconCommand()
+    print("Check complete awaiting phaser response.")
+    timer("rcon",0)
+}
+if(clk("rcon")){
+    if(httpData():find("None, idle")!=1){
+        if(S1_rcon_enum_quee_l != 1){
+            S1_rcon_handling = 1
+        }else{
+            S1_rcon_command[1,array]=S1_rcon_command_line[1,string]:explode(".")
+            print(S1_rcon_command[1,array][1,string])
+        }
+    }else{
+        print("Nothing to phase")
+    }
+}
+while(S1_rcon_handling == 1){
+ S1_rcon_command[S1_rcon_flick_in,array] = S1_rcon_command_line[S1_rcon_flick_in,string]:explode(".")
+ print(S1_rcon_flick_in)
+ S1_rcon_flick_in++
+    if(S1_rcon_flick_in == S1_rcon_enum_quee_l+1){
+        S1_rcon_handling = 0
+        S1_rcon_flick_in = 0
+        timer("runcmds",3000)
+        printTable(S1_rcon_command)
+        print("Commands split/phasing, running commands.")
+    }
+}
+if(clk("runcmds")){
+ S1_rcon_concmd_i++
+ rconPhaseAndRun(S1_rcon_concmd_i)
+    if(S1_rcon_concmd_i==S1_rcon_command:count()){
+        S1_rcon_concmd_i = 0
+        stoptimer("runcmds")
+    }
+}
+#[#######################################################
+#[#######################################################
+#[############### HTTP Handling blocks ##################
+#[#######################################################
+#[#######################################################
+]#
+if(httpClk()){
+ Data = httpData()
+ print("Request successful")
+ entity():soundPlay(1,2,"npc/overwatch/radiovoice/beginscanning10-0.wav")
+    if(Data:find("401")){
+        printColor(vec(220,0,0),""+Data+". Your login request was denied, please try again or apply for a Auth Key on the BHC forums")
+        Authent = 0
+        setName("Searren 1
+        "+Version+"
+        BHCs official operating system.
+        Later revisions will be released at:
+        www.felthatters.net/smf/
+        "+L_up+"
+        Author: Serconker
+        User is unauthenticated.")
+        Auth_str = "[Unauthentic user]"
+        timer("Failure",1)
+    }elseif(Data:find("Expression 2 is fully up to date!")){
+        timer("Got_down",1000)
+        printColor(vec(0,120,0)," "+Data)
+        entity():soundPlay(1,3,"npc/metropolice/vo/clearno647no10-107.wav")
+    }elseif(Data:find("Authed")){
+        if(Modded==1){
+            setName("Searren 1
+"+Version+"
+BHCs official operating system.
+Modifiyed version!
+Later revisions will be released at:
+www.felthatters.net/smf/
+"+L_up+"
+Author: Serconker
+User is authenticated.")
+        }else{
+            setName("Searren 1
+"+Version+"
+BHCs official operating system.
+Later revisions will be released at:
+www.felthatters.net/smf/
+"+L_up+"
+Author: Serconker
+User is authenticated.")
+        }
+            if(S1_rcon_allow != 0){
+                timer("rcon_a",5000)
+                print("Fetching any RCON commands in five seconds")
+            }else{
+                print("RCON is either dissabled or undefined")
+            }
+        Data_split = Data:explode(" ")
+        Authent = Data_split[4,string]:toNumber()
+        printColor(vec(0,120,0),""+Data_split[1,string])
+        Auth_str = "[Authentic user]"
+        timer("Guifr",1000)
+        timer("G1",0)
+        timer("Connect",0)
+        timer("Cig",5000)
+        playTheme()
+    }elseif(Data:find("Denied, auth")){
+        printColor(vec(220,0,0),""+Data)
+        Authent = 0
+        setName("Searren 1
+        "+Version+"
+        BHCs official operating system.
+        Later revisions will be released at:
+        www.felthatters.net/smf/
+        "+L_up+"
+        Author: Serconker
+        User is unauthenticated.")
+        Auth_str = "[Unauthentic user]"
+        timer("Uaa",0)
+    }elseif(Data:find("startcon")){ ##For RCON/Message checker
+        S1_rcon_command_line = httpData():explode(";")
+        S1_rcon_enum_quee_l = S1_rcon_command_line:count()
+        S1_rcon_flick_in = 0
+        timer("rcon",0)
+    }elseif(Data:find("None, idle")){
+        print("Idling RCON, next ping; 5 mins")
+        timer("rcon_a",300000)
+    }elseif(Data:find("Modded E2!")){
+        timer("Got_down",1000)
+        Modded = 1
+    }else{
+        printColor(vec(220,0,0),""+Data)
+        timer("Failure",0)
+    }
+}
+#[#######################################################
+#[#######################################################
+#[################## S.O.U.L Handler ####################
+#[#######################################################
+#[#######################################################
+ Soul = Searren Opperating Utillity Language.
+ It is ran via the 'soulCode(S,N)' function.
+ The String is the command to run, the Number is for telling the script if it's a multi command code.
+ 1 = multiple commands
+ 0 = Single command
+]#
+if(clk("RunSoul")){
+ soulCode(C)
+}
+
+#[#######################################################
+#[#######################################################
+#[############### Chat Handling blocks ##################
+#[#######################################################
+#[#######################################################
+]#
+runOnChat(1)
+if (chatClk(owner())){ 
+ Str = owner():lastSaid():lower():explode(" ")
+ Str1 = lastSpoke():lastSaid():lower():explode(" ")
+    if(Str[1,string]=="{app"){
+    }
+    if(Str[1,string]=="{os"){
+        if(Str[2,string]=="changelog"){
+            if(Str[3,string]==""){
+            print("http://www.felthatters.net/smf/changelog_OS.txt")
+            }
+        }
+        if(Str[2,string]=="setpass"){
+            Password = Str[3,string]
+            timer("Reini",1)
+        }
+        if(Str[2,string]=="lookup"){
+            if(httpCanRequest()){
+                findByClass("player")
+                E = findClosest(entity():pos())
+                ID3 = shortenID(owner():aimEntity():steamID())
+                httpRequest("http://felthatters.net/smf/qinfo.php?userid="+ID3)
+                if(httpClk()){
+                    Cl_data = httpData()
+                    print(""+Cl_data)
+                }
+            }else{
+                print("What?")
+            }
+        }
+        if(Str[2,string]=="help"){
+            if(Str[3,string]==""){
+                print("www.felthatters.net/smf/bhc/other/OS.txt")
+            }
+            if(Str[3,string]=="app"){
+                print(""+Cfig[7,string])
+            }
+        }
+        if(Str[2,string]=="apps"){
+        print(""+Apps:toString():replace("=",""))
+        }
+        if(Str[2,string]=="loadcfig"){
+            if(Str1[3,string]!=""){
+                loadAppCFig(""+Str[3,string])
+            }   
+        }
+    }
+}
+#[
+Made by Serconker, also known as 'The Other Lexi' and any other respective alliases, with help from the following personal;
+Chikanman, ideas and testing.
+Crypto, ideas and testing.
+Mathias, testing.

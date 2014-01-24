@@ -4,7 +4,7 @@
 @outputs S1_rcon_enum_quee_l S1_rcon_enum_quee_c S1_rcon_flick_in S1_rcon_handling S1_rcon_allow S1_rcon_allow_egp S1_rcon_allow_concmd S1_rcon_concmd_i
 @persist [S1_rcon_command]:table
 if(first()){
-#include "S1/libs/funcs/io/S1_IO"
+#include "s1/libs/funcs/io/S1_IO"
 function void wirelink:etc(I,S:string,V:vector2,Z){
 }
 function void rconPhaseAndRun(N){

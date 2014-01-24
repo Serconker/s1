@@ -1,6 +1,6 @@
 @name S1_funs
 if(first()){
-#include "S1/libs/funcs/io/S1_IO"
+#include "s1/libs/funcs/io/S1_IO"
     function string shortenID(S:string){
         if(S:lower():find("steam_0:0:")){
             return httpUrlEncode(S:lower():replace("steam_0:0:",""))

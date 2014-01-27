@@ -42,7 +42,6 @@ function void checkForNewRconCommand(){
  S1_rcon_allow_concmd = 0
  Version = "Revision 18"
  L_up = "Last update: SOMEWHEN"
- Stock = table("Stock",1)
  Idle = 1
  ID2 = owner():steamID()
  setName("Searren 1

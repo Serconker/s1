@@ -4,7 +4,7 @@
 @persist [Cords Cords2]:vector2
 @persist [Cfig Data_split Load_actions]:array
 @persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName]:string
-@persist [Trunk Apps]:table
+@persist [Trunk Apps Sys_log]:table
 @persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI
 
 if(duped()){

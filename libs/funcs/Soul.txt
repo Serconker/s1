@@ -1,6 +1,14 @@
 @name Searren Opperating Utillity Language core
 @persist C:table
 @persist Sorted
+#include "s1/libs/funcs/io/S1_IO"
+function void pushLog(S:string,S2:string){
+    if(Sys_log[S,array]:count()==0){
+        Sys_log[S,array][1,string]=S2
+    }else{
+        Sys_log[S,array][Sys_log[S,array]:count(),string]=S2
+    }
+}
 function void soulCode(S:string,N){
  Sorted = 0
     if(N!=1){
@@ -8,7 +16,7 @@ function void soulCode(S:string,N){
     }else{
         local S = S:explode(";")
         for(I=1,S:count()){
-            C[I,array]=S[I,string]:explode(".")
+            C[I,array]=S[I,string]:trim():explode(".")
             if(I == S:count()){
                 Sorted = 1
             }
@@ -22,6 +30,16 @@ function void soulCode(S:string,N){
         }
     }
 }
-function void soulCode(S:string,N:string){
- 
+function void soulCode(C2:array,N){
+ local Func = C2[N,string]:explode(".")
+    if(Func[1,string]=="core"){
+        pushLog("S",time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
+        print(Sys_log["S",array])
+#        print(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C2[N,string]+"' function")
+    }elseif(Func[1,string]=="end"){
+    
+    }else{
+        print("Soul: invalid entry on Function 1; "+C2[N,string]+", "+Func[1,string])
+    }
 }
+

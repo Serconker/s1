@@ -62,9 +62,15 @@ Awating authentication")
  printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
  runOnFile(0)
  runOnHTTP(1)
- soulCode("a;d;f;g;h;j",1)
+ soulCode("core.;
+b;
+f;
+g;
+h;
+j",1)
  ID = shortenID(owner():steamID())
  timer("Versionget",1000)
+ timer("RunSoul",1000)
 }
 if(duped()){
  selfDestruct()   
@@ -283,7 +289,8 @@ User is authenticated.")
  0 = Single command
 ]#
 if(clk("RunSoul")){
- #soulCode(C)
+ print(C[1,string])
+ soulCode(C[1,array],1)
 }
 
 #[#######################################################
@@ -337,6 +344,10 @@ if (chatClk(owner())){
             if(Str1[3,string]!=""){
                 loadAppCFig(""+Str[3,string])
             }   
+        }
+        if(Str[2,string]=="printlog"){
+            print(Sys_log[Str[3,string]:upper(),array])
+            print(Str[3,string]:upper())
         }
     }
 }

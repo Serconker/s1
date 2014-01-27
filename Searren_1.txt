@@ -44,12 +44,7 @@ function void checkForNewRconCommand(){
  L_up = "Last update: SOMEWHEN"
  Stock = table("Stock",1)
  Idle = 1
- Password = "test123" #[---Fill this in if you want it to auto log you in, otherwise leave it blank to manualy log in!---]#
  ID2 = owner():steamID()
- Loading_actions = array(
- "Authentication",
- "Checking for updates",
- "Loading inicial UI")
  setName("Searren 1
 "+Version+"
 BHCs official operating system.

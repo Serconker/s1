@@ -16,10 +16,10 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 @name Searren 1
 #@model models/player/items/humans/top_hat.mdl
 if(first()){
-#include "s1/apps/rcon/resources"
 #include "s1/libs/funcs/S1_funs"
-#include "s1/libs/funcs/Soul"
 #include "s1/libs/funcs/io/S1_IO"
+#include "s1/libs/funcs/Soul"
+#include "s1/apps/rcon/resources"
 #concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
 print(hashNoComments())
  findByClass("player")

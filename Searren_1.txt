@@ -64,7 +64,7 @@ Awating authentication")
  printColor(vec(220,0,0),"If you wish to have help with the usage of this E2, please go here:")
  printColor(vec(0,120,0),"http://www.felthatters.net/smf/os_help.txt")
  printColor(vec(220,0,0),"You should now authenticate your self with:")
- printColor(vec(0,120,0),"{os setpass ")
+ printColor(vec(0,120,0),"{os authme ")
  printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
  runOnFile(0)
  runOnHTTP(1)
@@ -310,7 +310,7 @@ if (chatClk(owner())){
             print("http://www.felthatters.net/smf/changelog_OS.txt")
             }
         }
-        if(Str[2,string]=="setpass"){
+        if(Str[2,string]=="authme"){
             Password = Str[3,string]
             timer("Reini",1)
         }

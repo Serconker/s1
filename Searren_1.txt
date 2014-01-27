@@ -40,8 +40,8 @@ function void checkForNewRconCommand(){
  S1_rcon_allow = 1
  S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0
- Version = "Revision 17"
- L_up = "Last update: CBA to update this"
+ Version = "Revision 18"
+ L_up = "Last update: SOMEWHEN"
  Stock = table("Stock",1)
  Idle = 1
  Password = "test123" #[---Fill this in if you want it to auto log you in, otherwise leave it blank to manualy log in!---]#

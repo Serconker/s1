@@ -1,17 +1,17 @@
 #[
-______ _   _ _____            _____               _            _     
-| ___ \ | | /  __ \          /  ___|             | |          | |    
-| |_/ / |_| | /  \/  ______  \ `--.  ___ _ __ ___| |_ ___  ___| |__  
-| ___ \  _  | |     |______|  `--. \/ _ \ '__/ __| __/ _ \/ __| '_ \ 
-| |_/ / | | | \__/\          /\__/ /  __/ | | (__| ||  __/ (__| | | |
-\_____\_| |_/\____/          \____/ \___|_| _____|\__\___|\___|_| |_|
-/  ___|                                    /  |                      
-\ `--.  ___  __ _ _ __ _ __ ___ _ __ ___   `| |                      
- `--. \/ _ \/ _` | '__| '__/ _ \ '_ ` _ \   | |                      
-/\__/ /  __/ (_| | |  | | |  __/ | | | | | _| |_                     
-\____/ \___|\__,_|_|  |_|  \___|_| |_| |_| \___/      
+______ _ _ _____ _____ _ _
+| ___ \ | | / __ \ / ___| | | | |
+| |_/ / |_| | / \/ ______ \ `--. ___ _ __ ___| |_ ___ ___| |__
+| ___ \ _ | | |______| `--. \/ _ \ '__/ __| __/ _ \/ __| '_ \
+| |_/ / | | | \__/\ /\__/ / __/ | | (__| || __/ (__| | | |
+\_____\_| |_/\____/ \____/ \___|_| _____|\__\___|\___|_| |_|
+/ ___| / |
+\ `--. ___ __ _ _ __ _ __ ___ _ __ ___ `| |
+ `--. \/ _ \/ _` | '__| '__/ _ \ '_ ` _ \ | |
+/\__/ / __/ (_| | | | | | __/ | | | | | _| |_
+\____/ \___|\__,_|_| |_| \___|_| |_| |_| \___/
 
-Do not romove ANY 'Made by' statements, doing so will be breaching Creative Commons laws.              
+Do not romove ANY 'Made by' statements, doing so will be breaching Creative Commons laws.
 ]#
 @name Searren 1
 #@model models/player/items/humans/top_hat.mdl
@@ -25,7 +25,7 @@ print(hashNoComments())
  findByClass("player")
 function entity closestPly(){
         findByClass("player")
- return findClosest(entity():pos())   
+ return findClosest(entity():pos())
 }
 function void checkForNewRconCommand(){
     if(S1_rcon_allow != 1){
@@ -33,7 +33,7 @@ function void checkForNewRconCommand(){
     }elseif(!httpCanRequest()){
         print("Cannot request the RCON domain.")
     }else{
-        httpRequest("http://serconker.felthatters.net/rcon_client.php?id="+ID2)
+        httpRequest("http://felthatters.net/smf/s1crux.php?action=rcon&id="+ID2)
     }
 }
  ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
@@ -73,7 +73,7 @@ j",1)
  timer("RunSoul",1000)
 }
 if(duped()){
- selfDestruct()   
+ selfDestruct()
 }
 #[#######################################################
 #[#######################################################
@@ -89,7 +89,7 @@ if (clk("G1")){
  S:drawGui(1)
  timer("Guifr",1000)
 }
-if (clk("Guifr")){ 
+if (clk("Guifr")){
 # LA = LastAmount
  Db = Data_split[4+1,string]:toNumber()
  Owner = owner():name()
@@ -127,16 +127,16 @@ if(clk("Cig")){
 }
 if(clk("Reini")){
     if(httpCanRequest()){
-        httpRequest("http://felthatters.net/smf/fetch_test.php?userid="+ID+"&userpass="+Password)
-        #httpRequest("http://felthatters.net/smf/fetch_test.php?userid=39618360&userpass="+Password)
+        httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password)
+        #httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid=39618360&userpass="+Password)
         }
     }
 if(clk("Versionget")){
     if(httpCanRequest()){
         print("Requesting")
-        httpRequest("http://www.felthatters.net/smf/version.php?version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
+        httpRequest("http://felthatters.net/smf/s1crux.php?action=version&version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
         timer("Versionget",600000)
-        print("http://www.felthatters.net/smf/version.php?version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
+        print("http://felthatters.net/smf/s1crux.php?action=version&version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
         Got_up = 1
     }else{
         print("Could not request")
@@ -150,7 +150,7 @@ if(clk("Versionget")){
 ]#
 if(clk("rcon_a")){
     checkForNewRconCommand()
-    print("Check complete awaiting phaser response.")
+    print("Check complete; awaiting phaser response.")
     timer("rcon",0)
 }
 if(clk("rcon")){
@@ -300,7 +300,7 @@ if(clk("RunSoul")){
 #[#######################################################
 ]#
 runOnChat(1)
-if (chatClk(owner())){ 
+if (chatClk(owner())){
  Str = owner():lastSaid():lower():explode(" ")
  Str1 = lastSpoke():lastSaid():lower():explode(" ")
     if(Str[1,string]=="{app"){
@@ -320,7 +320,7 @@ if (chatClk(owner())){
                 findByClass("player")
                 E = findClosest(entity():pos())
                 ID3 = shortenID(owner():aimEntity():steamID())
-                httpRequest("http://felthatters.net/smf/qinfo.php?userid="+ID3)
+                httpRequest("http://felthatters.net/smf/s1crux.php?action=lookup&userid="+ID3)
                 if(httpClk()){
                     Cl_data = httpData()
                     print(""+Cl_data)
@@ -343,7 +343,7 @@ if (chatClk(owner())){
         if(Str[2,string]=="loadcfig"){
             if(Str1[3,string]!=""){
                 loadAppCFig(""+Str[3,string])
-            }   
+            }
         }
         if(Str[2,string]=="printlog"){
             print(Sys_log[Str[3,string]:upper(),array])

@@ -37,6 +37,7 @@ function void checkForNewRconCommand(){
     }
 }
  ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
+ Sys_log = table()
  S1_rcon_allow = 1
  S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0

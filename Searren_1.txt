@@ -63,15 +63,11 @@ Awating authentication")
  printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
  runOnFile(0)
  runOnHTTP(1)
- soulCode("core.;
-b;
-f;
-g;
-h;
-j",1)
+# soulCode("core.egp.main.create.etc.1.256.256.10.meep.t.e.x.t",0)
+# soulCode("core.egp.main.create.etc.1.256.256.10.meep.t.e.x.t",0)
  ID = shortenID(owner():steamID())
  timer("Versionget",1000)
- timer("RunSoul",1000)
+ timer("RunSoul",5000)
 }
 if(duped()){
  selfDestruct()
@@ -150,7 +146,7 @@ if(clk("Versionget")){
 #[#######################################################
 ]#
 if(clk("rcon_a")){
-    checkForNewRconCommand()
+    checkForNewRconCommand() 
     print("Check complete; awaiting phaser response.")
     timer("rcon",0)
 }
@@ -291,9 +287,16 @@ User is authenticated.")
 ]#
 if(clk("RunSoul")){
  print(C[1,string])
- soulCode(C[1,array],1)
+# soulCode(array("core.egp.main.create.etc.1.256.256.10.meep.t.e.x.t"),1)
+ soulCode(array("core.egp.main.create.box.1.256.256.64.64.meep "),1)
 }
-
+if(clk("soulegpbox")){
+ EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
+ EGP_core["items",array][Index,string]=="box.static"
+ print(EGP_core["items",array][Func[6,string]:toNumber(),string])
+ print(EGP_core["group"+Func[11,string],array])
+ print(Func[6,string]:toNumber())
+}
 #[#######################################################
 #[#######################################################
 #[############### Chat Handling blocks ##################

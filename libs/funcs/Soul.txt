@@ -36,27 +36,27 @@ function void soulCode(S:string,N){
     }
 }
 ## V Main ##
-function void soulCode(C:array,N){
- #print(1)
+function number soulCode(C:array,N){
+ print(1)
  Func = C[N,string]:explode(".")
- #print(Func)
+ print(Func)
     if(Func[1,string]=="core"){
-#        print(2)
+        print(2)
         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
         if(Func[2,string]=="egp"){
-#            print(3)
+            print(3)
             if(Func[3,string]=="group"){
-#                print(4)
+                print(4)
                 if(Func[4,string]=="add"){
-#                    print(5)
+                    print(5)
                     ##Placeholder
                 }
             }elseif(Func[3,string]=="main"){ ##core.egp.main.create.box.1.256.256.64.64.1
-#                print(6)
+                print(6)
                 if(Func[4,string]=="create"){ ##core.egp.main.create.box.1.256.256.64.64.1
-#                    print(7)
+                    print(7)
                     if(Func[5,string]=="box"){
-#                        print(9)
+                        print(9)
                         S:egpBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="box.static."+Func[11,string]
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
@@ -64,38 +64,38 @@ function void soulCode(C:array,N){
                         print(Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber())
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a box with soul")
                     }elseif(Func[5,string]=="boxr"){
-#                        print(10)
+                        print(10)
                         S:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
-#                        print(11)
+                        print(11)
                         S:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
                         Index = Func[6,string]:toNumber()
-#                        print(12)
-#                        print(Func:count()-10)
+                        print(12)
+                        print(Func:count()-10)
                         for(I=1,Func:count()-10){
-#                            print(13)
-#                            print(Func[10+I,string])
-#                            print(Func:count()-10)
+                            print(13)
+                            print(Func[10+I,string])
+                            print(Func:count()-10)
                             if(Func[10+I,string]:find("v,")){
-#                               print(14)
+                               print(14)
                                 Func[10+I,string]=Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
-#                               print("Shitfuck balls "+Trunk[Func[10+I,string]:explode("v,")[2,string],string]+" Fuck nuts "+Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string]))
+                               print("Shitfuck balls "+Trunk[Func[10+I,string]:explode("v,")[2,string],string]+" Fuck nuts "+Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string]))
                                 Ph_String = Ph_String+Func[10+I,string]
                             }else{
-#                                print(15)
+                                print(15)
                                 Ph_String = Ph_String+Func[10+I,string]                        
-#                                print("String3 = "+Ph_String)
+                                print("String3 = "+Ph_String)
                             }
                                 if(I==Func:count()-10){
-#                                    print(16)
-#                                    print("String = "+Ph_String)
+                                    print(16)
+                                    print("String = "+Ph_String)
                                     S:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))
                                     S:egpAlign(Func[6,string]:toNumber(),1,1)
                                     S:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
@@ -108,11 +108,14 @@ function void soulCode(C:array,N){
                                  #core.egp.main.set.item.mat.3.gui/center_gradient
                             }
                         }else{
-#                            print(22)
+                            print(22)
                         }
 
                 }elseif(Func[4,string]=="set"){
-                    if(Func[5,string]=="item"){
+                    if(Func[5,string]=="button"){
+                        Buttons[Buttons:count()+1,string]=Func[6,string]+"."+Func[7,string]+"."+Func[8,string]
+                        Objects[Func[6,string]:toNumber(),string]:replace("static","button")
+                    }elseif(Func[5,string]=="item"){
                         if(Func[6,string]=="mat"){
                             S:egpMaterial(Func[7,string]:toNumber(),Func[8,string])
                         }elseif(Func[6,string]=="col"){
@@ -131,26 +134,42 @@ function void soulCode(C:array,N){
                             }
                         }
                     }
+                }elseif(Func[4,string]=="checkb"){
+                    for(X=0,Buttons:count()){
+                        local Info = Buttons[X,string]:explode(".")
+                        print(Info[6,string])
+                        if(E:touching(S,Info[6,string]:toNumber())){
+                            return X
+                            timer(Info[7,string],Info[8,string]:toNumber())
+                            break
+                        }
+                    }
                 }else{
-#                    print(20)
+                    print(20)
                 }
 
             }else{
-#                print(19)
+                print(19)
             }
 
         }elseif(Func[2,string]=="kill"){
             selfDestruct()
-#            print("################################"+17)
+            print("################################"+17)
         }elseif(Func[2,string]=="restart"){
             reset()
-#            print(23)
+            print(23)
+        }elseif(Func[2,string]=="setval"){
+            Trunk[Func[3,string],string]=Func[4,string]
+            print(Trunk[Func[3,string],string]+"  "+Func[4,string]+"  "+Func[3,string])
         }
     }else{
         print("Soul: invalid entry on Function 1; "+C[N,string]+", "+Func[1,string])
     }
 }
 #[ Notes
+
+    core.egp.main.set.button.1.eatThis.0
+    
     local Y1 = S:egpPos(Func[6,string]:toNumber()):y()-(S:egpSize(Func[6,string]:toNumber()):y()/2)
     local X1 = S:egpPos(Func[6,string]:toNumber()):x()-(S:egpSize(Func[6,string]:toNumber()):x()/2)
     local Y2 = S:egpPos(Func[6,string]:toNumber()):y()+(S:egpSize(Func[6,string]:toNumber()):y()/2)

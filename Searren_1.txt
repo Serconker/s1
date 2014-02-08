@@ -12,8 +12,8 @@ if(first()){
 print(hashNoComments())
 findByClass("player")
 function entity closestPly(){
-        findByClass("player")
- return findClosest(entity():pos())
+ findByClass("player")
+ E = findClosest(entity():pos())
 }
 function void checkForNewRconCommand(){
     if(S1_rcon_allow != 1){
@@ -26,7 +26,7 @@ function void checkForNewRconCommand(){
 }
  ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
  S1_rcon_allow = 1
- S1_rcon_allow_egp = 0
+ S1_rcon_allow_egp = 1
  S1_rcon_allow_concmd = 0
  Idle = 1
  Version = "Revision 18"
@@ -55,7 +55,7 @@ Awating authentication")
 # soulCode("core.egp.main.create.etc.1.256.256.10.meep.t.e.x.t",0)
  ID = shortenID(owner():steamID())
  timer("Versionget",1000)
- timer("RunSoul",5000)
+# timer("RunSoul",5000)
 }
 if(duped()){
  selfDestruct()
@@ -87,11 +87,20 @@ if (clk("Guifr")){
  S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),""+Version2,vec2(125,Cy-23))
  S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),vec(180,180,180))
  S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),vec(180,180,180))
- E = closestPly()
- timer("Guifr",5000)
+ timer("Guifr",1000)
     if(App == "" & Idle == Data_split[4+1,string]:toNumber()){
         S:updateTitle(2)
     }
+}
+if(clk("Mouse")){
+ findByClass("player")
+ E = findClosest(entity():pos())
+# print(E)
+    if(owner():keyUse()){
+        soulCode(array("core.egp.main.checkb"),1)
+        print("pressed")
+    }   
+    timer("Mouse",500)
 }
 if(clk("Failure")){
  entity():soundPlay(1,3,"vo/citadel/br_ohshit.wav")
@@ -227,11 +236,13 @@ User is authenticated.")
         Authent = Data_split[4,string]:toNumber()
         printColor(vec(0,120,0),""+Data_split[1,string])
         Auth_str = "[Authentic user]"
-        timer("Guifr",1000)
         timer("G1",0)
         timer("Connect",0)
         timer("Cig",5000)
-        playTheme()
+        timer("RunSoul",2000)
+        timer("Mouse",0)
+        
+        #playTheme()
     }elseif(Data:find("Denied, auth")){
         printColor(vec(220,0,0),""+Data)
         Authent = 0
@@ -269,6 +280,13 @@ User is authenticated.")
 Blah
 ]#
 if(clk("RunSoul")){
+ soulCode(array("core.egp.main.create.box.1.256.56.64.64.1"),1)
+ soulCode(array("core.egp.main.create.box.2.256.156.64.64.1"),1)
+ soulCode(array("core.egp.main.create.box.3.256.256.64.64.1"),1)
+ soulCode(array("core.egp.main.create.etc.4.256.256.50.2.t.e.x.t. v,Souldb"),1)
+
+ soulCode(array("core.egp.main.set.button.2.rcon_a.0"),1)
+ soulCode(array("core.egp.main.set.group.col.1.40.40.60"),1)
  print(C[1,string])
 }
 #[#######################################################
@@ -327,6 +345,8 @@ if (chatClk(owner())){
             if(Str[3,string]=="printlog"){
                 print(Sys_log)
                 print(Str[3,string]:upper())
+            }elseif(Str[3,string]=="buttons"){
+                print(Buttons)
             }elseif(Str[3,string]=="runthis"){
                 soulCode(array(owner():lastSaid():replace(Str[1,string]+" "+Str[2,string]+" "+Str[3,string]+" ","")),1)
 #                print(owner():lastSaid():replace(Str[1,string]+" "+Str[2,string]+" "+Str[3,string]+" ",""))
@@ -342,13 +362,24 @@ Mathias, testing.
 
 soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t. v,Souldb"),1)
 
+{os soul runthis core.egp.main.create.etc.1.256.256.50.1.This is. v,Food
+{os soul runthis core.setval.Food.Pie!
+
 {os soul runthis core.egp.main.set.item.mat.3.gui/center_gradient
     
+{os soul runthis core.egp.main.set.item.mat.1.gui/center_gradient
+    
 {os soul runthis core.egp.main.set.group.mat.1.gui/center_gradient
+    
+    
 
 {os soul runthis core.egp.main.set.item.col.3.40.40.60
     
+{os soul runthis core.egp.main.set.item.col.1.40.40.60
+    
 {os soul runthis core.egp.main.set.group.col.1.40.40.60
+
+
 
 {os soul runthis core.egp.main.create.box.3.256.256.64.64.1
 {os soul runthis core.egp.main.create.box.2.256.156.64.64.1

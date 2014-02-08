@@ -40,9 +40,10 @@ function void checkForNewRconCommand(){
  S1_rcon_allow = 1
  S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0
+ Idle = 1
  Version = "Revision 18"
  L_up = "Last update: SOMEWHEN"
- Idle = 1
+ Trunk["Souldb",string]="Hello!"
  ID2 = owner():steamID()
  setName("Searren 1
 "+Version+"
@@ -286,7 +287,7 @@ User is authenticated.")
 ]#
 if(clk("RunSoul")){
  print(C[1,string])
- soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t"),1)
+ soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t. v,Souldb"),1)
 # soulCode(array("core.egp.main.create.box.1.256.256.64.64.1"),1)
 }
 if(clk("soulegpbox")){

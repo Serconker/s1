@@ -83,7 +83,9 @@ function void soulCode(C:array,N){
                             print(Func:count()-10)
                             if(Func[10+I,string]:find("v,")){
                                 print(14)
-                                Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
+                                Func[10+I,string]=Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
+                                print("Shitfuck balls "+Trunk[Func[10+I,string]:explode("v,")[2,string],string]+" Fuck nuts "+Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string]))
+                                Ph_String = Ph_String+Func[10+I,string]
                             }else{
                                 print(15)
                                 Ph_String = Ph_String+Func[10+I,string]                        

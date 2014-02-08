@@ -100,6 +100,7 @@ function void soulCode(C:array,N){
                                     Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
                                     Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
+                                    Ph_String = ""
                                 }#core.egp.main.create.etc.1.256.256.10.1.t.e.x.t
                                  #core.egp.main.create.etc.1.256.256.50.1.t.e.x.t
                             }

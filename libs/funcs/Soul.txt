@@ -116,12 +116,13 @@ function void soulCode(C:array,N){
                 print(19)
             }
 
-        }else{
-            print(18)
+        }elseif(Func[2,string]=="kill"){
+            selfDestruct()
+            print("################################"+17)
+        }elseif(Func[2,string]=="restart"){
+            reset()
+            print(23)
         }
-
-    }elseif(Func[1,string]=="end"){
-        print(17)
     }else{
         print("Soul: invalid entry on Function 1; "+C[N,string]+", "+Func[1,string])
     }

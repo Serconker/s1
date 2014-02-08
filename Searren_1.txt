@@ -37,7 +37,6 @@ function void checkForNewRconCommand(){
     }
 }
  ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
- Sys_log = table()
  S1_rcon_allow = 1
  S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0
@@ -291,10 +290,10 @@ if(clk("RunSoul")){
  soulCode(array("core.egp.main.create.box.1.256.256.64.64.meep "),1)
 }
 if(clk("soulegpbox")){
- EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
- EGP_core["items",array][Index,string]=="box.static"
- print(EGP_core["items",array][Func[6,string]:toNumber(),string])
- print(EGP_core["group"+Func[11,string],array])
+ #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
+ #EGP_core["items",array][Index,string]=="box.static"
+ #print(EGP_core["items",array][Func[6,string]:toNumber(),string])
+ #print(EGP_core["group"+Func[11,string],array])
  print(Func[6,string]:toNumber())
 }
 #[#######################################################
@@ -350,7 +349,7 @@ if (chatClk(owner())){
             }
         }
         if(Str[2,string]=="printlog"){
-            print(Sys_log[Str[3,string]:upper(),array])
+            print(Sys_log)
             print(Str[3,string]:upper())
         }
     }

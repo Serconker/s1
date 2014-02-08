@@ -11,6 +11,7 @@ function void pushLog(S:string){
     }else{
         Sys_log[Sys_log:count()+1,string]=S
     }
+    print(Sys_log)
 }
 function void soulCode(S:string,N){
  Sorted = 0
@@ -40,7 +41,7 @@ function void soulCode(C:array,N){
  print(Func)
     if(Func[1,string]=="core"){
         print(2)
-#        pushLog("S",time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
+        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
         if(Func[2,string]=="egp"){
             print(3)
             if(Func[3,string]=="group"){
@@ -60,13 +61,9 @@ function void soulCode(C:array,N){
                     }elseif(Func[5,string]=="boxr"){
                         print(10)
                         S:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
-                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
-                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="boxr.static"
                     }elseif(Func[5,string]=="circ"){
                         print(11)
                         S:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
-                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
-                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="circ.static"
                     }elseif(Func[5,string]=="etc"){
                         Index = Func[6,string]:toNumber()
                         print(12)
@@ -87,15 +84,6 @@ Ph_String = Func[10+I,string]
                                 if(I==Func:count()-10){
                                     print(16)
                                     Ph_String = "text.static."+Ph_String
-                                    #EGP_core["items",array][Index,string]=Ph_String
-                                    #[if(EGP_core["items",array][Index,string]!=Ph_String){
-                                        EGP_core["items",array][Index,string]=Ph_String
-                                        print(23)
-                                        print(Func[6,string]:toNumber())
-                                        print(EGP_core["items",array])
-                                    }else{]#
-                                    #    S:etc(Func[6,string]:toNumber(),EGP_core["items",array][Index,string]:explode(".")[3,string],vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),Func[8,string]:toNumber())                   
-                                    #}
                                     print("String = "+Ph_String)
 #                                    print("String2 = "+EGP_core["items",array][Func[6,string]:toNumber(),string])
                                 }#core.egp.main.create.etc.1.256.256.10.meep.t.e.x.t
@@ -123,3 +111,19 @@ Ph_String = Func[10+I,string]
     local X1 = S:egpPos(Func[6,string]:toNumber()):x()-(S:egpSize(Func[6,string]:toNumber()):x()/2)
     local Y2 = S:egpPos(Func[6,string]:toNumber()):y()+(S:egpSize(Func[6,string]:toNumber()):y()/2)
     local X2 = S:egpPos(Func[6,string]:toNumber()):x()+(S:egpSize(Func[6,string]:toNumber()):x()/2)
+    
+                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
+                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="boxr.static"
+
+                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
+                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="circ.static"
+                        
+                                    #EGP_core["items",array][Index,string]=Ph_String
+                                    #[if(EGP_core["items",array][Index,string]!=Ph_String){
+                                        EGP_core["items",array][Index,string]=Ph_String
+                                        print(23)
+                                        print(Func[6,string]:toNumber())
+                                        print(EGP_core["items",array])
+                                    }else{]#
+                                    #    S:etc(Func[6,string]:toNumber(),EGP_core["items",array][Index,string]:explode(".")[3,string],vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),Func[8,string]:toNumber())                   
+                                    #}

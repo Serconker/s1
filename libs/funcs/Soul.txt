@@ -92,12 +92,15 @@ function void soulCode(C:array,N){
                                 if(I==Func:count()-10){
                                     print(16)
                                     print("String = "+Ph_String)
+                                    #[
                                     S:etc(
                                     Func[6,string]:toNumber(),
                                     Ph_String,
                                     vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),
-                                    Func[9,string]:toNumber())
-                                    
+                                    Func[9,string]:toNumber())]#
+                                    S:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))
+                                    S:egpAlign(Func[6,string]:toNumber(),1,1)
+                                    S:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
                                     Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
                                     Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")

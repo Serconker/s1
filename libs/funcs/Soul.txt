@@ -1,15 +1,15 @@
 @name Searren Opperating Utillity Language core
-@persist [EGP_core C]:table
-@persist Func:array
-@persist Ph_String:string
+@persist [C]:table
+@persist [Func Buttons Objects Groups]:array
+@persist [Ph_String]:string
 @persist Sorted
 #include "s1/libs/funcs/S1_funs"
 #include "s1/libs/funcs/io/S1_IO"
-function void pushLog(S:string,S2:string){
-    if(Sys_log[S,array]:count()==0){
-        Sys_log[S,array][1,string]=S2
+function void pushLog(S:string){
+    if(Sys_log:count()==0){
+        Sys_log[1,string]=S
     }else{
-        Sys_log[S,array][Sys_log[S,array]:count()+1,string]=S2
+        Sys_log[Sys_log:count()+1,string]=S
     }
 }
 function void soulCode(S:string,N){
@@ -60,13 +60,13 @@ function void soulCode(C:array,N){
                     }elseif(Func[5,string]=="boxr"){
                         print(10)
                         S:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
-                        EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
-                        EGP_core["items",array][Func[6,string]:toNumber(),string]=="boxr.static"
+                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
+                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="boxr.static"
                     }elseif(Func[5,string]=="circ"){
                         print(11)
                         S:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
-                        EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
-                        EGP_core["items",array][Func[6,string]:toNumber(),string]=="circ.static"
+                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
+                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="circ.static"
                     }elseif(Func[5,string]=="etc"){
                         Index = Func[6,string]:toNumber()
                         print(12)
@@ -78,7 +78,7 @@ function void soulCode(C:array,N){
                             if(Func[10+I,string]:find("v,")){
                                 print(14)
                                 Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
-EGP_core["items",array][Index,string]=EGP_core["items",array][Index,string]+Func[9+I,string]
+#EGP_core["items",array][Index,string]=EGP_core["items",array][Index,string]+Func[9+I,string]
                             }else{
                                 print(15)
 Ph_String = Func[10+I,string]                        
@@ -87,17 +87,17 @@ Ph_String = Func[10+I,string]
                                 if(I==Func:count()-10){
                                     print(16)
                                     Ph_String = "text.static."+Ph_String
-                                    EGP_core["items",array][Index,string]=Ph_String
-                                    if(EGP_core["items",array][Index,string]!=Ph_String){
+                                    #EGP_core["items",array][Index,string]=Ph_String
+                                    #[if(EGP_core["items",array][Index,string]!=Ph_String){
                                         EGP_core["items",array][Index,string]=Ph_String
                                         print(23)
                                         print(Func[6,string]:toNumber())
                                         print(EGP_core["items",array])
-                                    }else{
-                                        S:etc(Func[6,string]:toNumber(),EGP_core["items",array][Index,string]:explode(".")[3,string],vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),Func[8,string]:toNumber())                   
-                                    }
+                                    }else{]#
+                                    #    S:etc(Func[6,string]:toNumber(),EGP_core["items",array][Index,string]:explode(".")[3,string],vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),Func[8,string]:toNumber())                   
+                                    #}
                                     print("String = "+Ph_String)
-                                    print("String2 = "+EGP_core["items",array][Func[6,string]:toNumber(),string])
+#                                    print("String2 = "+EGP_core["items",array][Func[6,string]:toNumber(),string])
                                 }#core.egp.main.create.etc.1.256.256.10.meep.t.e.x.t
                             }
                         }else{
@@ -119,7 +119,7 @@ Ph_String = Func[10+I,string]
     }
 }
 #[ Notes
-                            local Y1 = S:egpPos(Func[6,string]:toNumber()):y()-(S:egpSize(Func[6,string]:toNumber()):y()/2)
-                            local X1 = S:egpPos(Func[6,string]:toNumber()):x()-(S:egpSize(Func[6,string]:toNumber()):x()/2)
-                            local Y2 = S:egpPos(Func[6,string]:toNumber()):y()+(S:egpSize(Func[6,string]:toNumber()):y()/2)
-                            local X2 = S:egpPos(Func[6,string]:toNumber()):x()+(S:egpSize(Func[6,string]:toNumber()):x()/2)
+    local Y1 = S:egpPos(Func[6,string]:toNumber()):y()-(S:egpSize(Func[6,string]:toNumber()):y()/2)
+    local X1 = S:egpPos(Func[6,string]:toNumber()):x()-(S:egpSize(Func[6,string]:toNumber()):x()/2)
+    local Y2 = S:egpPos(Func[6,string]:toNumber()):y()+(S:egpSize(Func[6,string]:toNumber()):y()/2)
+    local X2 = S:egpPos(Func[6,string]:toNumber()):x()+(S:egpSize(Func[6,string]:toNumber()):x()/2)

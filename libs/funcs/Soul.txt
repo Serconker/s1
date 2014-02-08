@@ -86,18 +86,23 @@ function void soulCode(C:array,N){
                                 Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
                             }else{
                                 print(15)
-                                Ph_String = Func[10+I,string]                        
+                                Ph_String = Ph_String+Func[10+I,string]                        
                                 print("String3 = "+Ph_String)
                             }
                                 if(I==Func:count()-10){
                                     print(16)
-                                    Ph_String = "text.static."+Ph_String
                                     print("String = "+Ph_String)
-                                    S:etc(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),Func[8,string]:toNumber())
-                                    Objects[Func[6,string]:toNumber(),string]="circ.static."+Func[10,string]
+                                    S:etc(
+                                    Func[6,string]:toNumber(),
+                                    Ph_String,
+                                    vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),
+                                    Func[9,string]:toNumber())
+                                    
+                                    Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
                                     Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
                                 }#core.egp.main.create.etc.1.256.256.10.1.t.e.x.t
+                                 #core.egp.main.create.etc.1.256.256.50.1.t.e.x.t
                             }
                         }else{
                             print(22)

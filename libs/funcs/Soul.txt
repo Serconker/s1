@@ -95,7 +95,7 @@ function void soulCode(C:array,N){
                                     #[
                                     S:etc(
                                     Func[6,string]:toNumber(),
-                                    Ph_String,
+                                    ""+Ph_String,
                                     vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),
                                     Func[9,string]:toNumber())]#
                                     S:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))

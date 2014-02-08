@@ -108,6 +108,25 @@ function void soulCode(C:array,N){
                             print(22)
                         }
 
+                }elseif(Func[4,string]=="set"){
+                    if(Func[5,string]=="item"){
+                        if(Func[6,string]=="mat"){
+                            S:egpMaterial(Func[7,string]:toNumber(),Func[7,string])
+                        }elseif(Func[6,string]=="col"){
+                            S:egpColor(Func[7,string]:toNumber(),vec(Func[7,string]:toNumber(),Func[8,string]:toNumber(),Func[9,string]:toNumber()))
+                        }
+                    }elseif(Func[5,string]=="group"){
+                        local Gi = Groups[Func[6,string]:toNumber(),string]:explode(".")
+                        if(Func[6,string]=="mat"){
+                            for(X=1,Gi:count()){
+                                S:egpMaterial(Gi[X,string]:toNumber(),Func[7,string])
+                            }
+                        }elseif(Func[6,string]=="col"){
+                            for(X=1,Gi:count()){
+                                S:egpColor(Gi[X,string]:toNumber(),vec(Func[7,string]:toNumber(),Func[8,string]:toNumber(),Func[9,string]:toNumber()))
+                            }
+                        }
+                    }
                 }else{
                     print(20)
                 }

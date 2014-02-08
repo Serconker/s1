@@ -1,7 +1,6 @@
 @name M_funs
 if(first()){
-##include "S1/apps/meerik/lib/funcs/OI/M_IO"
-#include "S1/libs/funcs/io/S1_IO"
+#include "S1/apps/meerik/lib/funcs/OI/M_IO"
 }
 function void refreshStock(){
  P1 = R1:shipmentCost()/7

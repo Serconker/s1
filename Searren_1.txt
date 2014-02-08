@@ -287,7 +287,7 @@ User is authenticated.")
 ]#
 if(clk("RunSoul")){
  print(C[1,string])
- soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t. v,Souldb"),1)
+# soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t. v,Souldb"),1)
 # soulCode(array("core.egp.main.create.box.1.256.256.64.64.1"),1)
 }
 if(clk("soulegpbox")){
@@ -349,9 +349,13 @@ if (chatClk(owner())){
                 loadAppCFig(""+Str[3,string])
             }
         }
-        if(Str[2,string]=="printlog"){
-            print(Sys_log)
-            print(Str[3,string]:upper())
+        if(Str[2,string]=="soul"){
+            if(Str[3,string]=="printlog"){
+                print(Sys_log)
+                print(Str[3,string]:upper())
+            }elseif(Str[3,string]=="runthis"){
+                soulCode(array(Str[4,string]),1)
+            }
         }
     }
 }
@@ -360,3 +364,5 @@ Made by Serconker, also known as 'The Other Lexi' and any other respective allia
 Chikanman, ideas and testing.
 Crypto, ideas and testing.
 Mathias, testing.
+
+soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t. v,Souldb"),1)

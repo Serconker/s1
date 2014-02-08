@@ -341,3 +341,15 @@ Crypto, ideas and testing.
 Mathias, testing.
 
 soulCode(array("core.egp.main.create.etc.1.256.256.50.1.t.e.x.t. v,Souldb"),1)
+
+{os soul runthis core.egp.main.set.item.mat.3.gui/center_gradient
+    
+{os soul runthis core.egp.main.set.group.mat.1.gui/center_gradient
+
+{os soul runthis core.egp.main.set.item.col.3.40.40.60
+    
+{os soul runthis core.egp.main.set.group.col.1.40.40.60
+
+{os soul runthis core.egp.main.create.box.3.256.256.64.64.1
+{os soul runthis core.egp.main.create.box.2.256.156.64.64.1
+{os soul runthis core.egp.main.create.box.1.256.56.64.64.1

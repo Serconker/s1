@@ -130,19 +130,3 @@ function void soulCode(C:array,N){
     local X1 = S:egpPos(Func[6,string]:toNumber()):x()-(S:egpSize(Func[6,string]:toNumber()):x()/2)
     local Y2 = S:egpPos(Func[6,string]:toNumber()):y()+(S:egpSize(Func[6,string]:toNumber()):y()/2)
     local X2 = S:egpPos(Func[6,string]:toNumber()):x()+(S:egpSize(Func[6,string]:toNumber()):x()/2)
-    
-                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
-                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="boxr.static"
-
-                        #EGP_core["group"+Func[11,string],array]:appendNum(Func[6,string]:toNumber())
-                        #EGP_core["items",array][Func[6,string]:toNumber(),string]=="circ.static"
-                        
-                                    #EGP_core["items",array][Index,string]=Ph_String
-                                    #[if(EGP_core["items",array][Index,string]!=Ph_String){
-                                        EGP_core["items",array][Index,string]=Ph_String
-                                        print(23)
-                                        print(Func[6,string]:toNumber())
-                                        print(EGP_core["items",array])
-                                    }else{]#
-                                    #    S:etc(Func[6,string]:toNumber(),EGP_core["items",array][Index,string]:explode(".")[3,string],vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),Func[8,string]:toNumber())                   
-                                    #}

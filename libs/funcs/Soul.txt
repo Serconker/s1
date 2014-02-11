@@ -114,6 +114,7 @@ function number soulCode(C:array,N){
                 }elseif(Func[4,string]=="set"){
                     if(Func[5,string]=="button"){
                         Buttons[Buttons:count()+1,string]=Func[6,string]+"."+Func[7,string]+"."+Func[8,string]
+                        print(Buttons)
                         Objects[Func[6,string]:toNumber(),string]:replace("static","button")
                     }elseif(Func[5,string]=="item"){
                         if(Func[6,string]=="mat"){
@@ -137,10 +138,12 @@ function number soulCode(C:array,N){
                 }elseif(Func[4,string]=="checkb"){
                     for(X=0,Buttons:count()){
                         local Info = Buttons[X,string]:explode(".")
-                        print(Info[6,string])
-                        if(E:touching(S,Info[6,string]:toNumber())){
+                        print(Info[1,string])
+                        print(Info[2,string])
+                        print(Info[3,string])
+                        if(E:touching(S,Info[1,string]:toNumber())){
+                            timer(Info[2,string],Info[3,string]:toNumber())
                             return X
-                            timer(Info[7,string],Info[8,string]:toNumber())
                             break
                         }
                     }

@@ -33,6 +33,13 @@ if(first()){
     function void appReg(S:string,Des:string){
         Apps[S,string] = Des
     }
+    function number whatsLarger(N,N2){
+        if(N>=N2){
+            return N
+        }elseif(N2>=N){
+            return N2
+        }
+    }
     function void loadAppCFig(Stri:string){
         runOnFile(1)
         printColor(vec(225,0,0),"Trying to load app '"+Stri+"s' configuration file.")

@@ -26,7 +26,7 @@ function void checkForNewRconCommand(){
 }
  ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
  S1_rcon_allow = 1
- S1_rcon_allow_egp = 1
+ S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0
  Idle = 1
  Version = "Revision 18"
@@ -97,7 +97,7 @@ if(clk("Mouse")){
  E = findClosest(entity():pos())
 # print(E)
     if(owner():keyUse()){
-        soulCode(array("core.egp.main.checkb"),1)
+        soulCode(array("core.egp.checkb"),1)
         print("pressed")
     }   
     timer("Mouse",500)
@@ -280,6 +280,13 @@ User is authenticated.")
 Blah
 ]#
 if(clk("RunSoul")){
+ local Code = array("core.egp.main.create.box.1.256.56.64.64.1",
+"core.egp.main.create.box.2.256.156.64.64.1",
+"core.egp.main.create.box.3.256.256.64.64.1",
+"core.egp.main.create.etc.4.256.256.50.2.t.e.x.t. v,Souldb",
+"core.egp.main.set.button.2.rcon_a.1000",
+"core.egp.main.set.group.col.1.40.40.60")
+#[
  soulCode(array("core.egp.main.create.box.1.256.56.64.64.1"),1)
  soulCode(array("core.egp.main.create.box.2.256.156.64.64.1"),1)
  soulCode(array("core.egp.main.create.box.3.256.256.64.64.1"),1)
@@ -287,6 +294,10 @@ if(clk("RunSoul")){
 
  soulCode(array("core.egp.main.set.button.2.rcon_a.1000"),1)
  soulCode(array("core.egp.main.set.group.col.1.40.40.60"),1)
+]#
+    for(I=1,Code:count()){
+        soulCode(Code,I)
+    }
  print(C[1,string])
 }
 #[#######################################################

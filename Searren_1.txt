@@ -242,7 +242,7 @@ User is authenticated.")
         timer("RunSoul",2000)
         timer("Mouse",0)
         
-        #playTheme()
+        playTheme()
     }elseif(Data:find("Denied, auth")){
         printColor(vec(220,0,0),""+Data)
         Authent = 0

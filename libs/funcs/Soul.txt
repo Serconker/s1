@@ -1,6 +1,6 @@
 @name Searren Opperating Utillity Language core
 @persist [C]:table
-@persist [Func Buttons Objects Groups Buttons2 Objects2 Groups2]:array
+@persist [Func Buttons Objects Groups Buttons2 Objects2 Groups2 Temp_cords Temp_sizes Temp_mat Temp_col]:array
 @persist [Ph_String]:string
 @persist Sorted
 #include "s1/libs/funcs/S1_funs"
@@ -39,16 +39,42 @@ function void soulCode(S:string,N){
 function number soulCode(C:array,N){
  Func = C[N,string]:explode(".")
     if(Func[1,string]=="core"){
+        print(8)
         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
         if(Func[2,string]=="egp"){
+            print(9)
             if(Func[3,string]=="group"){
+                print(10)
                 if(Func[4,string]=="add"){
+                    print(11)
                    ##Placeholder
                 }elseif(Func[4,string]=="shift"){
+                    print(12)
                     if(Func[5,string]=="main"){
                         
                     }elseif(Func[5,string]=="secondary"){
-                        
+                        print(1)
+                        local Items = Groups[Func[6,string]:toNumber(),string]:explode(".")
+                        for(I=1,Items:count()){
+                            print(2)
+                            Temp_cords[I,vector2]=S:egpPos(Items[I,string]:toNumber())
+                            Temp_sizes[I,vector2]=S:egpSize(Items[I,string]:toNumber())
+                            Temp_col[I,vector]=S:egpColor(Items[I,string]:toNumber())
+                            Temp_mat[I,string]=S:egpMaterial(Items[I,string]:toNumber())
+                            if(I==Items:count()){
+                                print(3)
+                                for(I=1,Items:count()){
+                                    print(4)                                            
+                                    if(Objects[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="box"){
+                                        print(5)
+                                        S2:egpBox(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S2:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S:egpRemove(Items[I,string]:toNumber())
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }elseif(Func[3,string]=="main"){ ##core.egp.main.create.box.1.256.256.64.64.1
@@ -209,3 +235,4 @@ function number soulCode(C:array,N){
     local X1 = S:egpPos(Func[6,string]:toNumber()):x()-(S:egpSize(Func[6,string]:toNumber()):x()/2)
     local Y2 = S:egpPos(Func[6,string]:toNumber()):y()+(S:egpSize(Func[6,string]:toNumber()):y()/2)
     local X2 = S:egpPos(Func[6,string]:toNumber()):x()+(S:egpSize(Func[6,string]:toNumber()):x()/2)
+

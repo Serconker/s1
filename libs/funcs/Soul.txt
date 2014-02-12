@@ -44,23 +44,29 @@ function number soulCode(C:array,N){
             if(Func[3,string]=="group"){
                 if(Func[4,string]=="add"){
                    ##Placeholder
+                }elseif(Func[4,string]=="shift"){
+                    if(Func[5,string]=="main"){
+                        
+                    }elseif(Func[5,string]=="secondary"){
+                        
+                    }
                 }
             }elseif(Func[3,string]=="main"){ ##core.egp.main.create.box.1.256.256.64.64.1
                 if(Func[4,string]=="create"){ ##core.egp.main.create.box.1.256.256.64.64.1
                     if(Func[5,string]=="box"){
                         S:egpBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="box.static."+Func[11,string]
-                        Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                        Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a box with soul")
                     }elseif(Func[5,string]=="boxr"){
                         S:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
-                        Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                        Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
                         S:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
-                        Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                        Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
                         Index = Func[6,string]:toNumber()
@@ -76,7 +82,7 @@ function number soulCode(C:array,N){
                                     S:egpAlign(Func[6,string]:toNumber(),1,1)
                                     S:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
                                     Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
-                                    Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                                    Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+Func[6,string]+"."
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
                                     Ph_String = ""
                                 }#core.egp.main.create.etc.1.256.256.10.1.t.e.x.t
@@ -112,17 +118,17 @@ function number soulCode(C:array,N){
                     if(Func[5,string]=="box"){
                         S2:egpBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="box.static."+Func[11,string]
-                        Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                        Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a box with soul")
                     }elseif(Func[5,string]=="boxr"){
                         S2:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
-                        Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                        Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
                         S2:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
-                        Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                        Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
                         Index = Func[6,string]:toNumber()
@@ -138,7 +144,7 @@ function number soulCode(C:array,N){
                                     S2:egpAlign(Func[6,string]:toNumber(),1,1)
                                     S2:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
                                     Objects2[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
-                                    Groups2[Func[10,string]:toNumber(),string]=Groups2[Func[10,string]:toNumber(),string]+"."+Func[6,string]:toNumber()
+                                    Groups2[Func[10,string]:toNumber(),string]=Groups2[Func[10,string]:toNumber(),string]+Func[6,string]+"."
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
                                     Ph_String = ""
                                 }

@@ -1,11 +1,17 @@
 @name S1_IO
 @inputs [S S2]:wirelink
-@outputs P1 P2 E:entity [Avatar App]:string Idle ID3:string
+@inputs [X8_1 X8_2 X8_3 X8_4]:array
+
+@outputs P1 P2 Idle 
+@outputs E:entity 
+@outputs [Avatar App ID3]:string
+@outputs [X8_5 X8_6 X8_7 X8_8]:array
+
+@persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI Index
+@persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName]:string
 @persist [Cords Cords2]:vector2
 @persist [Cfig Data_split Load_actions Sys_log]:array
-@persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName]:string
 @persist [Trunk Apps]:table
-@persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI Index
 
 if(duped()){
  selfDestruct()   

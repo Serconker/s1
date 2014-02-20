@@ -43,7 +43,7 @@ function number soulCode(C:array,N){
         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
         if(Func[2,string]=="egp"){
             print(9)
-            if(Func[3,string]=="group"){
+            if(Func[3,string]=="group"){#core.egp.group.shift.secondary.1
                 print(10)
                 if(Func[4,string]=="add"){
                     print(11)
@@ -51,7 +51,48 @@ function number soulCode(C:array,N){
                 }elseif(Func[4,string]=="shift"){
                     print(12)
                     if(Func[5,string]=="main"){
-                        
+                        print(1)
+                        local Items = Groups2[Func[6,string]:toNumber(),string]:explode(".")
+                        for(I=1,Items:count()){
+                            print(2)
+                            Temp_cords[I,vector2]=S2:egpPos(Items[I,string]:toNumber())
+                            Temp_sizes[I,vector2]=S2:egpSize(Items[I,string]:toNumber())
+                            Temp_col[I,vector]=S2:egpColor(Items[I,string]:toNumber())
+                            Temp_mat[I,string]=S2:egpMaterial(Items[I,string]:toNumber())
+                            if(I==Items:count()){
+                                print(3)
+                                for(I=1,Items:count()){
+                                    print(4)                                            
+                                    if(Objects2[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="box"){
+                                        print(5)
+                                        S:egpBox(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S2:egpRemove(Items[I,string]:toNumber())
+                                    }elseif(Objects2[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="rbox"){
+                                        print(6)
+                                        S:egpRoundedBox(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S2:egpRemove(Items[I,string]:toNumber())
+                                    }elseif(Objects2[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="circ"){
+                                        print(7)
+                                        S:egpCircle(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S2:egpRemove(Items[I,string]:toNumber())
+                                    }elseif(Objects2[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="text"){
+                                        print(7)
+                                        S:egpText(Items[I,string]:toNumber(),Objects2[Items[I,string]:toNumber(),string]:explode(".")[4,string],Temp_cords[I,vector2])
+                                        S:egpAlign(Items[I,string]:toNumber(),1,1)
+                                        S:egpSize(Items[I,string]:toNumber(),S:egpSize(Items[I,string]:toNumber()))
+                                        S:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S2:egpRemove(Items[I,string]:toNumber())
+                                    }
+                                }
+                            }
+                        }                        
                     }elseif(Func[5,string]=="secondary"){
                         print(1)
                         local Items = Groups[Func[6,string]:toNumber(),string]:explode(".")
@@ -68,6 +109,26 @@ function number soulCode(C:array,N){
                                     if(Objects[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="box"){
                                         print(5)
                                         S2:egpBox(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S2:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S:egpRemove(Items[I,string]:toNumber())
+                                    }elseif(Objects[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="rbox"){
+                                        print(6)
+                                        S2:egpRoundedBox(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S2:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S:egpRemove(Items[I,string]:toNumber())
+                                    }elseif(Objects[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="circ"){
+                                        print(7)
+                                        S2:egpCircle(Items[I,string]:toNumber(),Temp_cords[I,vector2],Temp_sizes[I,vector2])
+                                        S2:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
+                                        S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
+                                        S:egpRemove(Items[I,string]:toNumber())
+                                    }elseif(Objects[Items[I,string]:toNumber(),string]:explode(".")[1,string]=="text"){
+                                        print(7)
+                                        S2:egpText(Items[I,string]:toNumber(),Objects[Items[I,string]:toNumber(),string]:explode(".")[4,string],Temp_cords[I,vector2])
+                                        S2:egpAlign(Items[I,string]:toNumber(),1,1)
+                                        S2:egpSize(Items[I,string]:toNumber(),S:egpSize(Items[I,string]:toNumber()))
                                         S2:egpMaterial(Items[I,string]:toNumber(),Temp_mat[I,string])
                                         S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
                                         S:egpRemove(Items[I,string]:toNumber())
@@ -107,7 +168,7 @@ function number soulCode(C:array,N){
                                     S:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))
                                     S:egpAlign(Func[6,string]:toNumber(),1,1)
                                     S:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
-                                    Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
+                                    Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]+Ph_String
                                     Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+Func[6,string]+"."
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
                                     Ph_String = ""
@@ -169,7 +230,7 @@ function number soulCode(C:array,N){
                                     S2:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))
                                     S2:egpAlign(Func[6,string]:toNumber(),1,1)
                                     S2:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
-                                    Objects2[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]
+                                    Objects2[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]+Ph_String
                                     Groups2[Func[10,string]:toNumber(),string]=Groups2[Func[10,string]:toNumber(),string]+Func[6,string]+"."
                                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
                                     Ph_String = ""

@@ -95,6 +95,8 @@ function number soulCode(C:array,N){
                         }                        
                     }elseif(Func[5,string]=="secondary"){
                         print(1)
+                        local Group = Func[6,string]:toNumber()
+                        print("THE MOTHERFUCKING GROUP IS "+Group+" OR IS IT!")
                         local Items = Groups[Func[6,string]:toNumber(),string]:explode(".")
                         for(I=1,Items:count()){
                             print(2)
@@ -129,11 +131,20 @@ function number soulCode(C:array,N){
                                         #S2:egpText(Items[I,string]:toNumber(),Objects[Items[I,string]:toNumber(),string]:explode(".")[4,string],Temp_cords[I,vector2])
                                         #S2:egpAlign(Items[I,string]:toNumber(),1,1)
                                         #S2:egpSize(Items[I,string]:toNumber(),S:egpSize(Items[I,string]:toNumber()))
-                                        soulCode(array("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]:toNumber()+"."+Stitch),1)
-                                        #print("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]:toNumber()+"."+Stitch)
-                                        print(Func[6,string])
+                                        print("########################")
+                                        print(Func)
+                                        print("########################")
+                                        print(Groups[Func[6,string]:toNumber(),string])
                                         S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
                                         S:egpRemove(Items[I,string]:toNumber())
+                                        soulCode(array("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Objects[Items[I,string]:toNumber(),string]:explode(".")[5,string]+"."+Func[6,string]+"."+Stitch),1)
+#                                        soulCode(array("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]+"."+Stitch),1)
+                                        print("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]:toNumber()+"."+Stitch)
+                                        print(Func[6,string])
+                                        print("########################")
+                                        print(Func)
+                                        print(Func)
+                                        print("########################")
                                     }
                                 }
                             }
@@ -205,32 +216,42 @@ function number soulCode(C:array,N){
                     }
                 }
             }elseif(Func[3,string]=="secondary"){ ##### Screen two(user screen)
+                print("a")
                 if(Func[4,string]=="create"){
+                    print("b")
                     if(Func[5,string]=="box"){
+                        print("c")
                         S2:egpBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="box.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a box with soul")
                     }elseif(Func[5,string]=="boxr"){
+                        print("d")
                         S2:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
+                        print("e")
                         S2:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
+                        print("f")
                         Index = Func[6,string]:toNumber()
                         for(I=1,Func:count()-10){
+                            print("g")
                             if(Func[10+I,string]:find("v,")){
+                                print("h")
                                 Func[10+I,string]=Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
                                 Ph_String = Ph_String+Func[10+I,string]
                             }else{
+                                print("i")
                                 Ph_String = Ph_String+Func[10+I,string]                        
                             }
                                 if(I==Func:count()-10){
+                                    print("j")
                                     S2:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))
                                     S2:egpAlign(Func[6,string]:toNumber(),1,1)
                                     S2:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())

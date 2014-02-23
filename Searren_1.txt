@@ -281,11 +281,11 @@ Blah
 ]#
 if(clk("RunSoul")){
  local Code = array("core.egp.main.create.box.1.256.56.64.64.1",
-"core.egp.main.create.box.2.256.156.64.64.1",
-"core.egp.main.create.box.3.256.256.64.64.1",
-"core.egp.main.create.etc.4.256.256.50.1.t.e.x.t. v,Souldb",
-"core.egp.main.set.button.2.rcon_a.1000",
-"core.egp.main.set.group.col.1.40.40.60")
+                    "core.egp.main.create.box.2.256.156.64.64.1",
+                    "core.egp.main.create.box.3.256.256.64.64.1",
+                    "core.egp.main.create.etc.4.256.256.50.1.t.e.x.t. v,Souldb",
+                    "core.egp.main.set.button.2.rcon_a.1000",
+                    "core.egp.main.set.group.col.1.40.40.60")
 #[
  soulCode(array("core.egp.main.create.box.1.256.56.64.64.1"),1)
  soulCode(array("core.egp.main.create.box.2.256.156.64.64.1"),1)

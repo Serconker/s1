@@ -69,15 +69,9 @@ if(first()){
             This:egpMaterial(11,Avatar)
         } 
     }
-function void wirelink:keyboard(){
+    function void wirelink:keyboard(){
     
-}
-function void wirelink:drawGui(A){
-    if(A == 1){
-        This:getAvatar()
-        print(This:egpNumObjects())
     }
-}
     function void wirelink:updateTitle(A){
         if(A == 1){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"Current application: "+App,vec2(Apvx,Apvy))
@@ -89,8 +83,8 @@ function void wirelink:drawGui(A){
         }
     }
     function void playTheme(){
-            if(Data_split[16,string] != "0"){
-                entity():soundPlay(2,90,""+Data_split[16,string])
+        if(Data_split[16,string] != "0"){
+            entity():soundPlay(2,90,""+Data_split[16,string])
         }
     }
     function string getInfo(){

@@ -121,6 +121,18 @@ if(clk("Cig")){
  closestPly()
  timer("Cig",5000)
 }
+if(clk("mui")){
+ Inf++
+ local Cod = Data:explode("[SOUL]")
+ local Code = Cod[2,string]:explode("[")
+    if(Inf!=Code:count()+1){
+        soulCode(Code,Inf)
+        timer("mui",10)
+    }else{
+        stoptimer("mui")
+        S:getAvatar()
+    }
+}
 if(clk("Reini")){
     if(httpCanRequest()){
         httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password)
@@ -229,7 +241,7 @@ Author: Serconker
 User is authenticated.")
         }
             if(S1_rcon_allow != 0){
-                timer("rcon_a",5000)
+                timer("rcon_a",10000)
                 print("Fetching any RCON commands in five seconds")
             }else{
                 print("RCON is either dissabled or undefined")

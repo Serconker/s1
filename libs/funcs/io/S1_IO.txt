@@ -13,6 +13,10 @@
 @persist [Cfig Data_split Load_actions Sys_log]:array
 @persist [Trunk Apps]:table
 
+@persist [C]:table
+@persist [Func Buttons Objects Groups Buttons2 Objects2 Groups2 Temp_cords Temp_sizes Temp_mat Temp_col]:array
+@persist [Ph_String Stitch]:string
+@persist Sorted
 if(duped()){
  selfDestruct()   
 }

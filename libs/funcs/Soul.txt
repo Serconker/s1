@@ -200,7 +200,13 @@ function number soulCode(C:array,N){
                         if(Func[6,string]=="mat"){
                             S:egpMaterial(Func[7,string]:toNumber(),Func[8,string])
                         }elseif(Func[6,string]=="col"){
-                            S:egpColor(Func[7,string]:toNumber(),vec(Func[7,string]:toNumber(),Func[8,string]:toNumber(),Func[9,string]:toNumber()))
+                            if(Func:count()==10){
+                                S:egpColor(Func[7,string]:toNumber(),vec(Func[8,string]:toNumber(),Func[9,string]:toNumber(),Func[10,string]:toNumber()))
+                            }elseif(Func:count()==11){
+                                S:egpColor(Func[7,string]:toNumber(),vec4(Func[8,string]:toNumber(),Func[9,string]:toNumber(),Func[10,string]:toNumber(),Func[11,string]:toNumber()))
+                            }
+                        }elseif(Func[6,string]=="angle"){
+                            S:egpAngle(Func[7,string]:toNumber(),Func[8,string]:toNumber())
                         }
                     }elseif(Func[5,string]=="group"){
                         local Gi = Groups[Func[7,string]:toNumber(),string]:explode(".")

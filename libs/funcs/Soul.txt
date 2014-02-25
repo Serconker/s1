@@ -211,11 +211,11 @@ function number soulCode(C:array,N){
                     }elseif(Func[5,string]=="group"){
                         local Gi = Groups[Func[7,string]:toNumber(),string]:explode(".")
                         if(Func[6,string]=="mat"){
-                            for(X=1,Gi:count()){
+                            for(X=1,Gi:count()+1){
                                 S:egpMaterial(Gi[X,string]:toNumber(),Func[8,string])
                             }
                         }elseif(Func[6,string]=="col"){
-                            for(X=1,Gi:count()){
+                            for(X=1,Gi:count()+1){
                                 S:egpColor(Gi[X,string]:toNumber(),vec(Func[7,string]:toNumber(),Func[8,string]:toNumber(),Func[9,string]:toNumber()))
                             }
                         }

@@ -7,7 +7,7 @@
 @outputs [Avatar App ID3]:string
 @outputs [X8_5 X8_6 X8_7 X8_8]:array
 
-@persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI Index
+@persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI Index Inf
 @persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName]:string
 @persist [Cords Cords2]:vector2
 @persist [Cfig Data_split Load_actions Sys_log]:array

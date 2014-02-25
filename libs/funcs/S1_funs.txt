@@ -74,31 +74,34 @@ function void wirelink:keyboard(){
 }
 function void wirelink:drawGui(A){
     if(A == 1){
-        This:egpRoundedBox(Data_split[4+1,string]:toNumber(),vec2(256,100),vec2(0,0)) #Prim hori bar
-        This:egpBox(Data_split[4+2,string]:toNumber(),vec2(200,150),vec2(0,0)) #Sec hori-bar
-        This:egpRoundedBox(Data_split[4+3,string]:toNumber(),vec2(120,100),vec2(0,0)) #Gradient counter bar
-        This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+7,string]),Cords,vec2(76,76)) #Hat Bground
-        This:egpCircle(Data_split[4+4,string]:toNumber(),Cords,vec2(75,75)) #Hat Bground
-        This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+2,string]),Cords,vec2(65,65)) #Hat Bground2
-        This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+3,string]),vec2(256,Cy+55),vec2(60,480)) #Hori bar stuff
-        This:egpRoundedBox(patchNum1(Data_split[4+1,string],Data_split[4+9,string]),vec2(256,Cy),vec2(482,70)) #Hori bar stuff
-        This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+3,string]),Cords,vec2(62,62)) #Hat Bground blue ring
-        This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+10,string]),vec2(256,Cy),vec2(478,66)) #Hori bar stuff
-        This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+1,string]),vec2(256,Cy),vec2(476,64)) #Hori bar stuff
+        This:egpRemove(1)
+        This:egpRemove(2)
+        This:egpRemove(3)
+        This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+7,string]),Cords,vec2(76,76)) #Hat Bground [.]
+        This:egpCircle(Data_split[4+4,string]:toNumber(),Cords,vec2(75,75)) #Hat Bground [.]
+        This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+2,string]),Cords,vec2(65,65)) #Hat Bground2 [.]
+        This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+3,string]),vec2(256,Cy+55),vec2(60,480)) #Hori bar stuff [.]
+        This:egpRoundedBox(patchNum1(Data_split[4+1,string],Data_split[4+9,string]),vec2(256,Cy),vec2(482,70)) #Hori bar stuff [.]
+        This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+3,string]),Cords,vec2(62,62)) #Hat Bground blue ring [.]
+        This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+10,string]),vec2(256,Cy),vec2(478,66)) #Hori bar stuff [.]
+        This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+1,string]),vec2(256,Cy),vec2(476,64)) #Hori bar stuff [.]
         This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+4,string]),Cords,vec2(61,61)) #Hat Bground2
         This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+5,string]),Cords,vec2(61,61)) #Hat Bground2
         This:egpCircle(patchNum1(Data_split[4+1,string],Data_split[4+6,string]),Cords,vec2(59,59)) #Hat Bground2
         This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+5,string]),vec2(256,Cy-5),vec2(10,400)) #Hori line stuff
         This:egpRoundedBox(patchNum1(Data_split[4+2,string],Data_split[4+2,string]),vec2(256,Cy+20),vec2(5,474)) #Hori line stuff
+        
         This:egpAngle(patchNum1(Data_split[4+2,string],Data_split[4+2,string]),90)
         This:egpAngle(patchNum1(Data_split[4+2,string],Data_split[4+3,string]),270)
         This:egpAngle(patchNum1(Data_split[4+2,string],Data_split[4+5,string]),90)
+        
         This:egpMaterial(Data_split[4+4,string]:toNumber(),"gui/center_gradient") #Hori-bar 
         This:egpMaterial(patchNum1(Data_split[4+1,string],Data_split[4+5,string]),"gui/center_gradient") #Hori-bar 
         This:egpMaterial(patchNum1(Data_split[4+1,string],Data_split[4+6,string]),"gui/center_gradient") #Hori-bar 
         This:egpMaterial(patchNum1(Data_split[4+2,string],Data_split[4+2,string]),"gui/center_gradient") #Hori-bar 
         This:egpMaterial(patchNum1(Data_split[4+2,string],Data_split[4+3,string]),"models/props_combine/combine_fenceglow") #Hori-bar 
         This:egpMaterial(patchNum1(Data_split[4+2,string],Data_split[4+5,string]),"gui/center_gradient") #Hori-bar 
+        
         This:egpColor(Data_split[4+1,string]:toNumber(),vec(99,99,99))
         This:egpColor(Data_split[4+2,string]:toNumber(),vec(120,0,0))
         This:egpColor(Data_split[4+3,string]:toNumber(),vec(99,99,99))
@@ -106,14 +109,14 @@ function void wirelink:drawGui(A){
         This:egpColor(Data_split[4+7,string]:toNumber(),vec(0,0,0))
         This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+2,string]),vec(60,60,60))
         This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+3,string]),vec(0,0,120))
-        This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+4,string]),vec(40,40,60)) #
+        This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+4,string]),vec(40,40,60))
         This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+5,string]),vec(20,20,20))
-        This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+6,string]),vec(30,30,30)) #
+        This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+6,string]),vec(30,30,30))
         This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+7,string]),vec(60,60,60))
         This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+8,string]),vec(30,30,30))
         This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+9,string]),vec(60,60,60))
         This:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+10,string]),vec(0,0,120))
-        This:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+1,string]),vec(40,40,60)) #
+        This:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+1,string]),vec(40,40,60))
         This:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+2,string]),vec(50,50,50))
         This:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+3,string]),vec4(120,0,0,220))
         This:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+5,string]),vec4(120,0,0,20))

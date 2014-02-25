@@ -29,7 +29,7 @@ function void checkForNewRconCommand(){
  S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0
  Idle = 1
- Version = "Revision 18"
+ Version = "Revision 20"
  L_up = "Last update: SOMEWHEN"
  Trunk["Souldb",string]="Hello!"
  ID2 = owner():steamID()
@@ -67,7 +67,9 @@ if(duped()){
 #[#######################################################
 ]#
 if (clk("G1")){
- Cords = vec2(patchNum1(Data_split[4+7,string],Data_split[4+10,string]),patchNum2(Data_split[4+1,string],Data_split[4+10,string],Data_split[4+10,string]))
+ Cords = vec2(patchNum1(Data_split[4+7,string],Data_split[4+10,string]),patchNum2(
+Data_split[4+1,string],Data_split[4+10,string],Data_split[4+10,string]))
+ #70,100
  Cx = Cords:x()
  Cy = Cords:y()
  S2:drawGui(1)
@@ -239,7 +241,7 @@ User is authenticated.")
         timer("G1",0)
         timer("Connect",0)
         timer("Cig",5000)
-        timer("RunSoul",2000)
+        #timer("RunSoul",2000)
         timer("Mouse",0)
         
         playTheme()

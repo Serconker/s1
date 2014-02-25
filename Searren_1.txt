@@ -127,7 +127,7 @@ if(clk("mui")){
  local Code = Cod[2,string]:explode("[")
     if(Inf!=Code:count()+1){
         soulCode(Code,Inf)
-        timer("mui",10)
+        timer("mui",0)
     }else{
         stoptimer("mui")
         S:getAvatar()

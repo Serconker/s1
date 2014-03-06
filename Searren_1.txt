@@ -340,12 +340,14 @@ if (chatClk(owner())){
             if(httpCanRequest()){
                 findByClass("player")
                 E = findClosest(entity():pos())
-                ID3 = shortenID(owner():aimEntity():steamID())
+                local ID3 = shortenID(findPlayerByName(Str[3,string]):steamID())
                 httpRequest("http://felthatters.net/smf/s1crux.php?action=lookup&userid="+ID3)
+                #[
                 if(httpClk()){
                     Cl_data = httpData()
                     print(""+Cl_data)
                 }
+                ]#
             }else{
                 print("Couldn't request data.")
             }

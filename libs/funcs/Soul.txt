@@ -311,6 +311,17 @@ function string soulCode(C:array,N){
         }else{
             print("Soul: invalid entry on Function 2; "+C[N,string]+", "+Func[1,string])
         }
+    }elseif(Func[1,string]=="extension"){
+        if(Func[2,string]=="meerik"){
+            
+        }elseif(Func[2,string]=="rcon"){
+        
+        }
+        #           All extensions should go above in the same way
+        #           using 'elseif(Func[2,string]=="derp-extension"){' statements
+        #           and all code to be within them, please do not edit the 'outer
+        #           /core' functions or I'll me mad.
+        #           ~Serconker
     }else{
         print("Soul: invalid entry on Function 1; "+C[N,string]+", "+Func[1,string])
     }

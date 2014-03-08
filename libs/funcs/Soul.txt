@@ -32,7 +32,7 @@ function void soulCode(S:string,N){
     }
 }
 ## V Main ##
-function number soulCode(C:array,N){
+function string soulCode(C:array,N){
  Func = C[N,string]:explode(".")
     if(Func[1,string]=="core"){
         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
@@ -120,11 +120,17 @@ function number soulCode(C:array,N){
                                         print(Func)
                                         print(Func)
                                         print("########################")
+                                    }else{
+                                        print("Soul: invalid entry on Function; "+C[N,string]+", "+Func[1,string]+" Unkown item or tampered array?")
                                     }
                                 }
                             }
                         }
+                    }else{
+                        print("Soul: invalid entry on Function 5; "+C[N,string]+", "+Func[1,string])
                     }
+                }else{
+                    print("Soul: invalid entry on Function 4; "+C[N,string]+", "+Func[1,string])
                 }
             }elseif(Func[3,string]=="main"){ ##core.egp.main.create.box.1.256.256.64.64.1
                 if(Func[4,string]=="create"){ ##core.egp.main.create.box.1.256.256.64.64.1
@@ -272,15 +278,17 @@ function number soulCode(C:array,N){
                     local Info2 = Buttons2[X,string]:explode(".")
                     if(E:touching(S,Info[1,string]:toNumber())){
                         timer(Info[2,string],Info[3,string]:toNumber())
-                        return X
+                        return ""+X
                         break
                     }
                     if(E:touching(S2,Info[1,string]:toNumber())){
                         timer(Info[2,string],Info[3,string]:toNumber())
-                        return X
+                        return ""+X
                         break
                     }
                 }
+            }else{
+                print("Soul: invalid entry on Function 3; "+C[N,string]+", "+Func[1,string])
             }
         }elseif(Func[2,string]=="kill"){
             selfDestruct()
@@ -289,6 +297,19 @@ function number soulCode(C:array,N){
         }elseif(Func[2,string]=="setval"){
             Trunk[Func[3,string],string]=Func[4,string]
             print(Trunk[Func[3,string],string]+"  "+Func[4,string]+"  "+Func[3,string])
+        }elseif(Func[2,string]=="setout"){
+            X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            print(X8_2[Func[3,string]:toNumber(),string]+"#")
+        }elseif(Func[2,string]=="getin"){
+            print(X8_1[Func[3,string]:toNumber(),string])
+            return X8_1[Func[3,string]:toNumber(),string]
+        }elseif(Func[2,string]=="pulseout"){
+            X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            timer("soulrsetout",Func[5,string]:toNumber())
+            Trunk["reset",number]=Func[3,string]:toNumber()
+            #X8_2[Func[3,string]:toNumber(),string]=""
+        }else{
+            print("Soul: invalid entry on Function 2; "+C[N,string]+", "+Func[1,string])
         }
     }else{
         print("Soul: invalid entry on Function 1; "+C[N,string]+", "+Func[1,string])

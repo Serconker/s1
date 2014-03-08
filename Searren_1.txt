@@ -104,6 +104,9 @@ if(clk("Mouse")){
     }   
     timer("Mouse",500)
 }
+if(clk("soulrsetout")){
+ X8_2[Trunk["reset",number],string]=""
+}
 if(clk("Failure")){
  entity():soundPlay(1,3,"vo/citadel/br_ohshit.wav")
 }

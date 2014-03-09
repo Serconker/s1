@@ -135,13 +135,13 @@ function string soulCode(C:array,N){
 #[###################################]# S:egpRemove(Items[I,string]:toNumber())
                                         soulCode(array("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Objects[Items[I,string]:toNumber(),string]:explode(".")[5,string]+"."+Func[6,string]+"."+Stitch),1)
 #                                        soulCode(array("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]+"."+Stitch),1)
-                                        print("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]:toNumber()+"."+Stitch)
+#[                                        print("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Func[6,string]:toNumber()+"."+Stitch)
                                         print(Func[6,string])
                                         print("########################")
                                         print(Func)
                                         print(Func)
-                                        print("########################")
-                                    }else{
+                                       print("########################")
+]#                                  }else{
                                         print("Soul: invalid entry on Function; "+C[N,string]+", "+Func[1,string]+" Unkown item or tampered array?")
                                     }
                                 }
@@ -317,13 +317,33 @@ function string soulCode(C:array,N){
             Trunk[Func[3,string],string]=Func[4,string]
             print(Trunk[Func[3,string],string]+"  "+Func[4,string]+"  "+Func[3,string])
         }elseif(Func[2,string]=="setout"){
-            X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            if(Func[4,string]:find("io,")){
+                local Fun=Func[4,string]:replace("io","")
+                Func[4,string]=X8_1[Fun:explode(",")[2,string]:toNumber(),string]
+                X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            }elseif(Func[4,string]:find("v,")){
+                local Fun=Func[4,string]:replace("v","")
+                Func[4,string]=Trunk[Fun:explode(",")[2,string]:toNumber(),string]
+                X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            }else{
+                X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            }
             print(X8_2[Func[3,string]:toNumber(),string]+"#")
         }elseif(Func[2,string]=="getin"){
             print(X8_1[Func[3,string]:toNumber(),string])
             return X8_1[Func[3,string]:toNumber(),string]
         }elseif(Func[2,string]=="pulseout"){
-            X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            if(Func[4,string]:find("io,")){
+                local Fun=Func[4,string]:replace("io","")
+                Func[4,string]=X8_1[Fun:explode(",")[2,string]:toNumber(),string]
+                X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            }elseif(Func[4,string]:find("v,")){
+                local Fun=Func[4,string]:replace("v","")
+                Func[4,string]=Trunk[Fun:explode(",")[2,string]:toNumber(),string]
+                X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            }else{
+                X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
+            }
             timer("soulrsetout",Func[5,string]:toNumber())
             Trunk["reset",number]=Func[3,string]:toNumber()
         }else{

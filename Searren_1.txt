@@ -29,7 +29,7 @@ function void checkForNewRconCommand(){
  S1_rcon_allow_egp = 0
  S1_rcon_allow_concmd = 0
  Idle = 1
- Version = "Revision 20"
+ Version = "Revision 21"
  L_up = "Last update: SOMEWHEN"
  Trunk["Souldb",string]="Hello!"
  ID2 = owner():steamID()
@@ -142,7 +142,6 @@ if(clk("Versionget")){
         print("Requesting")
         httpRequest("http://felthatters.net/smf/s1crux.php?action=version&version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
         timer("Versionget",600000)
-        print("http://felthatters.net/smf/s1crux.php?action=version&version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
         Got_up = 1
     }else{
         print("Could not request")
@@ -165,7 +164,6 @@ if(clk("rcon")){
             S1_rcon_handling = 1
         }else{
             S1_rcon_command[1,array]=S1_rcon_command_line[1,string]:explode(".")
-            print(S1_rcon_command[1,array][1,string])
         }
     }else{
         print("Nothing to phase")
@@ -173,13 +171,11 @@ if(clk("rcon")){
 }
 while(S1_rcon_handling == 1){
  S1_rcon_command[S1_rcon_flick_in,array] = S1_rcon_command_line[S1_rcon_flick_in,string]:explode(".")
- print(S1_rcon_flick_in)
  S1_rcon_flick_in++
     if(S1_rcon_flick_in == S1_rcon_enum_quee_l+1){
         S1_rcon_handling = 0
         S1_rcon_flick_in = 0
         timer("runcmds",3000)
-        printTable(S1_rcon_command)
         print("Commands split/phasing, running commands.")
     }
 }

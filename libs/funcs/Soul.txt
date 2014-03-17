@@ -194,8 +194,15 @@ function string soulCode(C:array,N){
                     }
                 }elseif(Func[4,string]=="set"){
                     if(Func[5,string]=="button"){
-                        Buttons[Buttons:count()+1,string]=Func[6,string]+"."+Func[7,string]+"."+Func[8,string]
-                        Objects[Func[6,string]:toNumber(),string]:replace("static","button")
+                        if(Func[6,string]=="rs"){
+                            local Spl = Objects[Func[9,string]:toNumber(),string]:explode(".")
+                            Spl[4,string]="."+Func[7,string]
+                            Buttons[Buttons:count()+1,string]=Func[9,string]+"."+Func[8,string]
+                            Objects[Func[6,string]:toNumber(),string]=Spl[1,string]+".sbutton."+Spl[3,string]+"."+Spl[4,string]
+                        }else{
+                            Buttons[Buttons:count()+1,string]=Func[6,string]+"."+Func[7,string]+"."+Func[8,string]
+                            Objects[Func[6,string]:toNumber(),string]:replace("static","button")
+                        }
                     }elseif(Func[5,string]=="item"){
                         if(Func[6,string]=="mat"){
                             S:egpMaterial(Func[7,string]:toNumber(),Func[8,string])
@@ -276,7 +283,7 @@ function string soulCode(C:array,N){
                         if(Func[6,string]=="mat"){
                             S2:egpMaterial(Func[7,string]:toNumber(),Func[8,string])
                         }elseif(Func[6,string]=="col"){
-                            S2:egpColor(Func[7,string]:toNumber(),vec(Func[7,string]:toNumber(),Func[8,string]:toNumber(),Func[9,string]:toNumber()))
+                            S2:egpColor(Func[7,string]:toNumber(),vec(Func[8,string]:toNumber(),Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         }
                     }elseif(Func[5,string]=="group"){
                         local Gi = Groups2[Func[7,string]:toNumber(),string]:explode(".")

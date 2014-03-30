@@ -85,7 +85,7 @@ if (clk("Guifr")){
  S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),""+Version2,vec2(125,Cy-23))
  S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),vec(180,180,180))
  S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),vec(180,180,180))
- timer("Guifr",1000)
+ timer("Guifr",5000)
     if(App == "" & Idle == Data_split[4+1,string]:toNumber()){
         S:updateTitle(2)
     }
@@ -247,9 +247,9 @@ User is authenticated.")
         Auth_str = "[Authentic user]"
         timer("G1",0)
         timer("Connect",0)
-        timer("Cig",5000)
+        #timer("Cig",5000)
         #timer("RunSoul",2000)
-        timer("Mouse",0)
+        #timer("Mouse",0)
         
         playTheme()
     }elseif(Data:find("Denied, auth")){

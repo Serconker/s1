@@ -249,7 +249,7 @@ User is authenticated.")
         timer("Connect",0)
         #timer("Cig",5000)
         #timer("RunSoul",2000)
-        #timer("Mouse",0)
+        timer("Mouse",0)
         
         playTheme()
     }elseif(Data:find("Denied, auth")){

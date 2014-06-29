@@ -372,6 +372,8 @@ function string soulCode(C:array,N){
             }
             timer("soulrsetout",Func[5,string]:toNumber())
             Trunk["reset",number]=Func[3,string]:toNumber()
+        }elseif(Func[2,string]=="forcetime"){
+            timer(Func[3,string],Func[4,string]:toNumber())
         }else{
             print("Soul: invalid entry on Function 2; "+C[N,string]+", "+Func[1,string])
         }

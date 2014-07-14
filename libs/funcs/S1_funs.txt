@@ -113,6 +113,56 @@ if(first()){
             return 0
         }
     }
+    function registerChatCommand(Whieght:string, Name:string, Core:string, Arguments:string#[ S = string, N = number, V = vector, V2 = vector2 ]#, Timer:string, Delay){
+        local Ins = array(Name, Core, Arguments, Timer, Delay)
+        Commands[Commands:count()+1,string]= Whieght+"."+Name+".{"+Core+"."+Arguments+"."+Timer+"."+Delay
+    }
+    function number checkChatCommands(){
+        local Str = lastSaid():lower():explode(" ")
+        if(Commands:count()>=50){
+            return 0
+        }else{
+            for(I=1, Commands:count()){
+                local C = Commands[I,string]:explode(".")
+                if(C[1,string]=="Owner"&&lastSpoke()==owner()){
+                    if(C[3,string]==Str[3,string]){
+                        if(C[2,string]==Str[2,string]){
+                            if(C[4,string]:explode(" "):count() >1){
+                                Chatarg = ""
+                                Chat_o = 0
+                                for(I=1,C[4,string]:explode(" "):count()){
+                                    if(C[4,string]:explode(" ")[I,string]=="S"){
+                                        if(Str[2+I,string]:find("''")){ 
+                                            #[ String's contained by double single quotation marks! ]#
+                                            Chatarg = Chatarg+Str[2+I+Chat_o,string]:replace("''","")
+                                            for(I=1,Str:count()-2){
+                                                if(Str[3+I+Chat_o,string]:find("''")){
+                                                    Chatarg = Chatarg+"||"
+                                                    Chat_o++
+                                                }else{
+                                                    Chatarg = Chatarg+Str[3+I,string]
+                                                    Chat_o++
+                                                }
+                                            }
+                                        }
+                                    }elseif(C[4,string]:explode(" ")[I,string]=="N"||C[4,string]:explode(" ")[I,string]=="V"||C[4,string]:explode(" ")[I,string]=="V2"){
+                                        Chatarg = Chatarg+Str[3+I+Chat_o,string]+"||"
+                                    }
+                                }
+                                if(I==C[4,string]:explode(" "):count()){
+                                    timer(C[5,string],C[6,string]:toNumber())
+                                }
+                            }else{
+                            
+                            }
+                        }
+                    }
+                }elseif(C[1,string]=="All"||C[1,string]==""){
+                
+                }
+            }
+        }
+    }
 }
 if(duped()){
  selfDestruct()   

@@ -4,36 +4,36 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 @name Searren 1
 #@model models/player/items/humans/top_hat.mdl
 if(first()){
-#include "s1/libs/funcs/S1_funs"
-#include "s1/libs/funcs/io/S1_IO"
-#include "s1/libs/funcs/Soul"
-#include "s1/apps/rcon/resources"
-#concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
-print(hashNoComments())
-findByClass("player")
-function entity closestPly(){
- findByClass("player")
- E = findClosest(entity():pos())
-}
-function void checkForNewRconCommand(){
-    if(S1_rcon_allow != 1){
-        print("Remote console is dissabled, ignoring.")
-    }elseif(!httpCanRequest()){
-        print("Cannot request the RCON domain.")
-    }else{
-        httpRequest("http://felthatters.net/smf/s1crux.php?action=rcon&id="+ID2)
+    #include "s1/libs/funcs/S1_funs"
+    #include "s1/libs/funcs/io/S1_IO"
+    #include "s1/libs/funcs/Soul"
+    #include "s1/apps/rcon/resources"
+    #concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
+#    print(hashNoComments())
+    findByClass("player")
+    function entity closestPly(){
+     findByClass("player")
+     E = findClosest(entity():pos())
     }
-}
- ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
- S1_rcon_allow = 1
- S1_rcon_allow_egp = 0
- S1_rcon_allow_concmd = 0
- Idle = 1
- Version = "Revision 21"
- L_up = "Last update: SOMEWHEN"
- Trunk["Souldb",string]="Hello!"
- ID2 = owner():steamID()
- setName("Searren 1
+    function void checkForNewRconCommand(){
+        if(S1_rcon_allow != 1){
+            print("Remote console is dissabled, ignoring.")
+        }elseif(!httpCanRequest()){
+            print("Cannot request the RCON domain.")
+        }else{
+            httpRequest("http://felthatters.net/smf/s1crux.php?action=rcon&id="+ID2)
+        }
+    }
+    ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
+    S1_rcon_allow = 1
+    S1_rcon_allow_egp = 0
+    S1_rcon_allow_concmd = 0
+    Idle = 1
+    Version = "Revision 21"
+    L_up = "Last update: SOMEWHEN"
+    Trunk["Souldb",string]="Hello!"
+    ID2 = owner():steamID()
+    setName("Searren 1
 "+Version+"
 BHCs official operating system.
 Later revisions will be released at:
@@ -41,20 +41,20 @@ www.felthatters.net/smf/
 "+L_up+"
 Author: Serconker
 Awating authentication")
- S:egpClear()
- S2:egpClear()
- S:keyboard()
- printColor(vec(220,0,0),"If you wish to have help with the usage of this E2, please go here:")
- printColor(vec(0,120,0),"http://www.felthatters.net/smf/os_help.txt")
- printColor(vec(220,0,0),"You should now authenticate your self with:")
- printColor(vec(0,120,0),"{os authme ")
- printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
- runOnHTTP(1)
- ID = shortenID(owner():steamID())
- timer("Versionget",1000)
+    S:egpClear()
+    S2:egpClear()
+    S:keyboard()
+    printColor(vec(220,0,0),"If you wish to have help with the usage of this E2, please go here:")
+    printColor(vec(0,120,0),"http://www.felthatters.net/smf/os_help.txt")
+    printColor(vec(220,0,0),"You should now authenticate your self with:")
+    printColor(vec(0,120,0),"{os authme ")
+    printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
+    runOnHTTP(1)
+    ID = shortenID(owner():steamID())
+    timer("Versionget",1000)
 }
 if(duped()){
- selfDestruct()
+    selfDestruct()
 }
 #[#######################################################
 #[#######################################################
@@ -63,36 +63,36 @@ if(duped()){
 #[#######################################################
 ]#
 if (clk("G1")){
- Cords = vec2(patchNum1(Data_split[4+7,string],Data_split[4+10,string]),patchNum2(
-Data_split[4+1,string],Data_split[4+10,string],Data_split[4+10,string]))
- #70,100
- Cx = Cords:x()
- Cy = Cords:y()
- S2:drawGui(1)
- S:drawGui(1)
- timer("Guifr",1000)
+    Cords = vec2(patchNum1(Data_split[4+7,string],Data_split[4+10,string]),patchNum2(
+    Data_split[4+1,string],Data_split[4+10,string],Data_split[4+10,string]))
+    #70,100
+    Cx = Cords:x()
+    Cy = Cords:y()
+    S2:drawGui(1)
+    S:drawGui(1)
+    timer("Guifr",1000)
 }
 if (clk("Guifr")){
-# LA = LastAmount
- Db = Data_split[4+1,string]:toNumber()
- Owner = owner():name()
- Version2 = "Searren 1 ("+Version+")"
- Title = ""+Auth_str+"Welcome, "+Owner+""
- M = Data_split[4+10,string]:toNumber()
- Apvx = patchNum2(Data_split[4+1,string],Data_split[4+3,string],Data_split[4+10,string])
- Apvy = patchNum1(Data_split[4+9,string],Data_split[4+1,string])
- S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),""+Title,vec2(125,Cy+5))
- S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),""+Version2,vec2(125,Cy-23))
- S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),vec(180,180,180))
- S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),vec(180,180,180))
- timer("Guifr",5000)
+    # LA = LastAmount
+    Db = Data_split[4+1,string]:toNumber()
+    Owner = owner():name()
+    Version2 = "Searren 1 ("+Version+")"
+    Title = ""+Auth_str+"Welcome, "+Owner+""
+    M = Data_split[4+10,string]:toNumber()
+    Apvx = patchNum2(Data_split[4+1,string],Data_split[4+3,string],Data_split[4+10,string])
+    Apvy = patchNum1(Data_split[4+9,string],Data_split[4+1,string])
+    S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),""+Title,vec2(125,Cy+5))
+    S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),""+Version2,vec2(125,Cy-23))
+    S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),vec(180,180,180))
+    S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),vec(180,180,180))
+    timer("Guifr",5000)
     if(App == "" & Idle == Data_split[4+1,string]:toNumber()){
         S:updateTitle(2)
     }
 }
 if(clk("Mouse")){
- findByClass("player")
- E = findClosest(entity():pos())
+    findByClass("player")
+    E = findClosest(entity():pos())
 # print(E)
     if(owner():keyUse()){
         soulCode(array("core.egp.checkb"),1)
@@ -101,29 +101,29 @@ if(clk("Mouse")){
     timer("Mouse",500)
 }
 if(clk("soulrsetout")){
- X8_2[Trunk["reset",number],string]=""
+    X8_2[Trunk["reset",number],string]=""
 }
 if(clk("Failure")){
- entity():soundPlay(1,3,"vo/citadel/br_ohshit.wav")
+    entity():soundPlay(1,3,"vo/citadel/br_ohshit.wav")
 }
 if(clk("Uaa")){
- entity():soundPlay(1,3,"npc/overwatch/radiovoice/unlawfulentry603.wav")
+    entity():soundPlay(1,3,"npc/overwatch/radiovoice/unlawfulentry603.wav")
 }
 if(clk("Connect")){
- entity():soundPlay(1,3,"npc/combine_soldier/vo/contactconfim.wav")
+    entity():soundPlay(1,3,"npc/combine_soldier/vo/contactconfim.wav")
 }
 if(clk("Got_down") & Got_up != 1){
- Got_up = 0
+    Got_up = 0
 # printColor(vec(0,120,0)," "+Data)
 }
 if(clk("Cig")){
- closestPly()
- timer("Cig",5000)
+    closestPly()
+    timer("Cig",5000)
 }
 if(clk("mui")){
- Inf++
- local Cod = Data:explode("[SOUL]")
- local Code = Cod[2,string]:explode("[")
+    Inf++
+    local Cod = Data:explode("[SOUL]")
+    local Code = Cod[2,string]:explode("[")
     if(Inf!=Code:count()+1){
         soulCode(Code,Inf)
         timer("mui",0)
@@ -170,8 +170,8 @@ if(clk("rcon")){
     }
 }
 while(S1_rcon_handling == 1){
- S1_rcon_command[S1_rcon_flick_in,array] = S1_rcon_command_line[S1_rcon_flick_in,string]:explode(".")
- S1_rcon_flick_in++
+    S1_rcon_command[S1_rcon_flick_in,array] = S1_rcon_command_line[S1_rcon_flick_in,string]:explode(".")
+    S1_rcon_flick_in++
     if(S1_rcon_flick_in == S1_rcon_enum_quee_l+1){
         S1_rcon_handling = 0
         S1_rcon_flick_in = 0
@@ -180,8 +180,8 @@ while(S1_rcon_handling == 1){
     }
 }
 if(clk("runcmds")){
- S1_rcon_concmd_i++
- rconPhaseAndRun(S1_rcon_concmd_i)
+    S1_rcon_concmd_i++
+    rconPhaseAndRun(S1_rcon_concmd_i)
     if(S1_rcon_concmd_i==S1_rcon_command:count()){
         S1_rcon_concmd_i = 0
         stoptimer("runcmds")
@@ -194,20 +194,20 @@ if(clk("runcmds")){
 #[#######################################################
 ]#
 if(httpClk()){
- Data = httpData()
- print("Request successful")
- entity():soundPlay(1,2,"npc/overwatch/radiovoice/beginscanning10-0.wav")
+    Data = httpData()
+    print("Request successful")
+    entity():soundPlay(1,2,"npc/overwatch/radiovoice/beginscanning10-0.wav")
     if(Data:find("401")){
         printColor(vec(220,0,0),""+Data+". Your login request was denied, please try again or apply for a Auth Key on the BHC forums")
         Authent = 0
         setName("Searren 1
-        "+Version+"
-        BHCs official operating system.
-        Later revisions will be released at:
-        www.felthatters.net/smf/
-        "+L_up+"
-        Author: Serconker
-        User is unauthenticated.")
+"+Version+"
+BHCs official operating system.
+Later revisions will be released at:
+www.felthatters.net/smf/
+"+L_up+"
+Author: Serconker
+User is unauthenticated.")
         Auth_str = "[Unauthentic user]"
         timer("Failure",1)
     }elseif(Data:find("Expression 2 is fully up to date!")){
@@ -250,19 +250,18 @@ User is authenticated.")
         #timer("Cig",5000)
         #timer("RunSoul",2000)
         timer("Mouse",0)
-        
         playTheme()
     }elseif(Data:find("Denied, auth")){
         printColor(vec(220,0,0),""+Data)
         Authent = 0
         setName("Searren 1
-        "+Version+"
-        BHCs official operating system.
-        Later revisions will be released at:
-        www.felthatters.net/smf/
-        "+L_up+"
-        Author: Serconker
-        User is unauthenticated.")
+"+Version+"
+BHCs official operating system.
+Later revisions will be released at:
+www.felthatters.net/smf/
+"+L_up+"
+Author: Serconker
+User is unauthenticated.")
         Auth_str = "[Unauthentic user]"
         timer("Uaa",0)
     }elseif(Data:find("startcon")){ ##For RCON/Message checker
@@ -289,13 +288,13 @@ User is authenticated.")
 Blah
 ]#
 if(clk("RunSoul")){
- local Code = array("core.egp.main.create.box.1.256.56.64.64.1", #core.egp.<Screen>.create.<Type; box/boxr/circ/text>.<EGP index>.<Pos X>.<Pos Y>.<Size X>.<Size Y>.<EGP-Group index>
-                    "core.egp.main.create.box.2.256.156.64.64.1",
-                    "core.egp.main.create.box.3.256.256.64.64.1",
-                    "core.egp.main.create.etc.4.256.256.50.1.t.e.x.t. v,Souldb",
-                    "core.egp.main.set.button.2.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
-                    "core.egp.main.set.group.col.1.40.40.60") 
-                           ###########################################################
+    local Code = array("core.egp.main.create.box.1.256.56.64.64.1", #core.egp.<Screen>.create.<Type; box/boxr/circ/text>.<EGP index>.<Pos X>.<Pos Y>.<Size X>.<Size Y>.<EGP-Group index>
+                       "core.egp.main.create.box.2.256.156.64.64.1",
+                       "core.egp.main.create.box.3.256.256.64.64.1",
+                       "core.egp.main.create.etc.4.256.256.50.1.t.e.x.t. v,Souldb",
+                       "core.egp.main.set.button.2.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
+                       "core.egp.main.set.group.col.1.40.40.60") 
+                        ###########################################################
     for(I=1,Code:count()){ ###########################################################
         soulCode(Code,I)   ### This is an example of how you can use SOUL with EGP ###
     }                      ###########################################################
@@ -309,8 +308,8 @@ if(clk("RunSoul")){
 ]#
 runOnChat(1)
 if (chatClk(owner())){
- Str = owner():lastSaid():lower():explode(" ")
- Str1 = lastSpoke():lastSaid():lower():explode(" ")
+    Str = owner():lastSaid():lower():explode(" ")
+    Str1 = lastSpoke():lastSaid():lower():explode(" ")
     if(Str[1,string]=="{app"){
     }
     if(Str[1,string]=="{os"){

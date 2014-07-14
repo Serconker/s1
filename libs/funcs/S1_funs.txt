@@ -116,6 +116,7 @@ if(first()){
     function registerChatCommand(Whieght:string, Name:string, Core:string, Arguments:string#[ S = string, N = number, V = vector, V2 = vector2 ]#, Timer:string, Delay){
         local Ins = array(Name, Core, Arguments, Timer, Delay)
         Commands[Commands:count()+1,string]= Whieght+"."+Name+".{"+Core+"."+Arguments+"."+Timer+"."+Delay
+        print(Commands[Commands:count(),string])
     }
     function number checkChatCommands(){
         local Str = lastSaid():lower():explode(" ")

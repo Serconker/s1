@@ -51,6 +51,7 @@ Awating authentication")
     printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
     runOnHTTP(1)
     ID = shortenID(owner():steamID())
+    registerChatCommand("", "test", "os", "S N", "testtim", 0)
     timer("Versionget",1000)
 }
 if(duped()){
@@ -99,6 +100,9 @@ if(clk("Mouse")){
         print("pressed")
     }   
     timer("Mouse",500)
+}
+if(clk("testtim")){
+    print("Don't touch Timmy, you pervert!")
 }
 if(clk("soulrsetout")){
     X8_2[Trunk["reset",number],string]=""
@@ -310,6 +314,7 @@ runOnChat(1)
 if (chatClk(owner())){
     Str = owner():lastSaid():lower():explode(" ")
     Str1 = lastSpoke():lastSaid():lower():explode(" ")
+    checkChatCommands()
     if(Str[1,string]=="{app"){
     }
     if(Str[1,string]=="{os"){

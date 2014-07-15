@@ -8,9 +8,20 @@ if(first()){
     #include "s1/libs/funcs/io/S1_IO"
     #include "s1/libs/funcs/Soul"
     #include "s1/apps/rcon/resources"
+    #include "bhc/some_function_libaries/fileFuncs"
     #concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
 #    print(hashNoComments())
     findByClass("player")
+    function loadSettings(){
+        local Cfg_path = "s1/settings.s1"
+        local Cfg_raw = rightFileLoad(Cfg_path, Catch)
+        if(fileClk()){
+            local Cfg_raw = Cfg_raw:explode(",")
+            for(I=1, Cfg_raw:count()){
+                Sys_settings[Sys_settings:count(),string] = Cfg_raw[I,string]
+            }
+        }
+    }
     function entity closestPly(){
      findByClass("player")
      E = findClosest(entity():pos())
@@ -29,7 +40,7 @@ if(first()){
     S1_rcon_allow_egp = 0
     S1_rcon_allow_concmd = 0
     Idle = 1
-    Version = "Revision 21"
+    Version = "Revision 21.x"
     L_up = "Last update: SOMEWHEN"
     Trunk["Souldb",string]="Hello!"
     ID2 = owner():steamID()
@@ -53,6 +64,8 @@ Awating authentication")
     ID = shortenID(owner():steamID())
     registerChatCommand("", "test", "os", "S N", "testtim", 0)
     timer("Versionget",1000)
+    timer("Initial",5000)
+    runOnFile(1)
 }
 if(duped()){
     selfDestruct()
@@ -63,6 +76,45 @@ if(duped()){
 #[#######################################################
 #[#######################################################
 ]#
+if(clk("Initial")){
+    Load_actions[Load_actions:count()+1,string] = "cfg"
+    if(fileCanLoad()){
+        fileLoad("s1/settings2")
+    }else{
+        print("Cannot load!")
+    }
+    if(fileLoaded()){
+        if(fileRead()!=""){
+            local Cfg_raw = fileRead():trim():explode(",")
+            printTable(Cfg_raw)
+            for(I=1, Cfg_raw:count()){
+                Sys_settings[Sys_settings:count()+1,string] = Cfg_raw[I,string]
+            }
+            timer("I", 0)
+        }else{
+            fileLoad("s1/settings2")
+            print("Didn't load!")
+        }
+    }else{
+        print("File not loaded? "+fileStatus())
+    }
+    ##loadSettings()
+}
+if(clk("I")){
+    if(Load_actions[1,string]=="cfg"){
+        print("Phasing config settings")
+        local Autolog = Sys_settings[1,string]:trim():explode("=")[2,string]:toNumber()
+        local Usgpass = Sys_settings[2,string]:trim():explode("=")[2,string]
+        print("Autolog bool = "+Autolog)
+        print("User password string = "+Autolog)
+        if(Autolog == 1 && Usgpass != ""){
+            printColor(vec(0,120,0),"Autologgin..")
+            if(httpCanRequest()){
+                httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Usgpass)
+            }
+        }
+    }
+}
 if (clk("G1")){
     Cords = vec2(patchNum1(Data_split[4+7,string],Data_split[4+10,string]),patchNum2(
     Data_split[4+1,string],Data_split[4+10,string],Data_split[4+10,string]))
@@ -139,8 +191,8 @@ if(clk("mui")){
 if(clk("Reini")){
     if(httpCanRequest()){
         httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password)
-        }
     }
+}
 if(clk("Versionget")){
     if(httpCanRequest()){
         print("Requesting")

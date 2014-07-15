@@ -13,32 +13,6 @@ Some commands as example for SOUL.
 {os soul runthis core.egp.main.create.box.3.256.256.64.64.1
 {os soul runthis core.egp.main.create.box.2.256.156.64.64.1
 {os soul runthis core.egp.main.create.box.1.256.56.64.64.1
-    
-    
-if(clk("RunSoul")){
- local Code = array("core.egp.main.create.box.1.256.56.64.64.1", #core.egp.<Screen>.create.<Type; box/boxr/circ/text>.<EGP index>.<Pos X>.<Pos Y>.<Size X>.<Size Y>.<EGP-Group index>
-                    "core.egp.main.create.box.2.256.156.64.64.1",
-                    "core.egp.main.create.box.3.256.256.64.64.1",
-                    "core.egp.main.create.etc.4.256.256.50.1.t.e.x.t. v,Souldb",
-                    "core.egp.main.set.button.2.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
-                    "core.egp.main.set.group.col.1.40.40.60") 
-                           ###########################################################
-    for(I=1,Code:count()){ ###########################################################
-        soulCode(Code,I)   ### This is an example of how you can use SOUL with EGP ###
-    }                      ###########################################################
-                           ###########################################################
-}    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
 ]#
 @name Searren Opperating Utillity Language core
 #include "s1/libs/funcs/S1_funs"

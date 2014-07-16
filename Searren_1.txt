@@ -1,5 +1,6 @@
 #[
 Do not romove ANY 'Made by' statements, doing so will be breaching Creative Commons laws.
+
 ]#
 @name Searren 1
 #@model models/player/items/humans/top_hat.mdl
@@ -8,23 +9,19 @@ if(first()){
     #include "s1/libs/funcs/io/S1_IO"
     #include "s1/libs/funcs/Soul"
     #include "s1/apps/rcon/resources"
-    #include "bhc/some_function_libaries/fileFuncs"
     #concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
 #    print(hashNoComments())
     findByClass("player")
-    function loadSettings(){
-        local Cfg_path = "s1/settings.s1"
-        local Cfg_raw = rightFileLoad(Cfg_path, Catch)
-        if(fileClk()){
-            local Cfg_raw = Cfg_raw:explode(",")
-            for(I=1, Cfg_raw:count()){
-                Sys_settings[Sys_settings:count(),string] = Cfg_raw[I,string]
-            }
-        }
-    }
     function entity closestPly(){
      findByClass("player")
      E = findClosest(entity():pos())
+    }
+    function void core_addlog(S:string){
+        fileAppend("s1/logs/log_"+date()["day",number]+""+date()["month",number]+""+date()["year",number], S)
+        print("s1/logs/log_"+date()["day",number]+""+date()["month",number]+""+date()["year",number])
+    }
+    function string core_time(){
+        return "["+time("hour")+":"+time("minute")+"]"
     }
     function void checkForNewRconCommand(){
         if(S1_rcon_allow != 1){
@@ -64,8 +61,10 @@ Awating authentication")
     ID = shortenID(owner():steamID())
     registerChatCommand("", "test", "os", "S N", "testtim", 0)
     timer("Versionget",1000)
-    timer("Initial",5000)
+    timer("Initial",10000)
+    timer("RunSoul",10000)
     runOnFile(1)
+    print("Time = "+core_time())
 }
 if(duped()){
     selfDestruct()
@@ -79,10 +78,14 @@ if(duped()){
 if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(fileCanLoad()){
-        fileLoad("s1/settings2")
+        fileLoad("settings")
+        timer("Forceloadcfg",6000)
     }else{
         print("Cannot load!")
     }
+    ##loadSettings()
+}
+if(fileClk("settings") || clk("Forceloadcfg")){
     if(fileLoaded()){
         if(fileRead()!=""){
             local Cfg_raw = fileRead():trim():explode(",")
@@ -90,15 +93,15 @@ if(clk("Initial")){
             for(I=1, Cfg_raw:count()){
                 Sys_settings[Sys_settings:count()+1,string] = Cfg_raw[I,string]
             }
-            timer("I", 0)
+            timer("I", 1000)
         }else{
-            fileLoad("s1/settings2")
+            fileLoad("settings")
             print("Didn't load!")
         }
     }else{
-        print("File not loaded? "+fileStatus())
+        core_addlog(core_time()+": Couln't load settings file, reported error: "+fileStatus())
+        print("Could not load settings file! Error: "+fileStatus())
     }
-    ##loadSettings()
 }
 if(clk("I")){
     if(Load_actions[1,string]=="cfg"){
@@ -307,6 +310,7 @@ User is authenticated.")
         #timer("RunSoul",2000)
         timer("Mouse",0)
         playTheme()
+        core_addlog(core_time()+": User was authenticated.")
     }elseif(Data:find("Denied, auth")){
         printColor(vec(220,0,0),""+Data)
         Authent = 0
@@ -344,12 +348,12 @@ User is unauthenticated.")
 Blah
 ]#
 if(clk("RunSoul")){
-    local Code = array("core.egp.main.create.box.1.256.56.64.64.1", #core.egp.<Screen>.create.<Type; box/boxr/circ/text>.<EGP index>.<Pos X>.<Pos Y>.<Size X>.<Size Y>.<EGP-Group index>
-                       "core.egp.main.create.box.2.256.156.64.64.1",
-                       "core.egp.main.create.box.3.256.256.64.64.1",
-                       "core.egp.main.create.etc.4.256.256.50.1.t.e.x.t. v,Souldb",
-                       "core.egp.main.set.button.2.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
-                       "core.egp.main.set.group.col.1.40.40.60") 
+    local Code = array("core.egp.main.create.box.20.256.56.64.64.4", #core.egp.<Screen>.create.<Type; box/boxr/circ/text>.<EGP index>.<Pos X>.<Pos Y>.<Size X>.<Size Y>.<EGP-Group index>
+                       "core.egp.main.create.box.21.256.156.64.64.4",
+                       "core.egp.main.create.box.22.256.256.64.64.4",
+                       "core.egp.main.create.etc.23.256.256.50.4.t.e.x.t. v,Souldb",
+                       "core.egp.main.set.button.21.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
+                       "core.egp.main.set.group.col.4.40.40.60") 
                         ###########################################################
     for(I=1,Code:count()){ ###########################################################
         soulCode(Code,I)   ### This is an example of how you can use SOUL with EGP ###
@@ -374,12 +378,10 @@ if (chatClk(owner())){
             if(Str[3,string]==""){
             print("http://www.felthatters.net/smf/changelog_OS.txt")
             }
-        }
-        if(Str[2,string]=="authme"){
+        }elseif(Str[2,string]=="authme"){
             Password = Str[3,string]
             timer("Reini",0)
-        }
-        if(Str[2,string]=="lookup"){
+        }elseif(Str[2,string]=="lookup"){
             if(httpCanRequest()){
                 findByClass("player")
                 E = findClosest(entity():pos())
@@ -392,24 +394,20 @@ if (chatClk(owner())){
             }else{
                 print("Couldn't request data.")
             }
-        }
-        if(Str[2,string]=="help"){
+        }elseif(Str[2,string]=="help"){
             if(Str[3,string]==""){
                 print("www.felthatters.net/smf/bhc/other/OS.txt")
             }
             if(Str[3,string]=="app"){
                 print(""+Cfig[7,string])
             }
-        }
-        if(Str[2,string]=="apps"){
-        print(""+Apps:toString():replace("=",""):trim())
-        }
-        if(Str[2,string]=="loadcfig"){
+        }elseif(Str[2,string]=="apps"){
+            print(""+Apps:toString():replace("=",""):trim())
+        }elseif(Str[2,string]=="loadcfig"){
             if(Str1[3,string]!=""){
                 loadAppCFig(""+Str[3,string])
             }
-        }
-        if(Str[2,string]=="soul"){
+        }elseif(Str[2,string]=="soul"){
             if(Str[3,string]=="printlog"){
                 print(Sys_log)
                 print(Str[3,string]:upper())
@@ -423,6 +421,8 @@ if (chatClk(owner())){
                 soulCode(array(owner():lastSaid():replace(Str[1,string]+" "+Str[2,string]+" "+Str[3,string]+" ","")),1)
 #                print(owner():lastSaid():replace(Str[1,string]+" "+Str[2,string]+" "+Str[3,string]+" ",""))
             }
+        }elseif(Str[2,string]=="addtologs"){
+            core_addlog(Str[3,string])
         }
     }
 }

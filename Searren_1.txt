@@ -59,10 +59,10 @@ Awating authentication")
     printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
     runOnHTTP(1)
     ID = shortenID(owner():steamID())
-    registerChatCommand("", "test", "os", "S N", "testtim", 0)
+    registerChatCommand("Owner", "test", "os", "S N", "testtim", 0)
     timer("Versionget",1000)
-    timer("Initial",10000)
-    timer("RunSoul",10000)
+    timer("Initial",6000)
+    #timer("RunSoul",10000)
     runOnFile(1)
     print("Time = "+core_time())
 }
@@ -79,7 +79,7 @@ if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(fileCanLoad()){
         fileLoad("settings")
-        timer("Forceloadcfg",6000)
+        timer("Forceloadcfg",5000)
     }else{
         print("Cannot load!")
     }

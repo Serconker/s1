@@ -126,7 +126,7 @@ if (clk("G1")){
     Cy = Cords:y()
     S2:drawGui(1)
     S:drawGui(1)
-    timer("Guifr",1000)
+    #timer("Guifr",1000)
 }
 if (clk("Guifr")){
     # LA = LastAmount
@@ -188,6 +188,7 @@ if(clk("mui")){
         timer("mui",0)
     }else{
         stoptimer("mui")
+        timer("Guifr",0)
         S:getAvatar()
     }
 }
@@ -205,6 +206,10 @@ if(clk("Versionget")){
     }else{
         print("Could not request")
     }
+}
+if(clk("runmenu")){
+    print("This actually worked?")
+    timer("Connect",0)
 }
 #[#######################################################
 #[#######################################################
@@ -354,6 +359,7 @@ if(clk("RunSoul")){
                        "core.egp.main.create.etc.23.256.256.50.4.t.e.x.t. v,Souldb",
                        "core.egp.main.set.button.21.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
                        "core.egp.main.set.group.col.4.40.40.60") 
+                    ##core.egp.main.set.button.14.run_menu.0
                         ###########################################################
     for(I=1,Code:count()){ ###########################################################
         soulCode(Code,I)   ### This is an example of how you can use SOUL with EGP ###
@@ -420,6 +426,10 @@ if (chatClk(owner())){
             }elseif(Str[3,string]=="runthis"){
                 soulCode(array(owner():lastSaid():replace(Str[1,string]+" "+Str[2,string]+" "+Str[3,string]+" ","")),1)
 #                print(owner():lastSaid():replace(Str[1,string]+" "+Str[2,string]+" "+Str[3,string]+" ",""))
+            }elseif(Str[3,string]=="objects"){
+                for(I=1,Objects:count()){
+                    print(I+" "+Objects[I,string]+" "+Objects:count()+"/"+I)
+                }
             }
         }elseif(Str[2,string]=="addtologs"){
             core_addlog(Str[3,string])

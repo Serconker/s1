@@ -178,6 +178,7 @@ function string soulCode(C:array,N){
                         }else{
                             Buttons[Buttons:count()+1,string]=Func[6,string]+"."+Func[7,string]+"."+Func[8,string]
                             Objects[Func[6,string]:toNumber(),string]:replace("static","button")
+                            print("Made button with data "+Func[6,string]+"."+Func[7,string]+"."+Func[8,string])
                         }
                     }elseif(Func[5,string]=="item"){
                         if(Func[6,string]=="mat"){
@@ -284,10 +285,33 @@ function string soulCode(C:array,N){
                     }
                 }
             }elseif(Func[3,string]=="checkb"){
+                if((Buttons:count() == 1 && Buttons2:count() == 1)||(Buttons:count() == 1 && Buttons2:count() == 0)||(Buttons:count() == 0 && Buttons2:count() == 1)){
+                    local Info = Buttons[1,string]:explode(".")
+                    local Info2 = Buttons2[1,string]:explode(".")
+                    if(E:touching(S,Info[1,string]:toNumber())){
+                        print("Touching button "+Buttons[1,string])
+                        if(Objects[Info[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
+                            soulCode(array(Info[2,string]:replace(Info[1,string],".")),1)
+                        }else{
+                            timer(Info[2,string],Info[3,string]:toNumber())
+                        }
+                        return ""
+                    }
+                    if(E:touching(S2,Info2[1,string]:toNumber())){
+                        print("Touching button "+Buttons[1,string])
+                        if(Objects2[Info2[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
+                            soulCode(array(Info2[2,string]:replace(Info2[1,string],".")),1)
+                        }else{
+                            timer(Info2[2,string],Info2[3,string]:toNumber())
+                        }
+                        return ""
+                    }
+                }
                 for(X=0,whatsLarger(Buttons:count(),Buttons2:count())){
                     local Info = Buttons[X,string]:explode(".")
                     local Info2 = Buttons2[X,string]:explode(".")
                     if(E:touching(S,Info[1,string]:toNumber())){
+                        print("Touching button "+Buttons[X,string])
                         if(Objects[Info[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
                             soulCode(array(Info[2,string]:replace(Info[1,string],".")),1)
                         }else{
@@ -297,6 +321,7 @@ function string soulCode(C:array,N){
                         break
                     }
                     if(E:touching(S2,Info2[1,string]:toNumber())){
+                        print("Touching button "+Buttons[X,string])
                         if(Objects2[Info2[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
                             soulCode(array(Info2[2,string]:replace(Info2[1,string],".")),1)
                         }else{

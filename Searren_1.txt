@@ -80,13 +80,13 @@ if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(fileCanLoad()){
         fileLoad(">e2shared/s1/settings/main.txt")
-        timer("Forceloadcfg",5000)
+        #timer("Forceloadcfg",5000)
     }else{
         #print("Cannot load!")
     }
     ##loadSettings()
 }
-if(fileClk(">e2shared/s1/settings/main.txt") || clk("Forceloadcfg")){
+if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
     if(fileLoaded()){
         if(fileRead()!=""){
             local Cfg_raw = fileRead():trim():explode(",")
@@ -117,15 +117,20 @@ if(fileClk(">e2shared/s1/settings/main.txt") || clk("Forceloadcfg")){
 if(clk("I")){
     if(Load_actions[1,string]=="cfg"){
         #print("Phasing config settings")
-        local Autolog = Sys_settings[1,string]:trim():explode("=")[2,string]:toNumber()
-        local Usgpass = Sys_settings[2,string]:trim():explode("=")[2,string]
+        local Autolog = core_findSettingValue("autolog"):toNumber()
+        Password = core_findSettingValue("pass")
         #print("Autolog bool = "+Autolog)
         #print("User password string = "+Autolog)
-        if(Autolog == 1 && Usgpass != ""){
-            printColor(vec(0,120,0),"Autologgin..")
+        if(Autolog == 1 && Password != ""){
+            printColor(vec(0,120,0),"Autologging..")
+            #print("Autolog = "+Autolog)
+            #print("Password = "+Password)
+            #[
             if(httpCanRequest()){
                 httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Usgpass)
             }
+            ]#
+            timer("Reini",1000)
         }
     }
 }
@@ -205,7 +210,9 @@ if(clk("mui")){
 }
 if(clk("Reini")){
     if(httpCanRequest()){
-        httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password)
+        local URL = "http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password
+        print(URL)
+        httpRequest(URL)
     }
 }
 if(clk("Versionget")){

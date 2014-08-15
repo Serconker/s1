@@ -122,7 +122,7 @@ if(first()){
         for(I=1,Sys_settings:count()){
             local A = Sys_settings[I,string]:explode("=")[1,string]
             local B = Sys_settings[I,string]:explode("=")[2,string]
-            if(A==S){
+            if(A:find(S)){
                 return B
             }elseif(I==Sys_settings:count()){
                 return ""

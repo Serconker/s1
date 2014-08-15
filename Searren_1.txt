@@ -13,15 +13,16 @@ if(first()){
 #    print(hashNoComments())
     findByClass("player")
     function entity closestPly(){
-     findByClass("player")
-     E = findClosest(entity():pos())
-    }
-    function void core_addlog(S:string){
-        fileAppend("s1/logs/log_"+date()["day",number]+""+date()["month",number]+""+date()["year",number], S)
-        print("s1/logs/log_"+date()["day",number]+""+date()["month",number]+""+date()["year",number])
+        findByClass("player")
+        E = findClosest(entity():pos())
     }
     function string core_time(){
         return "["+time("hour")+":"+time("minute")+"]"
+    }
+    function void core_addlog(S:string){
+        
+        fileAppend(">e2shared/s1/logs/log", core_time()+"| "+S)
+        print("s1/logs/log_"+date()["day",number]+""+date()["month",number]+""+date()["year",number])
     }
     function void checkForNewRconCommand(){
         if(S1_rcon_allow != 1){
@@ -64,6 +65,7 @@ Awating authentication")
     timer("Initial",6000)
     #timer("RunSoul",10000)
     runOnFile(1)
+    core_addlog("Loaded")
     print("Time = "+core_time())
 }
 if(duped()){
@@ -78,38 +80,48 @@ if(duped()){
 if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(fileCanLoad()){
-        fileLoad("settings")
+        fileLoad(">e2shared/s1/settings/main.txt")
         timer("Forceloadcfg",5000)
     }else{
-        print("Cannot load!")
+        #print("Cannot load!")
     }
     ##loadSettings()
 }
-if(fileClk("settings") || clk("Forceloadcfg")){
+if(fileClk(">e2shared/s1/settings/main.txt") || clk("Forceloadcfg")){
     if(fileLoaded()){
         if(fileRead()!=""){
             local Cfg_raw = fileRead():trim():explode(",")
-            printTable(Cfg_raw)
+            #printTable(Cfg_raw)
             for(I=1, Cfg_raw:count()){
                 Sys_settings[Sys_settings:count()+1,string] = Cfg_raw[I,string]
             }
             timer("I", 1000)
         }else{
-            fileLoad("settings")
-            print("Didn't load!")
+            #fileLoad(">e2shared/s1/settings/main.txt")
+            #print("Didn't load!")
         }
     }else{
         core_addlog(core_time()+": Couln't load settings file, reported error: "+fileStatus())
-        print("Could not load settings file! Error: "+fileStatus())
+        if(fileStatus() == _FILE_UNKNOWN){
+            print("Could not load settings file! File is unkown!")
+        }elseif(fileStatus() ==  _FILE_OK){
+            print("Could not load settings file! File is 'OK'!")
+        }elseif(fileStatus() == _FILE_TIMEOUT){
+            print("Could not load settings file! File timed out?")
+        }elseif(fileStatus() == _FILE_404){
+            print("Could not load settings file! File not found?")
+        }elseif(fileStatus() == _FILE_TRANSFER_ERROR){
+            print("Could not load settings file! Firewall problems, maybe?")
+        }
     }
 }
 if(clk("I")){
     if(Load_actions[1,string]=="cfg"){
-        print("Phasing config settings")
+        #print("Phasing config settings")
         local Autolog = Sys_settings[1,string]:trim():explode("=")[2,string]:toNumber()
         local Usgpass = Sys_settings[2,string]:trim():explode("=")[2,string]
-        print("Autolog bool = "+Autolog)
-        print("User password string = "+Autolog)
+        #print("Autolog bool = "+Autolog)
+        #print("User password string = "+Autolog)
         if(Autolog == 1 && Usgpass != ""){
             printColor(vec(0,120,0),"Autologgin..")
             if(httpCanRequest()){
@@ -186,7 +198,7 @@ if(clk("mui")){
     if(Inf!=Code:count()+1){
         soulCode(Code,Inf)
         timer("mui",0)
-    }else{
+    }else{ local Derp = E:pos():distance(entity():pos())
         stoptimer("mui")
         timer("Guifr",0)
         S:getAvatar()
@@ -276,7 +288,7 @@ User is unauthenticated.")
         timer("Failure",1)
     }elseif(Data:find("Expression 2 is fully up to date!")){
         timer("Got_down",1000)
-        printColor(vec(0,120,0)," "+Data)
+        printColor(vec(0,120,0),"Your version of Searren 1 is currently up to date!")
         entity():soundPlay(1,3,"npc/metropolice/vo/clearno647no10-107.wav")
     }elseif(Data:find("Authed")){
         if(Modded==1){
@@ -441,3 +453,19 @@ Made by Serconker, also known as 'The Other Lexi' and any other respective allia
 Chikanman, ideas and testing.
 Crypto, ideas and testing.
 Mathias, testing.
+Various other people for testing.
+
+>s1
+ >logs
+  >log.txt -Contains nothing
+ >settings
+  >main.txt -MUST contain this;
+
+autolog=0,
+pass=test123,
+file_dir=>e2shared/s1/files/,
+file_indxes=int.txt,
+
+Don't change the bottom two just yet, but the first two you're fine to do so, 
+you may also add your own options and such, 
+and then call them via the "core_findSettingValue(string)" function

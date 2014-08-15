@@ -118,6 +118,17 @@ if(first()){
         Commands[Commands:count()+1,string]= Whieght+"."+Name+".{"+Core+"."+Arguments+"."+Timer+"."+Delay
         print(Commands[Commands:count(),string])
     }
+    function string core_findSettingValue(S:string){
+        for(I=1,Sys_settings:count()){
+            local A = Sys_settings[I,string]:explode("=")[1,string]
+            local B = Sys_settings[I,string]:explode("=")[2,string]
+            if(A==S){
+                return B
+            }elseif(I==Sys_settings:count()){
+                return ""
+            }
+        }
+    }
     function number checkChatCommands(){
         local Str = lastSaid():lower():explode(" ")
         if(Commands:count()>=50){

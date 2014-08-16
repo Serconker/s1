@@ -1,8 +1,6 @@
 #[
-Do not romove ANY 'Made by' statements, doing so will be breaching Creative Commons laws.
-
+Do not romove ANY 'Made by' statements, doing so will be breaching Creative Commons copyright as you are implying you made the product.
 ]#
-@name Searren 1
 
 #@model models/player/items/humans/top_hat.mdl
 if(first()){
@@ -10,20 +8,9 @@ if(first()){
     #include "s1/libs/funcs/io/S1_IO"
     #include "s1/libs/funcs/Soul"
     #include "s1/apps/rcon/resources"
-    #concmd("say /advert I'm a egotistical bastard that advertises that his E2 is loading!")
-#    print(hashNoComments())
-    findByClass("player")
     function entity closestPly(){
         findByClass("player")
         E = findClosest(entity():pos())
-    }
-    function string core_time(){
-        return "["+time("hour")+":"+time("minute")+"]"
-    }
-    function void core_addlog(S:string){
-        
-        fileAppend(">e2shared/s1/logs/log", core_time()+"| "+S)
-        print("s1/logs/log_"+date()["day",number]+""+date()["month",number]+""+date()["year",number])
     }
     function void checkForNewRconCommand(){
         if(S1_rcon_allow != 1){
@@ -34,6 +21,60 @@ if(first()){
             httpRequest("http://felthatters.net/smf/s1crux.php?action=rcon&id="+ID2)
         }
     }
+    function string core_time(){
+        return "["+time("hour")+":"+time("min")+":"+time("sec")+"]"
+    }
+    function string core_date(){
+        return "["+time("day")+"/"+time("month")+"/"+time("year")+"]"
+    }
+    function void core_addlog(S:string){
+        fileAppend(">e2shared/s1/logs/log.txt", core_date()+" | "+core_time()+" | "+S+"
+")
+        printColor(vec(220,0,0),"Printing to log file; s1/logs/log.txt; "+S)
+    }
+    function void core_sortLogs(){
+        Buff_string=""
+        local Arr = Sys_log
+        for(I=1,Arr:count()){
+            Buff_string = Buff_string+Arr[I,string]+"
+"
+            Sys_log_p[Sys_log_p:count()+1,string] = Arr[I,string]
+            #print(Buff_string)
+            if(I==Arr:count()){
+                Sys_log=array()
+                core_addlog("[SOUL LOG DUMP START]
+"+Buff_string+"
+"+core_date()+" | "+core_time()+" | "+" | [SOUL LOG DUMP END]")
+                print("[SOUL LOG DUMP START]
+"+Buff_string+"
+"+core_date()+" | "+core_time()+" | "+" | [SOUL LOG DUMP END]")
+            }
+        }
+    }
+    function string wirelink:core_setStatus(S:string,Col:vector4,N){
+        if(S!=""){
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
+            core_addlog(S)
+            timer("rststat",N*1000)
+        }else{
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
+            core_addlog("System idling..")
+        }
+    }
+    function string wirelink:core_setStatus(S:string,Col:vector4){
+        if(S!=""){
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
+            core_addlog(S)
+            timer("rststat",10000)
+        }else{
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
+            core_addlog("System idling..")
+        }
+    }
     ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
     S1_rcon_allow = 1
     S1_rcon_allow_egp = 0
@@ -42,7 +83,11 @@ if(first()){
     Version = "Revision 21.x"
     L_up = "Last update: SOMEWHEN"
     Trunk["Souldb",string]="Hello!"
+    ID = shortenID(owner():steamID())
     ID2 = owner():steamID()
+    S:egpClear()
+    S2:egpClear()
+    findByClass("player")
     setName("Searren 1
 "+Version+"
 BHCs official operating system.
@@ -51,32 +96,30 @@ www.felthatters.net/smf/
 "+L_up+"
 Author: Serconker
 Awating authentication")
-    S:egpClear()
-    S2:egpClear()
-    S:keyboard()
+    registerChatCommand("Owner", "test", "os", "S N", "testtim", 0)
+    core_addlog("Client booting..")
+    #S:keyboard()
     printColor(vec(220,0,0),"If you wish to have help with the usage of this E2, please go here:")
     printColor(vec(0,120,0),"http://www.felthatters.net/smf/os_help.txt")
     printColor(vec(220,0,0),"You should now authenticate your self with:")
     printColor(vec(0,120,0),"{os authme ")
     printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
+    print("Time = "+core_time())
     runOnHTTP(1)
-    ID = shortenID(owner():steamID())
-    registerChatCommand("Owner", "test", "os", "S N", "testtim", 0)
+    runOnFile(1)
+    runOnChat(1)
+    runOnLast(1)
     timer("Initial",6000)
     #timer("RunSoul",10000)
-    runOnFile(1)
-    core_addlog("Loaded")
-    print("Time = "+core_time())
 }
 if(duped()){
     selfDestruct()
 }
-#[#######################################################
-#[#######################################################
-#[######## Timer CLKs(Used as a goto function) ##########
-#[#######################################################
-#[#######################################################
-]#
+#[#######################################################]#
+#[#######################################################]#
+#[######## Timer CLKs(Used as a goto function) ##########]#
+#[#######################################################]#
+#[#######################################################]#
 if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(Auth_str == "[Authentic user]"){
@@ -84,26 +127,21 @@ if(clk("Initial")){
     }
     if(fileCanLoad()){
         fileLoad(">e2shared/s1/settings/main.txt")
-        #timer("Forceloadcfg",5000)
     }else{
-        #print("Cannot load!")
+        print("Cannot load!")
     }
-    ##loadSettings()
 }
 if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
     if(fileLoaded()){
         if(fileRead()!=""){
             local Cfg_raw = fileRead():trim():explode(",")
-            #printTable(Cfg_raw)
             for(I=1, Cfg_raw:count()){
                 Sys_settings[Sys_settings:count()+1,string] = Cfg_raw[I,string]
             }
-            #if(Auth_str != "[Authentic user]"){
-                timer("I", 1000)
-            #}
+            timer("I", 1000)
         }else{
-            #fileLoad(">e2shared/s1/settings/main.txt")
-            #print("Didn't load!")
+            fileLoad(">e2shared/s1/settings/main.txt")
+            print("Didn't load!")
         }
     }else{
         core_addlog(core_time()+": Couln't load settings file, reported error: "+fileStatus())
@@ -125,19 +163,9 @@ if(clk("rststat")){
 }
 if(clk("I")){
     if(Load_actions[1,string]=="cfg"){
-        #print("Phasing config settings")
         local Autolog = core_findSettingValue("autolog"):toNumber()
         Password = core_findSettingValue("pass")
-        #print("Autolog bool = "+Autolog)
-        #print("User password string = "+Autolog)
         if(Autolog == 1 && Password != ""){
-            #print("Autolog = "+Autolog)
-            #print("Password = "+Password)
-            #[
-            if(httpCanRequest()){
-                httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Usgpass)
-            }
-            ]#
             if(Auth_str != "[Authentic user]"){
                 printColor(vec(0,120,0),"Autologging..")
                 timer("Reini",1000)
@@ -226,11 +254,20 @@ if(clk("mui")){
         S:getAvatar()
     }
 }
+if(clk("dumpsoul")){
+    S:core_setStatus("Dumping & sorting SOUL logs..",vec4(0,155,0,255))
+    timer("dumpsoul",180000)
+    timer("umpsoul2",10000)
+}
+if(clk("umpsoul2")){
+    print("Printing SOUL log to file..")
+    core_sortLogs()
+}
 if(clk("Reini")){
     if(httpCanRequest()){
         local URL = "http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password
         #timer("Initial",60000)
-        print(URL)
+        timer("dumpsoul",20000)
         httpRequest(URL)
     }
 }
@@ -360,7 +397,7 @@ User is authenticated.")
         #timer("RunSoul",2000)
         timer("Mouse",0)
         playTheme()
-        core_addlog(core_time()+": User was authenticated.")
+        core_addlog(ID2+" was authenticated.")
     }elseif(Data:find("Denied, auth")){
         printColor(vec(220,0,0),""+Data)
         Authent = 0
@@ -405,11 +442,9 @@ if(clk("RunSoul")){
                        "core.egp.main.set.button.21.rcon_a.1000", #When making a button you need a timer and its delay from the button press.
                        "core.egp.main.set.group.col.4.40.40.60") 
                     ##core.egp.main.set.button.14.run_menu.0
-                        ###########################################################
-    for(I=1,Code:count()){ ###########################################################
+    for(I=1,Code:count()){ 
         soulCode(Code,I)   ### This is an example of how you can use SOUL with EGP ###
-    }                      ###########################################################
-                           ###########################################################
+    }                      
 }
 #[#######################################################
 #[#######################################################
@@ -417,7 +452,6 @@ if(clk("RunSoul")){
 #[#######################################################
 #[#######################################################
 ]#
-runOnChat(1)
 if (chatClk(owner())){
     Str = owner():lastSaid():lower():explode(" ")
     Str1 = lastSpoke():lastSaid():lower():explode(" ")
@@ -480,6 +514,9 @@ if (chatClk(owner())){
             core_addlog(Str[3,string])
         }
     }
+}
+if(last()){
+    core_addlog("Client shutting down..")
 }
 #[
 Made by Serconker, also known as 'The Other Lexi' and any other respective alliases, with help from the following personal;

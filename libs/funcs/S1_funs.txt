@@ -1,6 +1,8 @@
 @name S1_funs
 if(first()){
 #include "s1/libs/funcs/io/S1_IO"
+#Sys_log 
+#Sys_log_p
     function string shortenID(S:string){
         if(S:lower():find("steam_0:0:")){
             return httpUrlEncode(S:lower():replace("steam_0:0:",""))
@@ -8,6 +10,19 @@ if(first()){
             return httpUrlEncode(S:lower():replace("steam_1:0:",""))
         }elseif(S:lower():find("steam_0:1:")){
             return httpUrlEncode(S:lower():replace("steam_0:1:",""))
+        }
+    }
+    function void core_sortLogs(){
+        Buff_string=""
+        local Arr = Sys_log
+        for(I=1,Arr:count()){
+            Buff_string = Buff_string+Arr[I,string]+"
+"
+            Sys_log_p[Sys_log_p:count()+1,string] = Arr[I,string]
+            Sys_log:remove(I)
+            if(I==Arr:count()){
+                
+            }
         }
     }
     function void array:appendString(S:string){
@@ -80,26 +95,6 @@ if(first()){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
         }elseif(A == 3){
-        }
-    }
-    function string wirelink:core_setStatus(S:string,Col:vector4){
-        if(S!=""){
-            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
-            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
-            timer("rststat",10000)
-        }else{
-            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
-            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
-        }
-    }
-    function string wirelink:core_setStatus(S:string,Col:vector4,N){
-        if(S!=""){
-            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
-            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
-            timer("rststat",N*1000)
-        }else{
-            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
-            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
         }
     }
     function void playTheme(){

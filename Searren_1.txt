@@ -30,7 +30,7 @@ if(first()){
     function void core_addlog(S:string){
         fileAppend(">e2shared/s1/logs/log.txt", core_date()+" | "+core_time()+" | "+S+"
 ")
-        printColor(vec(220,0,0),"Printing to log file; s1/logs/log.txt; "+S)
+        #printColor(vec(220,0,0),"Printing to log file; s1/logs/log.txt; "+S)
     }
     function void core_sortLogs(){
         Buff_string=""
@@ -44,10 +44,7 @@ if(first()){
                 Sys_log=array()
                 core_addlog("[SOUL LOG DUMP START]
 "+Buff_string+"
-"+core_date()+" | "+core_time()+" | "+" | [SOUL LOG DUMP END]")
-                print("[SOUL LOG DUMP START]
-"+Buff_string+"
-"+core_date()+" | "+core_time()+" | "+" | [SOUL LOG DUMP END]")
+"+core_date()+" | "+core_time()+" | "+" [SOUL LOG DUMP END]")
             }
         }
     }
@@ -55,24 +52,24 @@ if(first()){
         if(S!=""){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
-            core_addlog(S)
+            core_addlog("Status: "+S)
             timer("rststat",N*1000)
         }else{
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
-            core_addlog("System idling..")
+            core_addlog("Status: System idling..")
         }
     }
     function string wirelink:core_setStatus(S:string,Col:vector4){
         if(S!=""){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
-            core_addlog(S)
+            core_addlog("Status: "+S)
             timer("rststat",10000)
         }else{
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
-            core_addlog("System idling..")
+            core_addlog("Status: System idling..")
         }
     }
     ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
@@ -516,7 +513,10 @@ if (chatClk(owner())){
     }
 }
 if(last()){
-    core_addlog("Client shutting down..")
+    core_addlog("Client shutting down..
+---------------------------------------------------------------
+
+")
 }
 #[
 Made by Serconker, also known as 'The Other Lexi' and any other respective alliases, with help from the following personal;

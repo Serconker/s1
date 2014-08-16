@@ -10,12 +10,12 @@
 @persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI Index Inf Chat_o
 @persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName Chatarg Catch]:string
 @persist [Cords Cords2]:vector2
-@persist [Cfig Data_split Load_actions Sys_log Commands Comhist Sys_settings]:array
+@persist [Cfig Data_split Load_actions Sys_log Sys_log_p Commands Comhist Sys_settings]:array
 @persist [Trunk Apps]:table
 
 @persist [C]:table
 @persist [Func Buttons Objects Groups Buttons2 Objects2 Groups2 Temp_cords Temp_sizes Temp_mat Temp_col]:array
-@persist [Ph_String Stitch]:string
+@persist [Ph_String Stitch Buff_string]:string
 @persist Sorted
 if(duped()){
  selfDestruct()   

@@ -30,7 +30,7 @@ function void pushLog(S:string){
 function string soulCode(C:array,N){
  Func = C[N,string]:explode(".")
     if(Func[1,string]=="core"){
-        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Entered core with '"+C[N,string]+"' function")
+        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Entered core with '"+C[N,string]+"' function")
         if(Func[2,string]=="egp"){
             if(Func[3,string]=="group"){#core.egp.group.shift.secondary.1
                 if(Func[4,string]=="add"){
@@ -133,17 +133,17 @@ function string soulCode(C:array,N){
                         S:egpBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="box.static."+Func[11,string]
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
-                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a box with soul")
+                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a box with soul")
                     }elseif(Func[5,string]=="boxr"){
                         S:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
-                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a rounded box with soul")
+                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
                         S:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
-                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a circle with soul")
+                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
                         Index = Func[6,string]:toNumber()
                         Stitch = ""
@@ -161,7 +161,7 @@ function string soulCode(C:array,N){
                                 S:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
                                 Objects[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]+Stitch+Func[9,string]
                                 Groups[Func[10,string]:toNumber(),string]=Groups[Func[10,string]:toNumber(),string]+Func[6,string]+"."
-                                pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
+                                pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created text with soul")
                                 Ph_String = ""
                             }
                         }
@@ -222,13 +222,13 @@ function string soulCode(C:array,N){
                         S2:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
-                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a rounded box with soul")
+                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
                         print("e")
                         S2:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
-                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a circle with soul")
+                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
                         print("f")
                         Index = Func[6,string]:toNumber()
@@ -249,7 +249,7 @@ function string soulCode(C:array,N){
                                 S2:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
                                 Objects2[Func[6,string]:toNumber(),string]="text.static."+Func[10,string]+Ph_String
                                 Groups2[Func[10,string]:toNumber(),string]=Groups2[Func[10,string]:toNumber(),string]+Func[6,string]+"."
-                                pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created text with soul")
+                                pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created text with soul")
                                 Ph_String = ""
                             }
                         }

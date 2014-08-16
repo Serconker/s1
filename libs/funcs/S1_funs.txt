@@ -82,6 +82,26 @@ if(first()){
         }elseif(A == 3){
         }
     }
+    function string wirelink:core_setStatus(S:string,Col:vector4){
+        if(S!=""){
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
+            timer("rststat",10000)
+        }else{
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
+        }
+    }
+    function string wirelink:core_setStatus(S:string,Col:vector4,N){
+        if(S!=""){
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
+            timer("rststat",N*1000)
+        }else{
+            This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"System idling",vec2(Apvx,Apvy)) 
+            This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,0,0)) 
+        }
+    }
     function void playTheme(){
         if(Data_split[16,string] != "0"){
             entity():soundPlay(2,90,""+Data_split[16,string])

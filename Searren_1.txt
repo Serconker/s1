@@ -3,6 +3,7 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 
 ]#
 @name Searren 1
+
 #@model models/player/items/humans/top_hat.mdl
 if(first()){
     #include "s1/libs/funcs/S1_funs"
@@ -78,6 +79,9 @@ if(duped()){
 ]#
 if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
+    if(Auth_str == "[Authentic user]"){
+        S:core_setStatus("Reloading main CFG file..",vec4(0,155,0,255))
+    }
     if(fileCanLoad()){
         fileLoad(">e2shared/s1/settings/main.txt")
         #timer("Forceloadcfg",5000)
@@ -94,7 +98,9 @@ if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
             for(I=1, Cfg_raw:count()){
                 Sys_settings[Sys_settings:count()+1,string] = Cfg_raw[I,string]
             }
-            timer("I", 1000)
+            #if(Auth_str != "[Authentic user]"){
+                timer("I", 1000)
+            #}
         }else{
             #fileLoad(">e2shared/s1/settings/main.txt")
             #print("Didn't load!")
@@ -114,6 +120,9 @@ if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
         }
     }
 }
+if(clk("rststat")){
+    S:core_setStatus("",vec4())
+}
 if(clk("I")){
     if(Load_actions[1,string]=="cfg"){
         #print("Phasing config settings")
@@ -122,7 +131,6 @@ if(clk("I")){
         #print("Autolog bool = "+Autolog)
         #print("User password string = "+Autolog)
         if(Autolog == 1 && Password != ""){
-            printColor(vec(0,120,0),"Autologging..")
             #print("Autolog = "+Autolog)
             #print("Password = "+Password)
             #[
@@ -130,8 +138,13 @@ if(clk("I")){
                 httpRequest("http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Usgpass)
             }
             ]#
-            timer("Reini",1000)
+            if(Auth_str != "[Authentic user]"){
+                printColor(vec(0,120,0),"Autologging..")
+                timer("Reini",1000)
+            }
         }
+        timer("Initial",60000)
+        timer("rststat",0)
     }
 }
 if (clk("G1")){
@@ -142,6 +155,8 @@ if (clk("G1")){
     Cy = Cords:y()
     S2:drawGui(1)
     S:drawGui(1)
+    #S:core_setStatus("Setting UI specific values..",vec4(0,155,0,255))
+    #timer("rststat",1000)
     #timer("Guifr",1000)
 }
 if (clk("Guifr")){
@@ -157,9 +172,10 @@ if (clk("Guifr")){
     S:egpText(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),""+Version2,vec2(125,Cy-23))
     S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+6,string]),vec(180,180,180))
     S:egpColor(patchNum1(Data_split[4+2,string],Data_split[4+7,string]),vec(180,180,180))
-    timer("Guifr",5000)
+    timer("Guifr",120000)
     if(App == "" & Idle == Data_split[4+1,string]:toNumber()){
         S:updateTitle(2)
+        S:core_setStatus("Refreshing dynamic UI items..",vec4(155,155,255,255),2.5)
     }
 }
 if(clk("Mouse")){
@@ -169,11 +185,13 @@ if(clk("Mouse")){
     if(owner():keyUse()){
         soulCode(array("core.egp.checkb"),1)
         print("pressed")
+        S:core_setStatus("Checking SOUL button objects..",vec4(0,155,0,255),1)
     }   
     timer("Mouse",500)
 }
 if(clk("testtim")){
     print("Don't touch Timmy, you pervert!")
+    S:core_setStatus("TIMMY!",vec4(0,155,0,255))
 }
 if(clk("soulrsetout")){
     X8_2[Trunk["reset",number],string]=""
@@ -211,6 +229,7 @@ if(clk("mui")){
 if(clk("Reini")){
     if(httpCanRequest()){
         local URL = "http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password
+        #timer("Initial",60000)
         print(URL)
         httpRequest(URL)
     }
@@ -220,6 +239,7 @@ if(clk("Versionget")){
         print("Requesting")
         httpRequest("http://felthatters.net/smf/s1crux.php?action=version&version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
         timer("Versionget",600000)
+        S:core_setStatus("Sending version ping..",vec4(0,155,0,255))
         Got_up = 1
     }else{
         print("Could not request")
@@ -237,18 +257,22 @@ if(clk("runmenu")){
 ]#
 if(clk("rcon_a")){
     checkForNewRconCommand() 
+    S:core_setStatus("[RCON]Check complete; awaiting phaser response..",vec4(0,155,0,255))
     print("Check complete; awaiting phaser response.")
     timer("rcon",0)
 }
 if(clk("rcon")){
     if(httpData():find("None, idle")!=1){
         if(S1_rcon_enum_quee_l != 1){
+            S:core_setStatus("[RCON]Commands found.. Running.",vec4(0,155,0,255))
             S1_rcon_handling = 1
         }else{
             S1_rcon_command[1,array]=S1_rcon_command_line[1,string]:explode(".")
+            S:core_setStatus("[RCON]One command found.. Running.",vec4(0,155,0,255))
         }
     }else{
         print("Nothing to phase")
+        S:core_setStatus("[RCON] No commands found.",vec4(0,155,0,255))
     }
 }
 while(S1_rcon_handling == 1){
@@ -259,6 +283,7 @@ while(S1_rcon_handling == 1){
         S1_rcon_flick_in = 0
         timer("runcmds",3000)
         print("Commands split/phasing, running commands.")
+        S:core_setStatus("[RCON] Command string phased, running.",vec4(0,155,0,255),1)
     }
 }
 if(clk("runcmds")){
@@ -266,6 +291,7 @@ if(clk("runcmds")){
     rconPhaseAndRun(S1_rcon_concmd_i)
     if(S1_rcon_concmd_i==S1_rcon_command:count()){
         S1_rcon_concmd_i = 0
+        S:core_setStatus("[RCON] Commands ran.",vec4(0,155,0,255))
         stoptimer("runcmds")
     }
 }

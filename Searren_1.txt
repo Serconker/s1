@@ -3,11 +3,13 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 ]#
 
 #@model models/player/items/humans/top_hat.mdl
+@name Searren 1
 if(first()){
     #include "s1/libs/funcs/S1_funs"
     #include "s1/libs/funcs/io/S1_IO"
     #include "s1/libs/funcs/Soul"
     #include "s1/apps/rcon/resources"
+    #include "e2shared/s1/expansions/includes"
     function entity closestPly(){
         findByClass("player")
         E = findClosest(entity():pos())
@@ -234,6 +236,13 @@ if(clk("Got_down") & Got_up != 1){
     Got_up = 0
 # printColor(vec(0,120,0)," "+Data)
 }
+if(clk("ep_includes")){
+    local Fn = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[2,string]:replace(".txt","")
+    local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[3,string]:replace(".txt","")
+    print("FN = "+Fn)
+    print("FC = "+Fc)
+    fileAppend(">e2shared/s1/expansions/includes.txt",Fc)
+}
 if(clk("Cig")){
     closestPly()
     timer("Cig",5000)
@@ -329,6 +338,16 @@ if(clk("runcmds")){
         stoptimer("runcmds")
     }
 }
+if(fileClk(">e2shared/s1/expansions/"+Trunk["FN",string])){
+    print("???")
+}
+if(clk("ep_ini")){
+    fileWrite(">e2shared/s1/expansions/"+Trunk["FN",string],"")
+    fileAppend(">e2shared/s1/expansions/"+Trunk["FN",string],Trunk["FC",string])
+    
+    timer("ep_includes",15000)
+    print("Expansion file wrote.. Waiting to append includer.") 
+}
 #[#######################################################
 #[#######################################################
 #[############### HTTP Handling blocks ##################
@@ -419,6 +438,18 @@ User is unauthenticated.")
     }elseif(Data:find("Modded E2!")){
         timer("Got_down",1000)
         Modded = 1
+    }elseif(Data:find("[EXPANSION PACKAGE FOLLOWS]")){
+        print("Expansion echo found")
+        local Fn = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[2,string]
+        Trunk["FN",string]=Fn
+        print("TFN = "+Trunk["FN",string])
+        local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[4,string]
+        Trunk["FC",string]=Fc
+        if(fileCanWrite()){
+            fileWrite(">e2shared/s1/expansions/"+Fn,"")
+            timer("ep_ini",100)
+            print("Writing expansion file..")
+        }
     }else{
         printColor(vec(220,0,0),""+Data)
         timer("Failure",0)
@@ -509,6 +540,10 @@ if (chatClk(owner())){
             }
         }elseif(Str[2,string]=="addtologs"){
             core_addlog(Str[3,string])
+        }elseif(Str[2,string]=="downloadexpansion"){
+            if(httpCanRequest()){
+                httpRequest("http://felthatters.net/smf/s1crux.php?action=dlex&expdl="+Str[3,string])
+            }
         }
     }
 }
@@ -519,7 +554,7 @@ if(last()){
 ")
 }
 #[
-Made by Serconker, also known as 'The Other Lexi' and any other respective alliases, with help from the following personal;
+Made by Serconker, also known as 'The Other Lexi' and 'Syndyr', plus any other respective alliases, with help from the following personal;
 Chikanman, ideas and testing.
 Crypto, ideas and testing.
 Mathias, testing.

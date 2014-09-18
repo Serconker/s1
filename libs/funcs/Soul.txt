@@ -29,6 +29,19 @@ function void pushLog(S:string){
 ## V Main ##
 function string soulCode(C:array,N){
     local Contypes = array("sys,", "v,")
+            local Vals = array(
+            "v, time", 
+            "v, date", 
+            "sys, status",
+            "sys, owner-name",
+            "sys, owner-id")
+            
+            local Res  = array(
+            "["+time("hour")+":"+time("min")+":"+time("sec")+"]", 
+            "["+time("day")+"/"+time("month")+"/"+time("year")+"]",
+            Sys_status,
+            owner():name(),
+            owner():id())
     Func = C[N,string]:explode(".")
     if(Func[1,string]=="core"){
         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Entered core with '"+C[N,string]+"' function")
@@ -169,21 +182,62 @@ function string soulCode(C:array,N){
                         }
                         
                     }elseif(Func[5,string]=="etcadv"){
-                        #core.egp.create.[screen].etcadv.[index].[posx],[posy].[text]/[concat]/[value]/[any combo]
-                        #1    2   3      4        5      6       7             8 +
+                        #core.egp.[screen].create.etcadv.[index].[group].[posx],[posy].[update interval].[Size].[text]/[concat]/[value]/[any combo]
+                        #1    2   3        4      5      6       7       8             9                 10     11+
                         
+                        #1    2   3        4      5      6       7       8             9                 10     11            12      13      14      15
+                        #core.egp.main.    create.etcadv.200.    5.      256   ,125.   1.                20.    system time =.v, time. date =.v, date.!
+                        #core.egp.main.create.etcadv.200.5.256,164.1.20.system time :.v, time. date:.v, date.!
                         local Index = Func[6,string]:toNumber()
-                        local Pos = vec2(Func[7,string]:explode(",")[1,string]:toNumber(),Func[7,string]:explode(",")[2,string]:toNumber())
-                        local Cont = Func:count()-7
+                        local Pos = vec2(Func[8,string]:explode(",")[1,string]:toNumber(),Func[8,string]:explode(",")[2,string]:toNumber())
+                        local Cont = Func:count()-10
+                        print("Cont = "+Cont+" Count = "+Func:count())
                         Stitch = ""
                         
-                        for(I=1, Cont){
-                            local Ci = Cont+I
+                        for(I=1, Cont+1){
+                            local Ci = 10+I
+                            #printColor("Ci = "+Ci)
                             local Strp = Func[Ci,string]
-                            if(anyIn(Contypes, Strp):length()>0){
-                                
+                            #printColor("Strp ="+Strp)
+                            if(anyIn(Contypes, Strp)!=""){
+                                for(I = 1, Vals:count()){
+                                    if(Strp == Vals[I,string]){
+                                        
+                                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Found global cont value; "+Strp+".")
+                                        local Contf = Res[I,string]
+                                        printColor("Contf = "+Contf)
+                                        Stitch = Stitch+Contf
+                                    }
+                                    
+                                    if(I == Vals:count()){
+                                        print("No find on; "+Strp)
+                                        pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Strp+" but failed.")
+                                        
+                                    }
+                                }
+
                             }else{
-                            
+                                Stitch = Stitch+Strp
+                            }
+                            #printColor("Stitch = "+Stitch)
+                            if(I==Cont+1){
+                                
+                                printColor("Final Ci = "+Ci)
+                                local Strp = Func[Ci,string]
+                                printColor("Final Strp ="+Strp)
+                                printColor("Final Stitch ="+Stitch)
+                                print("Final size ="+Func[10,string]:toNumber())
+                                print("Final size2 ="+Func[10,string])
+                                
+                                pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created adv_text with SOUL ["+Stitch+"]")
+
+                                Objects[Index,string]="adv_text.static"+Func[7,string]+"."+Func[6,string]
+                                Groups[Index,string]=Index+""
+                                
+                                S:egpText(Index,Stitch,Pos)
+                                S:egpAlign(Index,1,1)
+                                S:egpSize(Index,Func[10,string]:toNumber())
+
                             }
                         }
                     }
@@ -407,23 +461,18 @@ function string soulCode(C:array,N){
         
         }elseif(Func[2,string]=="strcon"){
             local Phase = Func[3,string]
-            local Vals = array(
-            "v, time", 
-            "v, date", 
-            "sys, status",
-            "sys, owner-name",
-            "sys, owner-id")
-            
-            local Res  = array(
-            "["+time("hour")+":"+time("min")+":"+time("sec")+"]", 
-            "["+time("day")+"/"+time("month")+"/"+time("year")+"]",
-            Sys_status,
-            owner():name(),
-            owner():id())
             
             for(I = 1, Vals:count()){
                 if(Phase == Vals[I,string]){
+                    
+                    pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Found global cont value; "+Phase+".")
                     return Res[I,string]
+                }
+                
+                if(I == Vals:count()){
+                    print("No find on; "+Phase)
+                    pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Phase+" but failed.")
+                    return " "
                 }
             }
         }

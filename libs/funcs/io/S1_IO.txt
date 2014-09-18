@@ -8,9 +8,9 @@
 @outputs [X8_2]:array
 
 @persist Authent Got_up Idle Db Void Bc Cy Cx Apvx Apvy Fail Modded SoulI Index Inf Chat_o
-@persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName Chatarg Catch]:string
+@persist [ID2 ID Password Data Version Version2 A B Title Name Auth_str L_up Owner LastclosestName Chatarg Catch Sys_status]:string
 @persist [Cords Cords2]:vector2
-@persist [Cfig Data_split Load_actions Sys_log Sys_log_p Commands Comhist Sys_settings]:array
+@persist [Cfig Data_split Load_actions Sys_quee Sys_Processes Sys_log Sys_log_p Commands Comhist Sys_settings Sys_pagedobjects]:array
 @persist [Trunk Apps]:table
 
 @persist [C]:table

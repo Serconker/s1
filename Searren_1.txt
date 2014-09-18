@@ -9,7 +9,7 @@ if(first()){
     #include "s1/libs/funcs/io/S1_IO"
     #include "s1/libs/funcs/Soul"
     #include "s1/apps/rcon/resources"
-    #include "e2shared/s1/expansions/includes"
+    ##include "e2shared/s1/expansions/includes"
     function entity closestPly(){
         findByClass("player")
         E = findClosest(entity():pos())
@@ -34,6 +34,47 @@ if(first()){
 ")
         #printColor(vec(220,0,0),"Printing to log file; s1/logs/log.txt; "+S)
     }
+    function string pageEGPObjects(IndexA, IndexB, Name:string){
+        local A = IndexA
+        local B = IndexB
+        local N = Name
+        if(Sys_pagedobjects:count()<2){
+            Sys_pagedobjects[Sys_pagedobjects:count(),string]=A+"-"+B+"-"+N
+            core_addlog("Created EGP object page range.. ["+A+"-"+B+"-"+N+"]")
+        }else{
+            for(I=1,Sys_pagedobjects:count()){
+                local Ob = Sys_pagedobjects[I,string]
+                local Ac = Ob:explode("-")[1,string]:toNumber()
+                local Bc = Ob:explode("-")[2,string]:toNumber()
+                local Nc = Ob:explode("-")[3,string]
+                if(inrange(A,Ac,Bc)){
+                    core_addlog("Page lower range is within anothers range.. ["+Nc+"]")
+                    return "Page lower range is within anothers range.. ["+Nc+"]"
+                }
+                if(I==Sys_pagedobjects:count()){
+                    Sys_pagedobjects[Sys_pagedobjects:count(),string]=A+"-"+B+"-"+N
+                    core_addlog("Created EGP object page range.. ["+A+"-"+B+"-"+N+"]")
+                    return "Object range paged"
+                }
+            }
+        }
+    }
+    function string pageRemove(N){
+        Sys_pagedobjects:remove(N)
+    }
+    function number objecIsInPagedRange(N){
+        for(I=1,Sys_pagedobjects:count()){
+            local Ob = Sys_pagedobjects[I,string]
+            local Ac = Ob:explode("-")[1,string]:toNumber()
+            local Bc = Ob:explode("-")[2,string]:toNumber()
+            local Nc = Ob:explode("-")[3,string]
+            if(inrange(N,Ac,Bc)){
+                return 1
+            }else{
+                return 0
+            }
+        }
+    }
     function void core_sortLogs(){
         Buff_string=""
         local Arr = Sys_log
@@ -51,6 +92,7 @@ if(first()){
         }
     }
     function string wirelink:core_setStatus(S:string,Col:vector4,N){
+        Sys_status = S
         if(S!=""){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
@@ -204,6 +246,15 @@ if (clk("Guifr")){
         S:updateTitle(2)
         S:core_setStatus("Refreshing dynamic UI items..",vec4(155,155,255,255),2.5)
     }
+    if(Trunk[3,string]!="Inidone"){
+        timer("Awk",1000)
+    }
+}
+if(clk("Awk")){
+    if(pageEGPObjects(0,20,"MainUI")){
+        print("Paged main UI indexes.")
+        Trunk[3,string]="Inidone"
+    }
 }
 if(clk("Mouse")){
     findByClass("player")
@@ -212,7 +263,7 @@ if(clk("Mouse")){
     if(owner():keyUse()){
         soulCode(array("core.egp.checkb"),1)
         print("pressed")
-        S:core_setStatus("Checking SOUL button objects..",vec4(0,155,0,255),1)
+        #S:core_setStatus("Checking SOUL button objects..",vec4(0,155,0,255),1)
     }   
     timer("Mouse",500)
 }
@@ -289,6 +340,7 @@ if(clk("Versionget")){
     }
 }
 if(clk("runmenu")){
+    S:core_setStatus("Loading app menu..",vec4(125,255,125,255))
     print("This actually worked?")
     timer("Connect",0)
 }
@@ -343,10 +395,56 @@ if(fileClk(">e2shared/s1/expansions/"+Trunk["FN",string])){
 }
 if(clk("ep_ini")){
     fileWrite(">e2shared/s1/expansions/"+Trunk["FN",string],"")
-    fileAppend(">e2shared/s1/expansions/"+Trunk["FN",string],Trunk["FC",string])
-    
-    timer("ep_includes",15000)
-    print("Expansion file wrote.. Waiting to append includer.") 
+    if(fileCanLoad()){
+        fileLoad(">e2shared/s1/expansions/"+Trunk["FN",string])
+        print("Can load file")
+        timer("forceload",1000)
+        Trunk["FS",number] = 1
+    }elseif(fileStatus() == _FILE_UNKNOWN){
+        print("Could not load Void file! File is unkown!")
+    }elseif(fileStatus() ==  _FILE_OK){
+        print("Could not load Void file! File is 'OK'!")
+    }elseif(fileStatus() == _FILE_TIMEOUT){
+        print("Could not load Void file! File timed out?")
+    }elseif(fileStatus() == _FILE_404){
+        print("Could not load Void file! File not found?")
+    }elseif(fileStatus() == _FILE_TRANSFER_ERROR){
+        print("Could not load Void file! Firewall problems, maybe?")
+    }else{
+        timer("ep_ini",1000)
+    }
+
+#    print("Expansion file wrote.. Waiting to append includer.") 
+}
+if(fileLoaded()&&Trunk["FS",number]==1||clk("forceread1")){
+    Trunk["FS",number]==0
+    local Cont = fileRead()
+    print("Cont = "+Cont)
+    if(Cont != Trunk["FC",string]){
+        if(fileCanWrite()){
+            fileWrite(">e2shared/s1/expansions/"+Trunk["FN",string]," ")
+        }elseif(fileStatus() == _FILE_UNKNOWN){
+            print("Could not write Void file! File is unkown!")
+        }elseif(fileStatus() ==  _FILE_OK){
+            print("Could not write Void file! File is 'OK'!")
+        }elseif(fileStatus() == _FILE_TIMEOUT){
+            print("Could not write Void file! File timed out?")
+        }elseif(fileStatus() == _FILE_404){
+            print("Could not write Void file! File not found?")
+        }elseif(fileStatus() == _FILE_TRANSFER_ERROR){
+            print("Could not write Void file! Firewall problems, maybe?")
+        }else{
+            print("It just wont write!")
+        }
+        timer("ep_ini",1000)
+        print("Write failed, retrying")
+    }elseif(Cont == ""){
+        timer("ep_ini",1000)
+    }else{
+        fileAppend(">e2shared/s1/expansions/"+Trunk["FN",string],Trunk["FC",string])
+        print("Appending include function")
+        timer("ep_includes",15000)
+    }
 }
 #[#######################################################
 #[#######################################################
@@ -442,14 +540,12 @@ User is unauthenticated.")
         print("Expansion echo found")
         local Fn = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[2,string]
         Trunk["FN",string]=Fn
-        print("TFN = "+Trunk["FN",string])
         local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[4,string]
         Trunk["FC",string]=Fc
-        if(fileCanWrite()){
-            fileWrite(">e2shared/s1/expansions/"+Fn,"")
-            timer("ep_ini",100)
-            print("Writing expansion file..")
-        }
+        #fileWrite(">e2shared/s1/expansions/"+Fn,"")
+        timer("ep_ini",1000)
+        print("Writing expansion file..")
+        
     }else{
         printColor(vec(220,0,0),""+Data)
         timer("Failure",0)
@@ -540,7 +636,7 @@ if (chatClk(owner())){
             }
         }elseif(Str[2,string]=="addtologs"){
             core_addlog(Str[3,string])
-        }elseif(Str[2,string]=="downloadexpansion"){
+        }elseif(Str[2,string]=="dlex"){
             if(httpCanRequest()){
                 httpRequest("http://felthatters.net/smf/s1crux.php?action=dlex&expdl="+Str[3,string])
             }

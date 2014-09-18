@@ -28,7 +28,8 @@ function void pushLog(S:string){
 
 ## V Main ##
 function string soulCode(C:array,N){
- Func = C[N,string]:explode(".")
+    local Contypes = array("sys,", "v,")
+    Func = C[N,string]:explode(".")
     if(Func[1,string]=="core"){
         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Entered core with '"+C[N,string]+"' function")
         if(Func[2,string]=="egp"){
@@ -145,6 +146,7 @@ function string soulCode(C:array,N){
                         Groups[Func[11,string]:toNumber(),string]=Groups[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
+                        
                         Index = Func[6,string]:toNumber()
                         Stitch = ""
                         for(I=1,Func:count()-10){
@@ -165,7 +167,27 @@ function string soulCode(C:array,N){
                                 Ph_String = ""
                             }
                         }
+                        
+                    }elseif(Func[5,string]=="etcadv"){
+                        #core.egp.create.[screen].etcadv.[index].[posx],[posy].[text]/[concat]/[value]/[any combo]
+                        #1    2   3      4        5      6       7             8 +
+                        
+                        local Index = Func[6,string]:toNumber()
+                        local Pos = vec2(Func[7,string]:explode(",")[1,string]:toNumber(),Func[7,string]:explode(",")[2,string]:toNumber())
+                        local Cont = Func:count()-7
+                        Stitch = ""
+                        
+                        for(I=1, Cont){
+                            local Ci = Cont+I
+                            local Strp = Func[Ci,string]
+                            if(anyIn(Contypes, Strp):length()>0){
+                                
+                            }else{
+                            
+                            }
+                        }
                     }
+                    
                 }elseif(Func[4,string]=="set"){
                     if(Func[5,string]=="button"){
                         if(Func[6,string]=="rs"){
@@ -331,6 +353,8 @@ function string soulCode(C:array,N){
                         break
                     }
                 }
+            }elseif(Func[3,string]=="textupd"){
+                
             }else{
                 print("Soul: invalid entry on Function 3; "+C[N,string]+", "+Func[1,string])
             }
@@ -381,6 +405,27 @@ function string soulCode(C:array,N){
             
         }elseif(Func[2,string]=="rcon"){
         
+        }elseif(Func[2,string]=="strcon"){
+            local Phase = Func[3,string]
+            local Vals = array(
+            "v, time", 
+            "v, date", 
+            "sys, status",
+            "sys, owner-name",
+            "sys, owner-id")
+            
+            local Res  = array(
+            "["+time("hour")+":"+time("min")+":"+time("sec")+"]", 
+            "["+time("day")+"/"+time("month")+"/"+time("year")+"]",
+            Sys_status,
+            owner():name(),
+            owner():id())
+            
+            for(I = 1, Vals:count()){
+                if(Phase == Vals[I,string]){
+                    return Res[I,string]
+                }
+            }
         }
         #           All extensions should go above in the same way
         #           using 'elseif(Func[2,string]=="derp-extension"){' statements

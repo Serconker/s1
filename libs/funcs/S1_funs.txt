@@ -3,6 +3,24 @@ if(first()){
 #include "s1/libs/funcs/io/S1_IO"
 #Sys_log 
 #Sys_log_p
+    function number sys_queeProccess(){
+        
+    }
+    
+    function number sys_runProccess(){
+        
+    }
+    
+    function string anyIn(A:array, S:string){
+        for(I=1, A:count()){
+            if(S:find(A[I,string])){
+                return A[I,string]
+            }
+            if(I == A:count()){
+                return ""
+            }
+        }
+    }
     function string shortenID(S:string){
         if(S:lower():find("steam_0:0:")){
             return httpUrlEncode(S:lower():replace("steam_0:0:",""))
@@ -22,6 +40,28 @@ if(first()){
             Sys_log:remove(I)
             if(I==Arr:count()){
                 
+            }
+        }
+    }
+    function string pageEGPObjects(IndexA, IndexB, Name:string){
+        local A = IndexA
+        local B = IndexB
+        local N = Name
+        if(Sys_pagedobjects:count()<2){
+            Sys_pagedobjects[Sys_pagedobjects:count(),string]=A+"-"+B+"-"+N
+        }else{
+            for(I=1,Sys_pagedobjects:count()){
+                local Ob = Sys_pagedobjects[I,string]
+                local Ac = Ob:explode("-")[1,string]:toNumber()
+                local Bc = Ob:explode("-")[2,string]:toNumber()
+                local Nc = Ob:explode("-")[3,string]
+                if(inrange(A,Ac,Bc)){
+                    return "Page lower range is within anothers range.. ["+Nc+"]"
+                }
+                if(I==Sys_pagedobjects:count()){
+                    Sys_pagedobjects[Sys_pagedobjects:count(),string]=A+"-"+B+"-"+N
+                    return "Objec range paged"
+                }
             }
         }
     }
@@ -131,7 +171,7 @@ if(first()){
     function registerChatCommand(Whieght:string, Name:string, Core:string, Arguments:string#[ S = string, N = number, V = vector, V2 = vector2 ]#, Timer:string, Delay){
         local Ins = array(Name, Core, Arguments, Timer, Delay)
         Commands[Commands:count()+1,string]= Whieght+"."+Name+".{"+Core+"."+Arguments+"."+Timer+"."+Delay
-        print(Commands[Commands:count(),string])
+        #print(Commands[Commands:count(),string])
     }
     function string core_findSettingValue(S:string){
         for(I=1,Sys_settings:count()){

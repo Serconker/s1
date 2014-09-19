@@ -458,8 +458,6 @@ function string soulCode(C:array,N){
                         break
                     }
                 }
-            }elseif(Func[3,string]=="textupd"){
-                
             }else{
                 print("Soul: invalid entry on Function 3; "+C[N,string]+", "+Func[1,string])
             }

@@ -267,6 +267,10 @@ if(clk("Mouse")){
     }   
     timer("Mouse",500)
 }
+if(clk("Updatedyntxt")){
+	soulCode("core.egp.main.updatedyntxts",1)
+	timer("Updatedyntxt",1000)
+}
 if(clk("testtim")){
     print("Don't touch Timmy, you pervert!")
     S:core_setStatus("TIMMY!",vec4(0,155,0,255))
@@ -507,6 +511,7 @@ User is authenticated.")
         timer("G1",0)
         timer("Connect",0)
         timer("Versionget",1000)
+		timer("Updatedyntxt",1000)
         #timer("Cig",5000)
         #timer("RunSoul",2000)
         timer("Mouse",0)

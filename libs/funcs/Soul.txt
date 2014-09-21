@@ -232,7 +232,7 @@ function string soulCode(C:array,N){
                                 pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created adv_text with SOUL ["+Stitch+"]")
 
                                 Objects[Index,string]="adv_text.static"+Func[7,string]+"."+Func[6,string]+"."+Func[10,string]
-                                Groups[Index,string]=Index+""+C[N,string]:replace(Func[1,string],""):replace(Func[2,string],""):replace(Func[3,string],""):replace(Func[4,string],""):replace(Func[5,string],""):replace(Func[6,string],""):replace(Func[7,string],""):replace(Func[8,string],""):replace(Func[9,string],""):replace(Func[10,string],""):replce(".","[]")
+                                Groups[Index,string]=Index+""+C[N,string]:replace(Func[1,string],""):replace(Func[2,string],""):replace(Func[3,string],""):replace(Func[4,string],""):replace(Func[5,string],""):replace(Func[6,string],""):replace(Func[7,string],""):replace(Func[8,string],""):replace(Func[9,string],""):replace(Func[10,string],""):replace(".","[]")
                                 
                                 S:egpText(Index,Stitch,Pos)
                                 S:egpAlign(Index,1,1)
@@ -284,56 +284,58 @@ function string soulCode(C:array,N){
                     }
                 }elseif(Func[4,string]=="updatedyntxts"){
 					
-					Stitch = ""
-					
-					for(I = 1, Objects:count()){
-						if(Objects[I,string]:find("adv_txt")){
-							Stitch = Stitch+"."+I
-						}
-						if(I == Objects:count()){
-							local Indexes = Stitch:explode(".")
-							Stitch = ""
-							for(X = 1, Indexes:count()){
-							
-								local Index = Indexes[X,string]:toNumber()
-								local Tobject = Groups[Index,string]:explode(".")
-								local TIndex = Tobject[1,string]
-								local TData = Tobject[2,string]:explode("[]")
-								
-								local TSize = S:egpSize(Index)
-								local TPos = S:egpPos(Index)
-								
-								for(O = 1, TData:count()){
-									local Strp = TData[O,string]
-									if(aynIn(Contypes, Strp)){
-										for(K = 1, Vals:count()){
-											if(Strp == Vals[K,string]){
-												
-												pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Found global cont value; "+Strp+".")
-												local Contf = Res[I,string]
-												printColor("Contf = "+Contf)
-												Stitch = Stitch+Contf
-											}
-											
-											if(I == Vals:count()){
-												print("No find on; "+Strp)
-												pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Strp+" but failed.")
-												
-											}
-										}
-									}else{
-										Stitch = Stitch+Strp
-									}
-									if(O == TData:count()){
-										S:egpText(Index, Stitch, TPos)
-										S:egpAlign(Index, 1,1)
-										S:egpSize(Index, TSize)
-									}
-								}
-							}
-						}
-					}
-				}
+                Stitch = ""
+            					
+                for(I = 1, Objects:count()){
+                    if(Objects[I,string]:find("adv_txt")){
+                        Stitch = Stitch+"."+I
+                    }
+                    if(I == Objects:count()){
+                        local Indexes = Stitch:explode(".")
+                        Stitch = ""
+                        for(X = 1, Indexes:count()){
+                        							
+                            local Index = Indexes[X,string]:toNumber()
+                            local Tobject = Groups[Index,string]:explode(".")
+                            local TIndex = Tobject[1,string]
+                            local TData = Tobject[2,string]:explode("[]")
+                            								
+                            local TSize = S:egpSize(Index)
+                            local TPos = S:egpPos(Index)
+                            								
+                            for(O = 1, TData:count()){
+                                local Strp = TData[O,string]
+                                if(anyIn(Contypes, Strp)){
+                                    for(K = 1, Vals:count()){
+                                        if(Strp == Vals[K,string]){
+                                        												
+                                            pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Found global cont value; "+Strp+".")
+                                            local Contf = Res[I,string]
+                                            printColor("Contf = "+Contf)
+                                            Stitch = Stitch+Contf
+                                        }
+                                        											
+                                        if(I == Vals:count()){
+                                            print("No find on; "+Strp)
+                                            pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Strp+" but failed.")
+                                                												
+                                        }
+                                    }
+                                }else{
+                                    Stitch = Stitch+Strp
+                                }
+                                if(O == TData:count()){
+                                    S:egpText(Index, Stitch, TPos)
+                                    S:egpAlign(Index, 1,1)
+                                    S:egpSize(Index, TSize)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
             }elseif(Func[3,string]=="secondary"){ ##### Screen two(user screen)
                 print("a")
                 if(Func[4,string]=="create"){

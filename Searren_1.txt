@@ -268,7 +268,7 @@ if(clk("Mouse")){
     timer("Mouse",500)
 }
 if(clk("Updatedyntxt")){
-	soulCode("core.egp.main.updatedyntxts",1)
+	soulCode(array("core.egp.main.updatedyntxts"),1)
 	timer("Updatedyntxt",1000)
 }
 if(clk("testtim")){
@@ -317,7 +317,7 @@ if(clk("mui")){
 }
 if(clk("dumpsoul")){
     S:core_setStatus("Dumping & sorting SOUL logs..",vec4(0,155,0,255))
-    timer("dumpsoul",180000)
+    timer("dumpsoul",120000)
     timer("umpsoul2",10000)
 }
 if(clk("umpsoul2")){

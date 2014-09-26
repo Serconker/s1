@@ -1,0 +1,7 @@
+autolog=0,
+pass=your pass code,
+file_dir=>e2shared/s1/files/,
+file_indxes=int,
+You can have notes and such in this list.
+Just no commas untill the end.
+Or the OP will get a bit confused.,

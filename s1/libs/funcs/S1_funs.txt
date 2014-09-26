@@ -1,8 +1,9 @@
 @name S1_funs
 if(first()){
-#include "s1/libs/funcs/io/S1_IO"
+#include "s1/io/S1_IO"
 #Sys_log 
 #Sys_log_p
+	local compar = array("=", "!=", "<", ">", "=>", "=<")
     function number sys_queeProccess(){
         
     }
@@ -10,7 +11,12 @@ if(first()){
     function number sys_runProccess(){
         
     }
-    
+    function string decOR(){
+		
+	}
+	function number decOR(){
+		
+	}
     function string anyIn(A:array, S:string){
         for(I=1, A:count()){
             if(S:find(A[I,string])){

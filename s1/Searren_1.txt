@@ -6,7 +6,7 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 @name Searren 1
 if(first()){
     #include "s1/libs/funcs/S1_funs"
-    #include "s1/libs/funcs/io/S1_IO"
+    #include "s1/io/S1_IO"
     #include "s1/libs/funcs/Soul"
     #include "s1/apps/rcon/resources"
     ##include "e2shared/s1/expansions/includes"
@@ -116,11 +116,17 @@ if(first()){
             core_addlog("Status: System idling..")
         }
     }
+	function number sys_loadFileDirs(){
+		if(fileCanLoad()){
+			fileLoad(">e2shared"+core_findSettingValue("file_indxes"))
+		}
+	}
     ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
     S1_rcon_allow = 1
     S1_rcon_allow_egp = 0
     S1_rcon_allow_concmd = 0
     Idle = 1
+	Trunk["FI",number] = 1
     Version = "Revision 21.x"
     L_up = "Last update: SOMEWHEN"
     Trunk["Souldb",string]="Hello!"
@@ -171,6 +177,28 @@ if(clk("Initial")){
     }else{
         print("Cannot load!")
     }
+}
+if(fileClk(">e2shared"+core_findSettingValue("file_indxes"))){
+	local FC = fileRead()
+	Trunk["file_dirs",string] = FC
+	timer("file_list_cont",10000)
+}
+if(clk("file_dirs_cont")){
+	local FN = Trunk["file_dirs",string]
+	local FI = Trunk["FI",number]
+	local WF = core_findSettingValue("file_dir")+FN:explode(";")[FI,string]:trim()
+	Trunk["WF",string] = WF
+	if(FI != FN){
+		if(fileCanLoad(WF)){
+			fileLoad(WF)
+		}
+	}
+}
+if(fileClk(Trunk["WF",string])){
+	local FC = fileRead()
+	Trunk["FCc-"+Trunk["WF",string]:explode("/")[1,string],string] = FC
+	Trunk["FI",number] = Trunk["FI",number] + 1
+	timer("file_dirs_cont",10000)
 }
 if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
     if(fileLoaded()){
@@ -465,7 +493,7 @@ if(httpClk()){
         Authent = 0
         setName("Searren 1
 "+Version+"
-BHCs official operating system.
+BHCs official Operating Platform.
 Later revisions will be released at:
 www.felthatters.net/smf/
 "+L_up+"
@@ -481,7 +509,7 @@ User is unauthenticated.")
         if(Modded==1){
             setName("Searren 1
 "+Version+"
-BHCs official operating system.
+BHCs official Operating Platform.
 Modifiyed version!
 Later revisions will be released at:
 www.felthatters.net/smf/
@@ -491,7 +519,7 @@ User is authenticated.")
         }else{
             setName("Searren 1
 "+Version+"
-BHCs official operating system.
+BHCs official Operating Platform.
 Later revisions will be released at:
 www.felthatters.net/smf/
 "+L_up+"
@@ -522,7 +550,7 @@ User is authenticated.")
         Authent = 0
         setName("Searren 1
 "+Version+"
-BHCs official operating system.
+BHCs official Operating Platform.
 Later revisions will be released at:
 www.felthatters.net/smf/
 "+L_up+"
@@ -545,10 +573,10 @@ User is unauthenticated.")
         print("Expansion echo found")
         local Fn = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[2,string]
         Trunk["FN",string]=Fn
-        local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[4,string]
+        local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[4,string]:replace("''", "\"")
         Trunk["FC",string]=Fc
         #fileWrite(">e2shared/s1/expansions/"+Fn,"")
-        timer("ep_ini",1000)
+        #timer("ep_ini",1000)
         print("Writing expansion file..")
         
     }else{
@@ -666,11 +694,9 @@ Various other people for testing.
   >log.txt -Contains nothing
  >settings
   >main.txt -MUST contain this;
+ >files
+  >init.txt -Or whatever it's defined as in the settings folder.
 
-autolog=0,
-pass=test123,
-file_dir=>e2shared/s1/files/,
-file_indxes=int.txt,
 
 Don't change the bottom two just yet, but the first two you're fine to do so, 
 you may also add your own options and such, 

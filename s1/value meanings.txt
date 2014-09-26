@@ -1,0 +1,6 @@
+FN  = File name
+FC  = File content
+FS  = File safty (Catch boolean)
+FI  = File index
+WF  = Working file
+FCc = File cache

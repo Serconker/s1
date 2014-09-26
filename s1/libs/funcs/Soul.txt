@@ -16,7 +16,7 @@ Some commands as example for SOUL.
 ]#
 @name Searren Opperating Utillity Language core
 #include "s1/libs/funcs/S1_funs"
-#include "s1/libs/funcs/io/S1_IO"
+#include "s1/io/S1_IO"
 function void pushLog(S:string){
     if(Sys_log:count()==0){
         Sys_log[1,string]=S
@@ -29,14 +29,14 @@ function void pushLog(S:string){
 ## V Main ##
 function string soulCode(C:array,N){
     local Contypes = array("sys,", "v,")
-            local Vals = array(
+    local Vals = array(
             "v, time", 
             "v, date", 
             "sys, status",
             "sys, owner-name",
             "sys, owner-id")
             
-            local Res  = array(
+    local Res  = array(
             "["+time("hour")+":"+time("min")+":"+time("sec")+"]", 
             "["+time("day")+"/"+time("month")+"/"+time("year")+"]",
             Sys_status,

@@ -3,7 +3,7 @@ if(first()){
 #include "s1/io/S1_IO"
 #Sys_log 
 #Sys_log_p
-	local compar = array("=", "!=", "<", ">", "=>", "=<")
+	local Compar = array("=", "!=", "<", ">", "=>", "=<")
     function number sys_queeProccess(){
         
     }
@@ -13,10 +13,7 @@ if(first()){
     }
     function string decOR(){
 		
-	}
-	function number decOR(){
-		
-	}
+    }
     function string anyIn(A:array, S:string){
         for(I=1, A:count()){
             if(S:find(A[I,string])){
@@ -186,7 +183,7 @@ if(first()){
             if(A:find(S)){
                 return B
             }elseif(I==Sys_settings:count()){
-                return ""
+                return " "
             }
         }
     }

@@ -116,17 +116,27 @@ if(first()){
             core_addlog("Status: System idling..")
         }
     }
-	function number sys_loadFileDirs(){
-		if(fileCanLoad()){
-			fileLoad(">e2shared"+core_findSettingValue("file_indxes"))
-		}
-	}
+    function number sys_loadFileDirs(){
+        if(fileCanLoad()){
+            fileLoad(">e2shared"+core_findSettingValue("file_indxes"))
+            print("Attempting to load file index file.")
+        }
+    }
+    function string strOR(S:string, S2:string){
+        if(S:length()>S2:length()){
+            return S
+        }else{
+            return S2
+        }
+        
+        return S2
+    }
     ## ^^^ Note for some comands to work 'wire_expression2_concmd 1' must be entered into console.
     S1_rcon_allow = 1
     S1_rcon_allow_egp = 0
     S1_rcon_allow_concmd = 0
     Idle = 1
-	Trunk["FI",number] = 1
+    Trunk["FI",number] = 1
     Version = "Revision 21.x"
     L_up = "Last update: SOMEWHEN"
     Trunk["Souldb",string]="Hello!"
@@ -167,38 +177,49 @@ if(duped()){
 #[######## Timer CLKs(Used as a goto function) ##########]#
 #[#######################################################]#
 #[#######################################################]#
+
 if(clk("Initial")){
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(Auth_str == "[Authentic user]"){
         S:core_setStatus("Reloading main CFG file..",vec4(0,155,0,255))
     }
     if(fileCanLoad()){
+        print("Attempting to load configuration file..")
         fileLoad(">e2shared/s1/settings/main.txt")
     }else{
         print("Cannot load!")
     }
 }
-if(fileClk(">e2shared"+core_findSettingValue("file_indxes"))){
-	local FC = fileRead()
-	Trunk["file_dirs",string] = FC
-	timer("file_list_cont",10000)
+if(fileClk()){
+    local FIs = "s1/files/int"
+    if(fileClk(">e2shared/"+FIs)){
+        local FC = strOR(fileRead(), " ")
+        Trunk["file_dirs",string] = FC
+        timer("file_list_cont",10000)
+    }
 }
+
 if(clk("file_dirs_cont")){
-	local FN = Trunk["file_dirs",string]
-	local FI = Trunk["FI",number]
-	local WF = core_findSettingValue("file_dir")+FN:explode(";")[FI,string]:trim()
-	Trunk["WF",string] = WF
-	if(FI != FN){
-		if(fileCanLoad(WF)){
-			fileLoad(WF)
-		}
-	}
+    local FN = Trunk["file_dirs",string]
+    local FI = Trunk["FI",number]
+    local WF = core_findSettingValue("file_dir")+FN:explode(";")[FI,string]:trim()
+    Trunk["WF",string] = WF
+    if(FI != FN:explode(";"):count()){
+        if(fileCanLoad()){
+            fileLoad(WF)
+        }else{
+            print("Could not load tree'd file, attempting again in 10 seconds.")
+            timer("file_dirs_cont",10000)
+        }
+    }
 }
+
 if(fileClk(Trunk["WF",string])){
-	local FC = fileRead()
-	Trunk["FCc-"+Trunk["WF",string]:explode("/")[1,string],string] = FC
-	Trunk["FI",number] = Trunk["FI",number] + 1
-	timer("file_dirs_cont",10000)
+    local FC = fileRead()
+    print("FC = "+FC)
+    Trunk["FCc-"+Trunk["WF",string]:explode("/")[1,string],string] = FC
+    Trunk["FI",number] = Trunk["FI",number] + 1
+    timer("file_dirs_cont",10000)
 }
 if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
     if(fileLoaded()){
@@ -295,10 +316,12 @@ if(clk("Mouse")){
     }   
     timer("Mouse",500)
 }
+#[
 if(clk("Updatedyntxt")){
-	soulCode(array("core.egp.main.updatedyntxts"),1)
-	timer("Updatedyntxt",1000)
+    soulCode(array("core.egp.main.updatedyntxts"),1)
+    timer("Updatedyntxt",1000)
 }
+]#
 if(clk("testtim")){
     print("Don't touch Timmy, you pervert!")
     S:core_setStatus("TIMMY!",vec4(0,155,0,255))
@@ -421,9 +444,6 @@ if(clk("runcmds")){
         S:core_setStatus("[RCON] Commands ran.",vec4(0,155,0,255))
         stoptimer("runcmds")
     }
-}
-if(fileClk(">e2shared/s1/expansions/"+Trunk["FN",string])){
-    print("???")
 }
 if(clk("ep_ini")){
     fileWrite(">e2shared/s1/expansions/"+Trunk["FN",string],"")
@@ -615,7 +635,7 @@ if (chatClk(owner())){
     checkChatCommands()
     if(Str[1,string]=="{app"){
     }
-    if(Str[1,string]=="{os"){
+    if(Str[1,string]=="{op"){
         if(Str[2,string]=="changelog"){
             if(Str[3,string]==""){
             print("http://www.felthatters.net/smf/changelog_OS.txt")
@@ -673,6 +693,12 @@ if (chatClk(owner())){
             if(httpCanRequest()){
                 httpRequest("http://felthatters.net/smf/s1crux.php?action=dlex&expdl="+Str[3,string])
             }
+        }elseif(Str[2,string] == "ldfls"){
+            if(fileCanLoad()){
+                sys_loadFileDirs()
+            }else{
+                print("Unable to load that file, sorry.")
+            }
         }
     }
 }
@@ -695,7 +721,7 @@ Various other people for testing.
  >settings
   >main.txt -MUST contain this;
  >files
-  >init.txt -Or whatever it's defined as in the settings folder.
+  >init.txt
 
 
 Don't change the bottom two just yet, but the first two you're fine to do so, 

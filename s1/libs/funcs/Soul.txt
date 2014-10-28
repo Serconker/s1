@@ -87,7 +87,7 @@ function string soulCode(C:array,N){
                         }                        
                     }elseif(Func[5,string]=="secondary"){
                         local Group = Func[6,string]:toNumber()
-                        print("THE MOTHERFUCKING GROUP IS "+Group+" OR IS IT!")
+                        debugprint("THE MOTHERFUCKING GROUP IS "+Group+" OR IS IT!")
                         local Items = Groups[Func[6,string]:toNumber(),string]:explode(".")
                         for(I=1,Items:count()){
                             Temp_cords[I,vector2]=S:egpPos(Items[I,string]:toNumber())
@@ -115,10 +115,10 @@ function string soulCode(C:array,N){
                                         #S2:egpText(Items[I,string]:toNumber(),Objects[Items[I,string]:toNumber(),string]:explode(".")[4,string],Temp_cords[I,vector2])
                                         #S2:egpAlign(Items[I,string]:toNumber(),1,1)
                                         #S2:egpSize(Items[I,string]:toNumber(),S:egpSize(Items[I,string]:toNumber()))
-                                        print("########################")
-#[###################################]# print(Func)
-#[###################################]# print("########################")
-#[  Remind me to finish this STUFF!  ]# print(Groups[Func[6,string]:toNumber(),string])
+                                        #debugprint("########################")
+#[###################################]# #debugprint(Func)
+#[###################################]# #debugprint("########################")
+#[  Remind me to finish this STUFF!  ]# debugprint(Groups[Func[6,string]:toNumber(),string])
 #[##########I mean fix, shh##########]# S2:egpColor(Items[I,string]:toNumber(),Temp_col[I,vector])
 #[###################################]# S:egpRemove(Items[I,string]:toNumber())
                                         soulCode(array("core.egp.secondary.create.etc."+Items[I,string]:toNumber()+"."+Temp_cords[I,vector2]:x()+"."+Temp_cords[I,vector2]:y()+"."+Objects[Items[I,string]:toNumber(),string]:explode(".")[5,string]+"."+Func[6,string]+"."+Stitch),1)
@@ -130,16 +130,16 @@ function string soulCode(C:array,N){
                                         print(Func)
                                        print("########################")
 ]#                                  }else{
-                                        print("Soul: invalid entry on Function; "+C[N,string]+", "+Func[1,string]+" Unkown item or tampered array?")
+                                        debugprint("Soul: invalid entry on Function; "+C[N,string]+", "+Func[1,string]+" Unkown item or tampered array?")
                                     }
                                 }
                             }
                         }
                     }else{
-                        print("Soul: invalid entry on Function 5; "+C[N,string]+", "+Func[1,string])
+                        debugprint("Soul: invalid entry on Function 5; "+C[N,string]+", "+Func[1,string])
                     }
                 }else{
-                    print("Soul: invalid entry on Function 4; "+C[N,string]+", "+Func[1,string])
+                    debugprint("Soul: invalid entry on Function 4; "+C[N,string]+", "+Func[1,string])
                 }
             }elseif(Func[3,string]=="main"){ ##core.egp.main.create.box.1.256.256.64.64.1
                 if(Func[4,string]=="create"){ ##core.egp.main.create.box.1.256.256.64.64.1
@@ -191,7 +191,7 @@ function string soulCode(C:array,N){
                         local Index = Func[6,string]:toNumber()
                         local Pos = vec2(Func[8,string]:explode(",")[1,string]:toNumber(),Func[8,string]:explode(",")[2,string]:toNumber())
                         local Cont = Func:count()-10
-                        print("Cont = "+Cont+" Count = "+Func:count())
+                        debugprint("Cont = "+Cont+" Count = "+Func:count())
                         Stitch = ""
                         
                         for(I=1, Cont+1){
@@ -205,12 +205,12 @@ function string soulCode(C:array,N){
                                         
                                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Found global cont value; "+Strp+".")
                                         local Contf = Res[I,string]
-                                        printColor("Contf = "+Contf)
+                                        debugprint("Contf = "+Contf)
                                         Stitch = Stitch+Contf
                                     }
                                     
                                     if(I == Vals:count()){
-                                        print("No find on; "+Strp)
+                                        debugprint("No find on; "+Strp)
                                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Strp+" but failed.")
                                         
                                     }
@@ -222,12 +222,12 @@ function string soulCode(C:array,N){
                             #printColor("Stitch = "+Stitch)
                             if(I==Cont+1){
                                 
-                                printColor("Final Ci = "+Ci)
+                                debugprint("Final Ci = "+Ci)
                                 local Strp = Func[Ci,string]
-                                printColor("Final Strp ="+Strp)
-                                printColor("Final Stitch ="+Stitch)
-                                print("Final size ="+Func[10,string]:toNumber())
-                                print("Final size2 ="+Func[10,string])
+                                debugprint("Final Strp ="+Strp)
+                                debugprint("Final Stitch ="+Stitch)
+                                debugprint("Final size ="+Func[10,string]:toNumber())
+                                debugprint("Final size2 ="+Func[10,string])
                                 
                                 pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created adv_text with SOUL ["+Stitch+"]")
 
@@ -249,12 +249,12 @@ function string soulCode(C:array,N){
                             Spl[4,string]="."+Func[7,string]
                             Buttons[Buttons:count()+1,string]=Func[9,string]+"."+Func[8,string]
                             Objects[Func[6,string]:toNumber(),string]=Spl[1,string]+".sbutton."+Spl[3,string]+"."+Spl[4,string]
-                            print(Buttons[Buttons:count(),string])
-                            print(Objects[Func[6,string]:toNumber(),string])
+                            debugprint(Buttons[Buttons:count(),string])
+                            debugprint(Objects[Func[6,string]:toNumber(),string])
                         }else{
                             Buttons[Buttons:count()+1,string]=Func[6,string]+"."+Func[7,string]+"."+Func[8,string]
                             Objects[Func[6,string]:toNumber(),string]:replace("static","button")
-                            print("Made button with data "+Func[6,string]+"."+Func[7,string]+"."+Func[8,string])
+                            debugprint("Made button with data "+Func[6,string]+"."+Func[7,string]+"."+Func[8,string])
                         }
                     }elseif(Func[5,string]=="item"){
                         if(Func[6,string]=="mat"){
@@ -311,12 +311,12 @@ function string soulCode(C:array,N){
                                         												
                                             pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Found global cont value; "+Strp+".")
                                             local Contf = Res[I,string]
-                                            printColor("Contf = "+Contf)
+                                            debugprint("Contf = "+Contf)
                                             Stitch = Stitch+Contf
                                         }
                                         											
                                         if(I == Vals:count()){
-                                            print("No find on; "+Strp)
+                                            debugprint("No find on; "+Strp)
                                             pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Strp+" but failed.")
                                                 												
                                         }
@@ -337,42 +337,42 @@ function string soulCode(C:array,N){
             
             
             }elseif(Func[3,string]=="secondary"){ ##### Screen two(user screen)
-                print("a")
+                debugprint("a")
                 if(Func[4,string]=="create"){
-                    print("b")
+                    debugprint("b")
                     if(Func[5,string]=="box"){
-                        print("c")
+                        debugprint("c")
                         S2:egpBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="box.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+": Created a box with soul")
                     }elseif(Func[5,string]=="boxr"){
-                        print("d")
+                        debugprint("d")
                         S2:egpRoundedBox(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="boxr.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a rounded box with soul")
                     }elseif(Func[5,string]=="circ"){
-                        print("e")
+                        debugprint("e")
                         S2:egpCircle(Func[6,string]:toNumber(),vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()),vec2(Func[9,string]:toNumber(),Func[10,string]:toNumber()))
                         Objects2[Func[6,string]:toNumber(),string]="circ.static."+Func[11,string]
                         Groups2[Func[11,string]:toNumber(),string]=Groups2[Func[11,string]:toNumber(),string]+Func[6,string]+"."
                         pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Created a circle with soul")
                     }elseif(Func[5,string]=="etc"){
-                        print("f")
+                        debugprint("f")
                         Index = Func[6,string]:toNumber()
                         for(I=1,Func:count()-10){
-                            print("g")
+                            debugprint("g")
                             if(Func[10+I,string]:find("v,")){
-                                print("h")
+                                debugprint("h")
                                 Func[10+I,string]=Func[10+I,string]:replace(Func[10+I,string],Trunk[Func[10+I,string]:explode("v,")[2,string],string])
                                 Ph_String = Ph_String+Func[10+I,string]
                             }else{
-                                print("i")
+                                debugprint("i")
                                 Ph_String = Ph_String+Func[10+I,string]                        
                             }
                             if(I==Func:count()-10){
-                                print("j")
+                                debugprint("j")
                                 S2:egpText(Func[6,string]:toNumber(),Ph_String,vec2(Func[7,string]:toNumber(),Func[8,string]:toNumber()))
                                 S2:egpAlign(Func[6,string]:toNumber(),1,1)
                                 S2:egpSize(Func[6,string]:toNumber(),Func[9,string]:toNumber())
@@ -418,7 +418,7 @@ function string soulCode(C:array,N){
                     local Info = Buttons[1,string]:explode(".")
                     local Info2 = Buttons2[1,string]:explode(".")
                     if(E:touching(S,Info[1,string]:toNumber())){
-                        print("Touching button "+Buttons[1,string])
+                        debugprint("Touching button "+Buttons[1,string])
                         if(Objects[Info[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
                             soulCode(array(Info[2,string]:replace(Info[1,string],".")),1)
                         }else{
@@ -427,7 +427,7 @@ function string soulCode(C:array,N){
                         return ""
                     }
                     if(E:touching(S2,Info2[1,string]:toNumber())){
-                        print("Touching button "+Buttons[1,string])
+                        debugprint("Touching button "+Buttons[1,string])
                         if(Objects2[Info2[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
                             soulCode(array(Info2[2,string]:replace(Info2[1,string],".")),1)
                         }else{
@@ -440,7 +440,7 @@ function string soulCode(C:array,N){
                     local Info = Buttons[X,string]:explode(".")
                     local Info2 = Buttons2[X,string]:explode(".")
                     if(E:touching(S,Info[1,string]:toNumber())){
-                        print("Touching button "+Buttons[X,string])
+                        debugprint("Touching button "+Buttons[X,string])
                         if(Objects[Info[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
                             soulCode(array(Info[2,string]:replace(Info[1,string],".")),1)
                         }else{
@@ -450,7 +450,7 @@ function string soulCode(C:array,N){
                         break
                     }
                     if(E:touching(S2,Info2[1,string]:toNumber())){
-                        print("Touching button "+Buttons[X,string])
+                        debugprint("Touching button "+Buttons[X,string])
                         if(Objects2[Info2[1,string]:toNumber(),string]:explode(".")[2,string]=="sbutton"){
                             soulCode(array(Info2[2,string]:replace(Info2[1,string],".")),1)
                         }else{
@@ -461,7 +461,7 @@ function string soulCode(C:array,N){
                     }
                 }
             }else{
-                print("Soul: invalid entry on Function 3; "+C[N,string]+", "+Func[1,string])
+                debugprint("Soul: invalid entry on Function 3; "+C[N,string]+", "+Func[1,string])
             }
         }elseif(Func[2,string]=="kill"){
             selfDestruct()
@@ -469,7 +469,7 @@ function string soulCode(C:array,N){
             reset()
         }elseif(Func[2,string]=="setval"){
             Trunk[Func[3,string],string]=Func[4,string]
-            print(Trunk[Func[3,string],string]+"  "+Func[4,string]+"  "+Func[3,string])
+            debugprint(Trunk[Func[3,string],string]+"  "+Func[4,string]+"  "+Func[3,string])
         }elseif(Func[2,string]=="setout"){
             if(Func[4,string]:find("io,")){
                 local Fun=Func[4,string]:replace("io","")
@@ -482,9 +482,9 @@ function string soulCode(C:array,N){
             }else{
                 X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
             }
-            print(X8_2[Func[3,string]:toNumber(),string]+"#")
+            debugprint(X8_2[Func[3,string]:toNumber(),string]+"#")
         }elseif(Func[2,string]=="getin"){
-            print(X8_1[Func[3,string]:toNumber(),string])
+            debugprint(X8_1[Func[3,string]:toNumber(),string])
             return X8_1[Func[3,string]:toNumber(),string]
         }elseif(Func[2,string]=="pulseout"){
             if(Func[4,string]:find("io,")){
@@ -503,7 +503,7 @@ function string soulCode(C:array,N){
         }elseif(Func[2,string]=="forcetime"){
             timer(Func[3,string],Func[4,string]:toNumber())
         }else{
-            print("Soul: invalid entry on Function 2; "+C[N,string]+", "+Func[1,string])
+            debugprint("Soul: invalid entry on Function 2; "+C[N,string]+", "+Func[1,string])
         }
     }elseif(Func[1,string]=="extension"){
         if(Func[2,string]=="meerik"){
@@ -521,7 +521,7 @@ function string soulCode(C:array,N){
                 }
                 
                 if(I == Vals:count()){
-                    print("No find on; "+Phase)
+                    debugprint("No find on; "+Phase)
                     pushLog(time("day")+"/"+time("month")+"/"+time("hour")+":"+time("min")+":"+time("sec")+": Tried to find global cont value; "+Phase+" but failed.")
                     return " "
                 }
@@ -534,7 +534,7 @@ function string soulCode(C:array,N){
         #
         #           ~Serconker
     }else{
-        print("Soul: invalid entry on Function 1; "+C[N,string]+", "+Func[1,string])
+        debugprint("Soul: invalid entry on Function 1; "+C[N,string]+", "+Func[1,string])
     }
 
 }
@@ -543,7 +543,7 @@ function void wirelink:drawGui(A){
         local Cod = Data:explode("[SOUL]")
         local Code = Cod[2,string]:explode("[")
         timer("mui",0)
-        print(This:egpNumObjects())
+        debugprint(This:egpNumObjects())
     }
 }
 #[ Notes

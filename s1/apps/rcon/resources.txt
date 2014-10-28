@@ -4,14 +4,15 @@
 @persist [S1_rcon_command]:table
 if(first()){
 #include "s1/io/S1_IO"
+#include "s1/libs/funcs/S1_funs"
 function void wirelink:etc(I,S:string,V:vector2,Z){
 }
 function void rconPhaseAndRun(N){
     if(S1_rcon_command[N,array][1,string]=="startcon"){
-        print("Start detected")
+        debugprint("Start detected")
         timer("runcmds",0)
     }elseif(S1_rcon_command[N,array][1,string]=="setBranchTableValue"){
-        print("Branch table not implimented.")
+        debugprint("Branch table not implimented.")
         timer("runcmds",30)
     }elseif(S1_rcon_command[N,array][1,string]=="printToChat"){
         print(S1_rcon_command[N,array][2,string])
@@ -23,7 +24,7 @@ function void rconPhaseAndRun(N){
         hint(S1_rcon_command[N,array][2,string],S1_rcon_command[N,array][3,string]:toNumber())
         timer("runcmds",30)
     }elseif(S1_rcon_command[N,array][1,string]=="requestSiteData"){
-        print("Function not complete, yet.")
+        debugprint("Function not complete, yet.")
         timer("runcmds",30)
     }elseif(S1_rcon_command[N,array][1,string]=="playerConcmd"&S1_rcon_allow_concmd==1){
         concmd(S1_rcon_command[N,array][2,string])
@@ -62,7 +63,7 @@ function void rconPhaseAndRun(N){
         }elseif(S1_rcon_command[N,array][3,string]=="secondary"){
         
         }else{
-            print("[RCON]Incorrect EGP-Core screen ID, got: "+S1_rcon_command[N,array][3,string]+" expected either; 'main' or 'secondary'")
+            debugprint("[RCON]Incorrect EGP-Core screen ID, got: "+S1_rcon_command[N,array][3,string]+" expected either; 'main' or 'secondary'")
             timer("runcmds",30)
         }
     }

@@ -4,6 +4,16 @@ if(first()){
 #Sys_log 
 #Sys_log_p
 	local Compar = array("=", "!=", "<", ">", "=>", "=<")
+    function void debugprint(S:string){
+        if(Debug == 1){
+            print(S)
+        }
+    }
+    function void debugprint(N){
+        if(Debug == 1){
+            print(N)
+        }
+    }
     function number sys_queeProccess(){
         
     }
@@ -195,23 +205,23 @@ if(first()){
             for(I=1, Commands:count()){
                 local C = Commands[I,string]:explode(".")
                 if(C[1,string]=="Owner"&&lastSpoke()==owner()){
-                    print("Owner")
-                    print(C[3,string]+" "+Str[1,string])
+                    debugprint("Owner")
+                    debugprint(C[3,string]+" "+Str[1,string])
                     if(C[3,string]==Str[1,string]){
-                        print(C[3,string]+" "+Str[1,string])
+                        debugprint(C[3,string]+" "+Str[1,string])
                         if(C[2,string]==Str[2,string]){
-                            print(C[2,string]+" "+Str[2,string])
+                            debugprint(C[2,string]+" "+Str[2,string])
                             if(C[4,string]:explode(" "):count() >1){
-                                print(C[4,string])
+                                debugprint(C[4,string])
                                 Chatarg = ""
                                 Chat_o = 0
                                 for(I=1,C[4,string]:explode(" "):count()){
-                                    print(Chatarg)
+                                    debugprint(Chatarg)
                                     if(C[4,string]:explode(" ")[I,string]=="S"){
                                         if(Str[2+I,string]:find("''")){ 
                                             #[ String's contained by double single quotation marks! ]#
                                             Chatarg = Chatarg+Str[2+I+Chat_o,string]:replace("''","")
-                                            print(Str[2+I+Chat_o,string]+" : "+I+" : "+Chat_o)
+                                            debugprint(Str[2+I+Chat_o,string]+" : "+I+" : "+Chat_o)
                                             for(I=1,Str:count()-2){
                                                 if(Str[2+I+Chat_o,string]:find("''")){
                                                     Chatarg = Chatarg+" ||"
@@ -227,7 +237,7 @@ if(first()){
                                     }
                                     if(I==C[4,string]:explode(" "):count()){
                                         timer(C[5,string],C[6,string]:toNumber())
-                                        print("END "+Chatarg)
+                                        debugprint("END "+Chatarg)
                                     }
                                 }
                             }else{

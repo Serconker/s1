@@ -5,6 +5,7 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 #@model models/player/items/humans/top_hat.mdl
 @name Searren 1
 if(first()){
+    Debug = 0
     #include "s1/libs/funcs/S1_funs"
     #include "s1/io/S1_IO"
     #include "s1/libs/funcs/Soul"
@@ -119,7 +120,7 @@ if(first()){
     function number sys_loadFileDirs(){
         if(fileCanLoad()){
             fileLoad(">e2shared"+core_findSettingValue("file_indxes"))
-            print("Attempting to load file index file.")
+            debugprint("Attempting to load file index file.")
         }
     }
     function string strOR(S:string, S2:string){
@@ -137,7 +138,7 @@ if(first()){
     S1_rcon_allow_concmd = 0
     Idle = 1
     Trunk["FI",number] = 1
-    Version = "Revision 21.x"
+    Version = "Revision 300-odd"
     L_up = "Last update: SOMEWHEN"
     Trunk["Souldb",string]="Hello!"
     ID = shortenID(owner():steamID())
@@ -161,7 +162,7 @@ Awating authentication")
     printColor(vec(220,0,0),"You should now authenticate your self with:")
     printColor(vec(0,120,0),"{os authme ")
     printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
-    print("Time = "+core_time())
+    debugprint("Time = "+core_time())
     runOnHTTP(1)
     runOnFile(1)
     runOnChat(1)
@@ -184,10 +185,10 @@ if(clk("Initial")){
         S:core_setStatus("Reloading main CFG file..",vec4(0,155,0,255))
     }
     if(fileCanLoad()){
-        print("Attempting to load configuration file..")
+        debugprint("Attempting to load configuration file..")
         fileLoad(">e2shared/s1/settings/main.txt")
     }else{
-        print("Cannot load!")
+        debugprint("Cannot load!")
     }
 }
 if(fileClk()){
@@ -208,7 +209,7 @@ if(clk("file_dirs_cont")){
         if(fileCanLoad()){
             fileLoad(WF)
         }else{
-            print("Could not load tree'd file, attempting again in 10 seconds.")
+            debugprint("Could not load tree'd file, attempting again in 10 seconds.")
             timer("file_dirs_cont",10000)
         }
     }
@@ -216,7 +217,7 @@ if(clk("file_dirs_cont")){
 
 if(fileClk(Trunk["WF",string])){
     local FC = fileRead()
-    print("FC = "+FC)
+    debugprint("FC = "+FC)
     Trunk["FCc-"+Trunk["WF",string]:explode("/")[1,string],string] = FC
     Trunk["FI",number] = Trunk["FI",number] + 1
     timer("file_dirs_cont",10000)
@@ -231,20 +232,20 @@ if(fileClk(">e2shared/s1/settings/main.txt") #[|| clk("Forceloadcfg")]#){
             timer("I", 1000)
         }else{
             fileLoad(">e2shared/s1/settings/main.txt")
-            print("Didn't load!")
+            debugprint("Didn't load!")
         }
     }else{
         core_addlog(core_time()+": Couln't load settings file, reported error: "+fileStatus())
         if(fileStatus() == _FILE_UNKNOWN){
-            print("Could not load settings file! File is unkown!")
+            debugprint("Could not load settings file! File is unkown!")
         }elseif(fileStatus() ==  _FILE_OK){
-            print("Could not load settings file! File is 'OK'!")
+            debugprint("Could not load settings file! File is 'OK'!")
         }elseif(fileStatus() == _FILE_TIMEOUT){
-            print("Could not load settings file! File timed out?")
+            debugprint("Could not load settings file! File timed out?")
         }elseif(fileStatus() == _FILE_404){
-            print("Could not load settings file! File not found?")
+            debugprint("Could not load settings file! File not found?")
         }elseif(fileStatus() == _FILE_TRANSFER_ERROR){
-            print("Could not load settings file! Firewall problems, maybe?")
+            debugprint("Could not load settings file! Firewall problems, maybe?")
         }
     }
 }
@@ -301,7 +302,7 @@ if (clk("Guifr")){
 }
 if(clk("Awk")){
     if(pageEGPObjects(0,20,"MainUI")){
-        print("Paged main UI indexes.")
+        debugprint("Paged main UI indexes.")
         Trunk[3,string]="Inidone"
     }
 }
@@ -311,7 +312,7 @@ if(clk("Mouse")){
 # print(E)
     if(owner():keyUse()){
         soulCode(array("core.egp.checkb"),1)
-        print("pressed")
+        debugprint("pressed")
         #S:core_setStatus("Checking SOUL button objects..",vec4(0,155,0,255),1)
     }   
     timer("Mouse",500)
@@ -323,7 +324,7 @@ if(clk("Updatedyntxt")){
 }
 ]#
 if(clk("testtim")){
-    print("Don't touch Timmy, you pervert!")
+    debugprint("Don't touch Timmy, you pervert!")
     S:core_setStatus("TIMMY!",vec4(0,155,0,255))
 }
 if(clk("soulrsetout")){
@@ -345,8 +346,8 @@ if(clk("Got_down") & Got_up != 1){
 if(clk("ep_includes")){
     local Fn = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[2,string]:replace(".txt","")
     local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[3,string]:replace(".txt","")
-    print("FN = "+Fn)
-    print("FC = "+Fc)
+    debugprint("FN = "+Fn)
+    debugprint("FC = "+Fc)
     fileAppend(">e2shared/s1/expansions/includes.txt",Fc)
 }
 if(clk("Cig")){
@@ -372,7 +373,7 @@ if(clk("dumpsoul")){
     timer("umpsoul2",10000)
 }
 if(clk("umpsoul2")){
-    print("Printing SOUL log to file..")
+    debugprint("Printing SOUL log to file..")
     core_sortLogs()
 }
 if(clk("Reini")){
@@ -385,18 +386,19 @@ if(clk("Reini")){
 }
 if(clk("Versionget")){
     if(httpCanRequest()){
-        print("Requesting")
-        httpRequest("http://felthatters.net/smf/s1crux.php?action=version&version="+httpUrlEncode(Version):lower()+"&hash="+hashNoComments():toString())
+        debugprint("Requesting")
+        httpRequest("http://felthatters.net/smf/s1crux.php?action=version&version="+Version:lower()+"&hash="+hashNoComments():toString())
+        print("http://felthatters.net/smf/s1crux.php?action=version&version="+Version:lower()+"&hash="+hashNoComments():toString())
         timer("Versionget",600000)
         S:core_setStatus("Sending version ping..",vec4(0,155,0,255))
         Got_up = 1
     }else{
-        print("Could not request")
+        debugprint("[VerGet]Could not request")
     }
 }
 if(clk("runmenu")){
     S:core_setStatus("Loading app menu..",vec4(125,255,125,255))
-    print("This actually worked?")
+    debugprint("This actually worked?")
     timer("Connect",0)
 }
 #[#######################################################
@@ -408,7 +410,7 @@ if(clk("runmenu")){
 if(clk("rcon_a")){
     checkForNewRconCommand() 
     S:core_setStatus("[RCON]Check complete; awaiting phaser response..",vec4(0,155,0,255))
-    print("Check complete; awaiting phaser response.")
+    debugprint("Check complete; awaiting phaser response.")
     timer("rcon",0)
 }
 if(clk("rcon")){
@@ -421,7 +423,7 @@ if(clk("rcon")){
             S:core_setStatus("[RCON]One command found.. Running.",vec4(0,155,0,255))
         }
     }else{
-        print("Nothing to phase")
+        debugprint("Nothing to phase")
         S:core_setStatus("[RCON] No commands found.",vec4(0,155,0,255))
     }
 }
@@ -432,7 +434,7 @@ while(S1_rcon_handling == 1){
         S1_rcon_handling = 0
         S1_rcon_flick_in = 0
         timer("runcmds",3000)
-        print("Commands split/phasing, running commands.")
+        debugprint("Commands split/phasing, running commands.")
         S:core_setStatus("[RCON] Command string phased, running.",vec4(0,155,0,255),1)
     }
 }
@@ -449,19 +451,19 @@ if(clk("ep_ini")){
     fileWrite(">e2shared/s1/expansions/"+Trunk["FN",string],"")
     if(fileCanLoad()){
         fileLoad(">e2shared/s1/expansions/"+Trunk["FN",string])
-        print("Can load file")
+        debugprint("Can load file")
         timer("forceload",1000)
         Trunk["FS",number] = 1
     }elseif(fileStatus() == _FILE_UNKNOWN){
-        print("Could not load Void file! File is unkown!")
+        debugprint("Could not load Void file! File is unkown!")
     }elseif(fileStatus() ==  _FILE_OK){
-        print("Could not load Void file! File is 'OK'!")
+        debugprint("Could not load Void file! File is 'OK'!")
     }elseif(fileStatus() == _FILE_TIMEOUT){
-        print("Could not load Void file! File timed out?")
+        debugprint("Could not load Void file! File timed out?")
     }elseif(fileStatus() == _FILE_404){
-        print("Could not load Void file! File not found?")
+        debugprint("Could not load Void file! File not found?")
     }elseif(fileStatus() == _FILE_TRANSFER_ERROR){
-        print("Could not load Void file! Firewall problems, maybe?")
+        debugprint("Could not load Void file! Firewall problems, maybe?")
     }else{
         timer("ep_ini",1000)
     }
@@ -471,30 +473,30 @@ if(clk("ep_ini")){
 if(fileLoaded()&&Trunk["FS",number]==1||clk("forceread1")){
     Trunk["FS",number]==0
     local Cont = fileRead()
-    print("Cont = "+Cont)
+    debugprint("Cont = "+Cont)
     if(Cont != Trunk["FC",string]){
         if(fileCanWrite()){
             fileWrite(">e2shared/s1/expansions/"+Trunk["FN",string]," ")
         }elseif(fileStatus() == _FILE_UNKNOWN){
-            print("Could not write Void file! File is unkown!")
+            debugprint("Could not write Void file! File is unkown!")
         }elseif(fileStatus() ==  _FILE_OK){
-            print("Could not write Void file! File is 'OK'!")
+            debugprint("Could not write Void file! File is 'OK'!")
         }elseif(fileStatus() == _FILE_TIMEOUT){
-            print("Could not write Void file! File timed out?")
+            debugprint("Could not write Void file! File timed out?")
         }elseif(fileStatus() == _FILE_404){
-            print("Could not write Void file! File not found?")
+            debugprint("Could not write Void file! File not found?")
         }elseif(fileStatus() == _FILE_TRANSFER_ERROR){
-            print("Could not write Void file! Firewall problems, maybe?")
+            debugprint("Could not write Void file! Firewall problems, maybe?")
         }else{
-            print("It just wont write!")
+            debugprint("It just wont write!")
         }
         timer("ep_ini",1000)
-        print("Write failed, retrying")
+        debugprint("Write failed, retrying")
     }elseif(Cont == ""){
         timer("ep_ini",1000)
     }else{
         fileAppend(">e2shared/s1/expansions/"+Trunk["FN",string],Trunk["FC",string])
-        print("Appending include function")
+        debugprint("Appending include function")
         timer("ep_includes",15000)
     }
 }
@@ -506,7 +508,7 @@ if(fileLoaded()&&Trunk["FS",number]==1||clk("forceread1")){
 ]#
 if(httpClk()){
     Data = httpData()
-    print("Request successful")
+    debugprint("Request successful")
     entity():soundPlay(1,2,"npc/overwatch/radiovoice/beginscanning10-0.wav")
     if(Data:find("401")){
         printColor(vec(220,0,0),""+Data+". Your login request was denied, please try again or apply for a Auth Key on the BHC forums")
@@ -548,9 +550,9 @@ User is authenticated.")
         }
             if(S1_rcon_allow != 0){
                 timer("rcon_a",10000)
-                print("Fetching any RCON commands in five seconds")
+                debugprint("Fetching any RCON commands in five seconds")
             }else{
-                print("RCON is either dissabled or undefined")
+                debugprint("RCON is either dissabled or undefined")
             }
         Data_split = Data:explode(" ")
         Authent = Data_split[4,string]:toNumber()
@@ -584,20 +586,20 @@ User is unauthenticated.")
         S1_rcon_flick_in = 0
         timer("rcon",0)
     }elseif(Data:find("None, idle")){
-        print("Idling RCON, next ping; 5 mins")
+        debugprint("Idling RCON, next ping; 5 mins")
         timer("rcon_a",300000)
     }elseif(Data:find("Modded E2!")){
         timer("Got_down",1000)
         Modded = 1
     }elseif(Data:find("[EXPANSION PACKAGE FOLLOWS]")){
-        print("Expansion echo found")
+        debugprint("Expansion echo found")
         local Fn = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[2,string]
         Trunk["FN",string]=Fn
         local Fc = Data:replace("[EXPANSION PACKAGE FOLLOWS]",""):explode("[@]")[4,string]:replace("''", "\"")
         Trunk["FC",string]=Fc
         #fileWrite(">e2shared/s1/expansions/"+Fn,"")
         #timer("ep_ini",1000)
-        print("Writing expansion file..")
+        debugprint("Writing expansion file..")
         
     }else{
         printColor(vec(220,0,0),""+Data)
@@ -632,7 +634,7 @@ if(clk("RunSoul")){
 if (chatClk(owner())){
     Str = owner():lastSaid():lower():explode(" ")
     Str1 = lastSpoke():lastSaid():lower():explode(" ")
-    checkChatCommands()
+    #checkChatCommands()
     if(Str[1,string]=="{app"){
     }
     if(Str[1,string]=="{op"){
@@ -654,7 +656,7 @@ if (chatClk(owner())){
                     print(""+Cl_data)
                 }
             }else{
-                print("Couldn't request data.")
+                debugprint("Couldn't request data.")
             }
         }elseif(Str[2,string]=="help"){
             if(Str[3,string]==""){
@@ -697,7 +699,7 @@ if (chatClk(owner())){
             if(fileCanLoad()){
                 sys_loadFileDirs()
             }else{
-                print("Unable to load that file, sorry.")
+                debugprint("Unable to load that file, sorry.")
             }
         }
     }

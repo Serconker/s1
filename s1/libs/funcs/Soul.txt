@@ -18,6 +18,9 @@ Some commands as example for SOUL.
 #include "s1/libs/funcs/S1_funs"
 #include "s1/io/S1_IO"
 function void pushLog(S:string){
+    
+    soundStop(8)
+    entity():soundPlay(8,0,"ambient/machines/combine_terminal_idle4.wav")
     if(Sys_log:count()==0){
         Sys_log[1,string]=S
     }else{
@@ -486,16 +489,20 @@ function string soulCode(C:array,N){
         }elseif(Func[2,string]=="getin"){
             debugprint(X8_1[Func[3,string]:toNumber(),string])
             return X8_1[Func[3,string]:toNumber(),string]
-        }elseif(Func[2,string]=="pulseout"){
+        }elseif(Func[2,string]=="pulseout"){ # core.pulseout.1.1.1000
+            debugprint("1")
             if(Func[4,string]:find("io,")){
+                debugprint("2")
                 local Fun=Func[4,string]:replace("io","")
                 Func[4,string]=X8_1[Fun:explode(",")[2,string]:toNumber(),string]
                 X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
             }elseif(Func[4,string]:find("v,")){
+                debugprint("3")
                 local Fun=Func[4,string]:replace("v","")
                 Func[4,string]=Trunk[Fun:explode(",")[2,string]:toNumber(),string]
                 X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
             }else{
+                debugprint("4")
                 X8_2[Func[3,string]:toNumber(),string]=Func[4,string]
             }
             timer("soulrsetout",Func[5,string]:toNumber())
@@ -540,6 +547,7 @@ function string soulCode(C:array,N){
 }
 function void wirelink:drawGui(A){
     if(A == 1){
+        This:egpClear()
         local Cod = Data:explode("[SOUL]")
         local Code = Cod[2,string]:explode("[")
         timer("mui",0)

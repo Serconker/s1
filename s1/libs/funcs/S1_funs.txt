@@ -141,6 +141,8 @@ if(first()){
     
     }
     function void wirelink:updateTitle(A){
+        soundStop(8)
+        entity():soundPlay(8,0,"ambient/machines/combine_terminal_idle4.wav")
         if(A == 1){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),"Current application: "+App,vec2(Apvx,Apvy))
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),vec(255,255,255))

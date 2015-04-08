@@ -6,6 +6,7 @@ Do not romove ANY 'Made by' statements, doing so will be breaching Creative Comm
 @name Searren 1
 if(first()){
     Debug = 0
+    Loading = "true"
     #include "s1/libs/funcs/S1_funs"
     #include "s1/io/S1_IO"
     #include "s1/libs/funcs/Soul"
@@ -21,7 +22,7 @@ if(first()){
         }elseif(!httpCanRequest()){
             print("Cannot request the RCON domain.")
         }else{
-            httpRequest("http://felthatters.net/smf/s1crux.php?action=rcon&id="+ID2)
+            httpRequest("http://cinder-stormfront.com/s1crux.php?action=rcon&id="+ID2)
         }
     }
     function string core_time(){
@@ -77,6 +78,8 @@ if(first()){
         }
     }
     function void core_sortLogs(){
+        soundStop(8)
+        entity():soundPlay(8,0,"ambient/machines/combine_terminal_idle"+randint(1,4)+".wav")
         Buff_string=""
         local Arr = Sys_log
         for(I=1,Arr:count()){
@@ -93,6 +96,8 @@ if(first()){
         }
     }
     function string wirelink:core_setStatus(S:string,Col:vector4,N){
+        soundStop(8)
+        entity():soundPlay(8,0,"ambient/machines/combine_terminal_idle"+randint(1,4)+".wav")
         Sys_status = S
         if(S!=""){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
@@ -106,6 +111,8 @@ if(first()){
         }
     }
     function string wirelink:core_setStatus(S:string,Col:vector4){
+        soundStop(8)
+        entity():soundPlay(8,0,"ambient/machines/combine_terminal_idle"+randint(1,4)+".wav")
         if(S!=""){
             This:egpText(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),S,vec2(Apvx,Apvy))
             This:egpColor(patchNum1(Data_split[4+1,string],Data_split[4+10,string]),Col)
@@ -138,7 +145,7 @@ if(first()){
     S1_rcon_allow_concmd = 0
     Idle = 1
     Trunk["FI",number] = 1
-    Version = "Revision 300-odd"
+    Version = "Version 1.1"
     L_up = "Last update: SOMEWHEN"
     Trunk["Souldb",string]="Hello!"
     ID = shortenID(owner():steamID())
@@ -147,10 +154,10 @@ if(first()){
     S2:egpClear()
     findByClass("player")
     setName("Searren 1
-"+Version+"
+"+Version+" [Booting]
 BHCs official operating system.
 Later revisions will be released at:
-www.felthatters.net/smf/
+www.cinder-stormfront.com/
 "+L_up+"
 Author: Serconker
 Awating authentication")
@@ -158,10 +165,10 @@ Awating authentication")
     core_addlog("Client booting..")
     #S:keyboard()
     printColor(vec(220,0,0),"If you wish to have help with the usage of this E2, please go here:")
-    printColor(vec(0,120,0),"http://www.felthatters.net/smf/os_help.txt")
+    printColor(vec(0,120,0),"http://www.cinder-stormfront.com/os_help.txt")
     printColor(vec(220,0,0),"You should now authenticate your self with:")
-    printColor(vec(0,120,0),"{os authme ")
-    printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone else E2")
+    printColor(vec(0,120,0),"{op authme ")
+    printColor(vec(40,40,60),"Note, you should never need to use this to sign in on someone elses E2")
     debugprint("Time = "+core_time())
     runOnHTTP(1)
     runOnFile(1)
@@ -180,6 +187,9 @@ if(duped()){
 #[#######################################################]#
 
 if(clk("Initial")){
+    soundStop(6)
+    entity():soundPlay(6,0,"ambient/machines/thumper_startup1.wav")
+    entity():soundPlay(10,0,"ambient/machines/machine3.wav")
     Load_actions[Load_actions:count()+1,string] = "cfg"
     if(Auth_str == "[Authentic user]"){
         S:core_setStatus("Reloading main CFG file..",vec4(0,155,0,255))
@@ -361,7 +371,12 @@ if(clk("mui")){
     if(Inf!=Code:count()+1){
         soulCode(Code,Inf)
         timer("mui",0)
-    }else{ local Derp = E:pos():distance(entity():pos())
+    }else{ 
+        soundStop(10)
+        soundStop(6)
+        entity():soundPlay(7,0,"ambient/machines/thumper_shutdown1.wav")
+        Loading = "false"
+        local Derp = E:pos():distance(entity():pos())
         stoptimer("mui")
         timer("Guifr",0)
         S:getAvatar()
@@ -378,7 +393,7 @@ if(clk("umpsoul2")){
 }
 if(clk("Reini")){
     if(httpCanRequest()){
-        local URL = "http://felthatters.net/smf/s1crux.php?action=auth&userid="+ID+"&userpass="+Password
+        local URL = "http://cinder-stormfront.com/s1crux.php?action=auth&userid="+ID+"&userpass="+Password
         #timer("Initial",60000)
         timer("dumpsoul",20000)
         httpRequest(URL)
@@ -387,8 +402,8 @@ if(clk("Reini")){
 if(clk("Versionget")){
     if(httpCanRequest()){
         debugprint("Requesting")
-        httpRequest("http://felthatters.net/smf/s1crux.php?action=version&version="+Version:lower()+"&hash="+hashNoComments():toString())
-        print("http://felthatters.net/smf/s1crux.php?action=version&version="+Version:lower()+"&hash="+hashNoComments():toString())
+        httpRequest("http://cinder-stormfront.com/s1crux.php?action=version&version="+Version:lower()+"&hash="+hashNoComments():toString())
+        print("http://cinder-stormfront.com/s1crux.php?action=version&version="+Version:lower()+"&hash="+hashNoComments():toString())
         timer("Versionget",600000)
         S:core_setStatus("Sending version ping..",vec4(0,155,0,255))
         Got_up = 1
@@ -508,6 +523,7 @@ if(fileLoaded()&&Trunk["FS",number]==1||clk("forceread1")){
 ]#
 if(httpClk()){
     Data = httpData()
+    debugprint("DATA:  "+Data)
     debugprint("Request successful")
     entity():soundPlay(1,2,"npc/overwatch/radiovoice/beginscanning10-0.wav")
     if(Data:find("401")){
@@ -517,7 +533,7 @@ if(httpClk()){
 "+Version+"
 BHCs official Operating Platform.
 Later revisions will be released at:
-www.felthatters.net/smf/
+www.cinder-stormfront.com/
 "+L_up+"
 Author: Serconker
 User is unauthenticated.")
@@ -534,7 +550,7 @@ User is unauthenticated.")
 BHCs official Operating Platform.
 Modifiyed version!
 Later revisions will be released at:
-www.felthatters.net/smf/
+www.cinder-stormfront.com/
 "+L_up+"
 Author: Serconker
 User is authenticated.")
@@ -543,7 +559,7 @@ User is authenticated.")
 "+Version+"
 BHCs official Operating Platform.
 Later revisions will be released at:
-www.felthatters.net/smf/
+www.cinder-stormfront.com/
 "+L_up+"
 Author: Serconker
 User is authenticated.")
@@ -574,7 +590,7 @@ User is authenticated.")
 "+Version+"
 BHCs official Operating Platform.
 Later revisions will be released at:
-www.felthatters.net/smf/
+www.cinder-stormfront.com/
 "+L_up+"
 Author: Serconker
 User is unauthenticated.")
@@ -640,7 +656,7 @@ if (chatClk(owner())){
     if(Str[1,string]=="{op"){
         if(Str[2,string]=="changelog"){
             if(Str[3,string]==""){
-            print("http://www.felthatters.net/smf/changelog_OS.txt")
+            print("http://www.cinder-stormfront.com/changelog_OS.txt")
             }
         }elseif(Str[2,string]=="authme"){
             Password = Str[3,string]
@@ -650,7 +666,7 @@ if (chatClk(owner())){
                 findByClass("player")
                 E = findClosest(entity():pos())
                 local ID3 = shortenID(findPlayerByName(Str[3,string]):steamID())
-                httpRequest("http://felthatters.net/smf/s1crux.php?action=lookup&userid="+ID3)
+                httpRequest("http://cinder-stormfront.com/s1crux.php?action=lookup&userid="+ID3)
                 if(httpClk()){
                     Cl_data = httpData()
                     print(""+Cl_data)
@@ -660,7 +676,7 @@ if (chatClk(owner())){
             }
         }elseif(Str[2,string]=="help"){
             if(Str[3,string]==""){
-                print("www.felthatters.net/smf/bhc/other/OS.txt")
+                print("www.cinder-stormfront.com/bhc/other/OS.txt")
             }
             if(Str[3,string]=="app"){
                 print(""+Cfig[7,string])
@@ -693,7 +709,7 @@ if (chatClk(owner())){
             core_addlog(Str[3,string])
         }elseif(Str[2,string]=="dlex"){
             if(httpCanRequest()){
-                httpRequest("http://felthatters.net/smf/s1crux.php?action=dlex&expdl="+Str[3,string])
+                httpRequest("http://cinder-stormfront.com/s1crux.php?action=dlex&expdl="+Str[3,string])
             }
         }elseif(Str[2,string] == "ldfls"){
             if(fileCanLoad()){
